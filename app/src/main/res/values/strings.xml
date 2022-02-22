@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">FYT Admin Portal</string>
+
+    //---------------------------- LogIn Activity --------------------------------------------------
+    <string name="login">Log In</string>
+    <string name="mobile_prefix">+91 |</string>
+    <string name="edit_number_hint">Enter 10 digit mobile number</string>
 </resources>
