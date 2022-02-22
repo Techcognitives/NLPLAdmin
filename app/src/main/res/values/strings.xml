@@ -5,4 +5,5 @@
     <string name="login">Log In</string>
     <string name="mobile_prefix">+91 |</string>
     <string name="edit_number_hint">Enter 10 digit mobile number</string>
+    <string name="password">Enter Password</string>
 </resources>
