@@ -6,4 +6,17 @@
     <string name="mobile_prefix">+91 |</string>
     <string name="edit_number_hint">Enter 10 digit mobile number</string>
     <string name="password">Enter Password</string>
+    <string name="log_in_image_des">Logo</string>
+
+    //---------------------------- Dashboard Activity ----------------------------------------------
+    <string name="name">Name</string>
+    <string name="number_text">Number</string>
+    <string name="email">Email</string>
+    <string name="role">Role</string>
+    <string name="address">Address</string>
+    <string name="profile">Profile</string>
+    <string name="bank">Bank</string>
+    <string name="truck">Truck</string>
+    <string name="driver">Driver</string>
+    <string name="view_details">View all Details</string>
 </resources>

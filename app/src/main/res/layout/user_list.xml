@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:background="@drawable/edit_text_border"
+    android:paddingStart="10dp"
+    android:paddingTop="5dp"
+    android:paddingEnd="10dp"
+    android:paddingBottom="5dp">
+
+    <TextView
+        android:id="@+id/user_list_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/name"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/user_list_email"
+        app:layout_constraintEnd_toStartOf="@+id/user_list_number"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/user_list_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:text="@string/number_text"
+        android:textColor="@color/active_button"
+        android:textSize="15sp"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toBottomOf="@+id/user_list_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/user_list_name"
+        app:layout_constraintTop_toTopOf="@+id/user_list_name" />
+
+    <TextView
+        android:id="@+id/user_list_role"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/role"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/user_list_email"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/user_list_email"
+        app:layout_constraintTop_toTopOf="@+id/user_list_email" />
+
+    <TextView
+        android:id="@+id/user_list_email"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="@string/email"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/textView6"
+        app:layout_constraintEnd_toStartOf="@+id/user_list_role"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/user_list_name" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="@string/address"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/user_list_profile_added"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/user_list_email" />
+
+    <TextView
+        android:id="@+id/user_list_profile_added"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="@string/profile"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/user_list_truck_added"
+        app:layout_constraintEnd_toStartOf="@+id/user_list_bank_added_image"
+        app:layout_constraintStart_toEndOf="@+id/user_list_profile_added_image"
+        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+    <TextView
+        android:id="@+id/user_list_bank_added"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/bank"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/user_list_bank_added_image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/user_list_bank_added_image"
+        app:layout_constraintTop_toTopOf="@+id/user_list_bank_added_image" />
+
+    <ImageView
+        android:id="@+id/user_list_profile_added_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:contentDescription="@string/profile"
+        app:layout_constraintBottom_toBottomOf="@+id/user_list_profile_added"
+        app:layout_constraintEnd_toStartOf="@+id/user_list_profile_added"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/user_list_profile_added"
+        app:srcCompat="@drawable/right_small" />
+
+    <ImageView
+        android:id="@+id/user_list_bank_added_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:contentDescription="@string/bank"
+        app:layout_constraintBottom_toBottomOf="@+id/user_list_profile_added"
+        app:layout_constraintEnd_toStartOf="@+id/user_list_bank_added"
+        app:layout_constraintStart_toEndOf="@+id/user_list_profile_added"
+        app:layout_constraintTop_toTopOf="@+id/user_list_profile_added"
+        app:srcCompat="@drawable/un_success_small" />
+
+    <TextView
+        android:id="@+id/user_list_truck_added"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/truck"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/user_list_view_and_edit_button"
+        app:layout_constraintEnd_toStartOf="@+id/user_list_driver_added_image"
+        app:layout_constraintStart_toEndOf="@+id/user_list_truck_added_image"
+        app:layout_constraintTop_toBottomOf="@+id/user_list_profile_added" />
+
+    <ImageView
+        android:id="@+id/user_list_truck_added_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:contentDescription="@string/truck"
+        app:layout_constraintBottom_toBottomOf="@+id/user_list_truck_added"
+        app:layout_constraintEnd_toStartOf="@+id/user_list_truck_added"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/user_list_truck_added"
+        app:srcCompat="@drawable/un_success_small" />
+
+    <TextView
+        android:id="@+id/user_list_driver_added"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/driver"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/user_list_driver_added_image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/user_list_driver_added_image"
+        app:layout_constraintTop_toTopOf="@+id/user_list_driver_added_image" />
+
+    <ImageView
+        android:id="@+id/user_list_driver_added_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:contentDescription="@string/driver"
+        app:layout_constraintBottom_toBottomOf="@+id/user_list_truck_added"
+        app:layout_constraintEnd_toStartOf="@+id/user_list_driver_added"
+        app:layout_constraintStart_toEndOf="@+id/user_list_truck_added"
+        app:layout_constraintTop_toTopOf="@+id/user_list_truck_added"
+        app:srcCompat="@drawable/right_small" />
+
+    <TextView
+        android:id="@+id/user_list_view_and_edit_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="15dp"
+        android:background="@drawable/button"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text="@string/view_details"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/user_list_truck_added" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

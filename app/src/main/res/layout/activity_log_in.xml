@@ -3,10 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <data>
+        <variable
+            name="handlers"
+            type="com.example.nlpladmin.ui.activity.LogInActivity" />
+    </data>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:background="@color/background"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/background">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -49,7 +55,7 @@
                 android:textColor="@color/white"
                 android:textColorHint="@color/hint"
                 android:textSize="16sp"
-                app:layout_constraintBottom_toTopOf="@+id/editTextTextPersonName"
+                app:layout_constraintBottom_toTopOf="@+id/log_in_password"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/log_in_series"
                 app:layout_constraintTop_toBottomOf="@+id/log_in_text"
@@ -61,8 +67,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/button"
-                android:enabled="false"
+                android:backgroundTint="@color/de_active_button"
                 android:gravity="center"
+                android:onClick="@{handlers :: onClickLogIn}"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
                 android:text="@string/login"
@@ -73,7 +80,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+                app:layout_constraintTop_toBottomOf="@+id/log_in_password" />
 
             <TextView
                 android:id="@+id/log_in_series"
@@ -96,6 +103,7 @@
                 android:id="@+id/imageView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:contentDescription="@string/log_in_image_des"
                 app:layout_constraintBottom_toTopOf="@+id/log_in_text"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.496"
@@ -104,24 +112,24 @@
                 app:srcCompat="@drawable/logo_circle" />
 
             <EditText
-                android:id="@+id/editTextTextPersonName"
+                android:id="@+id/log_in_password"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:ems="10"
                 android:background="@drawable/edit_text_border"
+                android:ems="10"
                 android:hint="@string/password"
-                android:textColorHint="@color/hint"
-                android:textColor="@color/white"
                 android:inputType="textPassword"
-                android:paddingStart="5dp"
-                android:paddingEnd="5dp"
+                android:paddingStart="10dp"
                 android:paddingTop="10dp"
+                android:paddingEnd="5dp"
                 android:paddingBottom="10dp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/hint"
                 app:layout_constraintBottom_toTopOf="@+id/log_in_get_otp_button"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/log_in_mobile_no" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 </layout>
