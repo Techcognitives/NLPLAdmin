@@ -22,4 +22,5 @@
     <string name="truck">Truck</string>
     <string name="driver">Driver</string>
     <string name="view_details">View all Details</string>
+    <string name="sort_by">Filter by</string>
 </resources>

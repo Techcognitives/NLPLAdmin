@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:layout_gravity="top"
     android:padding="5dp"
-    android:background="@color/active_button">
+    android:background="@color/red">
 
     <ImageView
         android:id="@+id/action_bar_back_button"

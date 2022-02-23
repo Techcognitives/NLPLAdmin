@@ -41,7 +41,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.User
         String mobile = obj.getPhone_number();
         String email = obj.getEmail_id();
         String role = obj.getUser_type();
-        String address = obj.getAddress() + " " + obj.getPreferred_location() + " " + obj.getState_code() + " " + obj.getPin_code();
+        String address = obj.getAddress() + ", " + obj.getPreferred_location() + ", " + obj.getState_code() + ", " + obj.getPin_code();
 
 //---------------------------------- Set Details ---------------------------------------------------
         holder.user_name.setText(name);
@@ -68,6 +68,9 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.User
             holder.driver_status.setVisibility(View.VISIBLE);
         }
 
+        holder.user_email.setOnClickListener(view -> {
+
+        });
 
     }
 
