@@ -55,6 +55,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.User
         } else {
             holder.user_email.setVisibility(View.GONE);
         }
+
         if (role.equals("Customer")) {
             holder.user_truck.setVisibility(View.GONE);
             holder.user_driver.setVisibility(View.GONE);

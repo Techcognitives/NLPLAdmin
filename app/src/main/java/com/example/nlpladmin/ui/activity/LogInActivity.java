@@ -50,7 +50,7 @@ public class LogInActivity extends AppCompatActivity {
     };
 
     public void onClickLogIn(View view){
-        if (binding.logInMobileNo.getText().toString().equals("8796543114") && binding.logInPassword.getText().toString().equals("admin")){
+        if (binding.logInMobileNo.getText().toString().equals("111") && binding.logInPassword.getText().toString().equals("admin")){
             JumpTo.dashboardActivity(LogInActivity.this);
         }else{
             ShowAlert.showAlert(LogInActivity.this, "Log In Failed", "Please try again", true, false, "ok", null);
