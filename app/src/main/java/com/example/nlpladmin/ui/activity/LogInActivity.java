@@ -17,7 +17,6 @@ import com.example.nlpladmin.utils.ShowAlert;
 public class LogInActivity extends AppCompatActivity {
 
     ActivityLogInBinding binding;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

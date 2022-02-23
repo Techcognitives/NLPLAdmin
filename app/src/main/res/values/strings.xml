@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">FYT Admin Portal</string>
 
+    //------------------------------------BASE URL--------------------------------------------------
+    <string name="baseURL">http://13.234.163.179:3000</string>
+
     //---------------------------- LogIn Activity --------------------------------------------------
     <string name="login">Log In</string>
     <string name="mobile_prefix">+91 |</string>
