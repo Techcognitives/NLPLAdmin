@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/action_bar_constrain"
+    android:background="@color/white">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/pan_card_constrain"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:visibility="gone"
+        android:background="@drawable/shadow_file"
+        app:layout_constraintBottom_toTopOf="@+id/upload_aadhar_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/upload_pan_text">
+
+        <ImageView
+            android:id="@+id/imagePan"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/all_rounded_small"
+            android:src="@drawable/pan_card"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/pancard1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/pancard1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="Pan card"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imagePan"
+            app:layout_constraintEnd_toStartOf="@+id/uploadPan"
+            app:layout_constraintStart_toEndOf="@+id/imagePan"
+            app:layout_constraintTop_toTopOf="@+id/imagePan"
+            app:layout_constraintVertical_bias="0.506" />
+
+        <Button
+            android:id="@+id/uploadPan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/all_rounded_small"
+            android:backgroundTint="@color/button_blue"
+            android:drawableStart="@drawable/ic_upload"
+            android:padding="10dp"
+            android:text="Upload"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="@+id/pancard1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/pancard1"
+            app:layout_constraintTop_toTopOf="@+id/pancard1" />
+
+        <TextView
+            android:id="@+id/edit1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:drawableStart="@drawable/ic_edit"
+            android:padding="10dp"
+            android:text="Edit"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/pancard1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/uploadPan"
+            app:layout_constraintTop_toTopOf="@+id/pancard1"
+            app:layout_constraintVertical_bias="0.493" />
+
+        <ImageView
+            android:id="@+id/pan_aadhar_preview_pan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_preview"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/edit1"
+            app:layout_constraintEnd_toStartOf="@+id/edit1"
+            app:layout_constraintTop_toTopOf="@+id/edit1" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/upload_pan_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingStart="5dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="5dp"
+        android:textStyle="bold"
+        android:text="Upload Pan Card"
+        android:textColor="#000000"
+        android:visibility="gone"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/pan_card_constrain"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/upload_aadhar_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:paddingStart="5dp"
+        android:paddingBottom="5dp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        android:text="Upload Aadhar card"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pan_card_constrain" />
+
+    <TextView
+        android:id="@+id/upload_profile_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:paddingStart="5dp"
+        android:paddingBottom="5dp"
+        android:text="Upload Profile "
+        android:textColor="#000000"
+        android:textSize="16sp"
+        android:visibility="gone"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/aadhar_constrain" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/aadhar_constrain"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="5dp"
+        android:visibility="gone"
+        android:background="@drawable/shadow_file"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/upload_aadhar_text">
+
+        <ImageView
+            android:id="@+id/imageF"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/all_rounded_small"
+            android:src="@drawable/aadhar_card_front"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/frontText"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/frontText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="Aadhar"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageF"
+            app:layout_constraintEnd_toStartOf="@+id/uploadF"
+            app:layout_constraintStart_toEndOf="@+id/imageF"
+            app:layout_constraintTop_toTopOf="@+id/imageF"
+            app:layout_constraintVertical_bias="0.506" />
+
+        <Button
+            android:id="@+id/uploadF"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/all_rounded_small"
+            android:backgroundTint="@color/button_blue"
+            android:drawableStart="@drawable/ic_upload"
+            android:padding="10dp"
+            android:text="Upload"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="@+id/frontText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/frontText"
+            app:layout_constraintTop_toTopOf="@+id/frontText" />
+
+        <TextView
+            android:id="@+id/editFront"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:drawableStart="@drawable/ic_edit"
+            android:padding="10dp"
+            android:text="Edit"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/frontText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/frontText"
+            app:layout_constraintTop_toTopOf="@+id/frontText"
+            app:layout_constraintVertical_bias="0.505" />
+
+        <ImageView
+            android:id="@+id/pan_aadhar_preview_aadhar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_preview"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/editFront"
+            app:layout_constraintEnd_toStartOf="@+id/editFront"
+            app:layout_constraintTop_toTopOf="@+id/editFront" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/upload_profile_constrain"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:visibility="gone"
+        android:background="@drawable/shadow_file"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/upload_profile_text">
+
+        <ImageView
+            android:id="@+id/imageProfile"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/all_rounded_small"
+            android:src="@drawable/blue_profile_small"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/ProfileText"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/ProfileText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="Profile Photo"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageProfile"
+            app:layout_constraintEnd_toStartOf="@+id/uploadProfile"
+            app:layout_constraintStart_toEndOf="@+id/imageProfile"
+            app:layout_constraintTop_toTopOf="@+id/imageProfile"
+            app:layout_constraintVertical_bias="0.506" />
+
+        <Button
+            android:id="@+id/uploadProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/all_rounded_small"
+            android:backgroundTint="@color/button_blue"
+            android:drawableStart="@drawable/ic_upload"
+            android:padding="10dp"
+            android:text="Upload"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="@+id/ProfileText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ProfileText"
+            app:layout_constraintTop_toTopOf="@+id/ProfileText" />
+
+        <TextView
+            android:id="@+id/editProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:drawableStart="@drawable/ic_edit"
+            android:padding="10dp"
+            android:text="Edit"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/ProfileText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/ProfileText"
+            app:layout_constraintTop_toTopOf="@+id/ProfileText"
+            app:layout_constraintVertical_bias="0.505" />
+
+        <ImageView
+            android:id="@+id/preview_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_preview"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/editProfile"
+            app:layout_constraintEnd_toStartOf="@+id/editProfile"
+            app:layout_constraintTop_toTopOf="@+id/editProfile" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

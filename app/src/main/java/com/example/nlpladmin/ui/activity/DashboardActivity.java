@@ -5,8 +5,17 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Dialog;
+import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.View;
+import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ImageView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -17,17 +26,23 @@ import com.example.nlpladmin.R;
 import com.example.nlpladmin.databinding.ActivityDashboardBinding;
 import com.example.nlpladmin.model.UserResponses;
 import com.example.nlpladmin.ui.adapter.DashboardAdapter;
+import com.example.nlpladmin.utils.DownloadImageTask;
+import com.example.nlpladmin.utils.JumpTo;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class DashboardActivity extends AppCompatActivity {
 
     ActivityDashboardBinding binding;
-
+    String filterBy = "All Users";
+    Dialog previewDialogProfile;
     private RequestQueue mQueue;
     private ArrayList<UserResponses> userResponsesArrayList = new ArrayList<>();
     private DashboardAdapter dashboardAdapter;
@@ -41,16 +56,71 @@ public class DashboardActivity extends AppCompatActivity {
         mQueue = Volley.newRequestQueue(DashboardActivity.this);
 
         LinearLayoutManager linearLayoutManagerBank = new LinearLayoutManager(getApplicationContext());
-        linearLayoutManagerBank.setReverseLayout(true);
+        linearLayoutManagerBank.setReverseLayout(false);
         binding.usersListView.setLayoutManager(linearLayoutManagerBank);
         binding.usersListView.setHasFixedSize(true);
 
         dashboardAdapter = new DashboardAdapter(DashboardActivity.this, userResponsesArrayList);
         binding.usersListView.setAdapter(dashboardAdapter);
-        getUsersList();
+        getUsersList(filterBy);
+
+        previewDialogProfile = new Dialog(DashboardActivity.this);
+        previewDialogProfile.setContentView(R.layout.dialog_preview_images);
+        previewDialogProfile.getWindow().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.black)));
+
     }
 
-    public void getUsersList() {
+    public void onClickFilterBy(){
+
+        Collections.reverse(userResponsesArrayList);
+        dashboardAdapter.updateData(userResponsesArrayList);
+
+        binding.dashboardActivityFilterBy.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int i, long l) {
+
+                if (parent.getSelectedItem().equals("All Users")){
+                    filterBy = "All Users";
+                    getUsersList(filterBy);
+                }
+                if (parent.getSelectedItem().equals("Service Provider")){
+                    filterBy = "Service Provider";
+                    getUsersList(filterBy);
+                }
+                if (parent.getSelectedItem().equals("Load Poster")) {
+                    filterBy = "Load Poster";
+                    getUsersList(filterBy);
+                }
+                if (parent.getSelectedItem().equals("Driver")) {
+                    filterBy = "Driver";
+                    getUsersList(filterBy);
+                }
+                if (parent.getSelectedItem().equals("Broker")) {
+                    filterBy = "Broker";
+                    getUsersList(filterBy);
+                }
+                if (parent.getSelectedItem().equals("unverified Profiles")) {
+                    filterBy = "unverified Profiles";
+                    getUsersList(filterBy);
+                }
+                if (parent.getSelectedItem().equals("Active Profiles")) {
+                    filterBy = "Active Profiles";
+                    getUsersList(filterBy);
+                }
+                if (parent.getSelectedItem().equals("Inactive Profiles")) {
+                    filterBy = "Inactive Profiles";
+                    getUsersList(filterBy);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+    }
+
+    public void getUsersList(String filterBy) {
         //---------------------------- Get User Details --------------------------------------------
         String url = getString(R.string.baseURL) + "/user/get";
 
@@ -91,10 +161,42 @@ public class DashboardActivity extends AppCompatActivity {
                         userResponses.setDeleted_at(obj.getString("deleted_at"));
                         userResponses.setDeleted_by(obj.getString("deleted_by"));
 
-                        userResponsesArrayList.add(userResponses);
+                        if (filterBy.equals("All Users")) {
+                            userResponsesArrayList.add(userResponses);
+                        }
+                        if (filterBy.equals("Service Provider")){
+                            if (obj.getString("user_type").equals("Owner")){
+                                userResponsesArrayList.add(userResponses);
+                            }
+                        }
+                        if (filterBy.equals("Load Poster")){
+                            if (obj.getString("user_type").equals("Customer")){
+                                userResponsesArrayList.add(userResponses);
+                            }
+                        }
+                        if (filterBy.equals("Driver")){
+                            if (obj.getString("user_type").equals("Driver")){
+                                userResponsesArrayList.add(userResponses);
+                            }
+                        }
+                        if (filterBy.equals("Broker")){
+                            if (obj.getString("user_type").equals("Broker")){
+                                userResponsesArrayList.add(userResponses);
+                            }
+                        }
+                        if (filterBy.equals("unverified Profiles")){
+                            if (obj.getString("is_user_verfied").equals("1")){
+                                userResponsesArrayList.add(userResponses);
+                            }
+                        }
                     }
                     if (userResponsesArrayList.size() > 0) {
-                        dashboardAdapter.updateData(userResponsesArrayList);
+                        binding.usersListView.setVisibility(View.VISIBLE);
+                        binding.adminDashboardNoUserAvailableText.setVisibility(View.INVISIBLE);
+                        onClickFilterBy();
+                    } else {
+                        binding.usersListView.setVisibility(View.INVISIBLE);
+                        binding.adminDashboardNoUserAvailableText.setVisibility(View.VISIBLE);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -108,5 +210,53 @@ public class DashboardActivity extends AppCompatActivity {
         });
         mQueue.add(request);
         //-------------------------------------------------------------------------------------------
+    }
+
+    public void onClickOpenDiler(String phone_number) {
+        Intent i1 = new Intent(Intent.ACTION_VIEW, Uri.parse("tel:" + phone_number));
+        startActivity(i1);
+    }
+
+    public void ViewProfileOfUser(UserResponses obj) {
+
+        String url1 = getString(R.string.baseURL) + "/imgbucket/Images/" + obj.getUser_id();
+        JsonObjectRequest request1 = new JsonObjectRequest(Request.Method.GET, url1, null, new com.android.volley.Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    JSONArray imageList = response.getJSONArray("data");
+                    for (int i = 0; i < imageList.length(); i++) {
+                        JSONObject obj = imageList.getJSONObject(i);
+                        String imageType = obj.getString("image_type");
+
+                        String profileImgUrl = "";
+                        if (imageType.equals("profile")) {
+                            profileImgUrl = obj.getString("image_url");
+                            if (profileImgUrl.equals("null")) {
+
+                            } else {
+                                WindowManager.LayoutParams lp2 = new WindowManager.LayoutParams();
+                                lp2.copyFrom(previewDialogProfile.getWindow().getAttributes());
+                                lp2.width = WindowManager.LayoutParams.MATCH_PARENT;
+                                lp2.height = WindowManager.LayoutParams.MATCH_PARENT;
+                                lp2.gravity = Gravity.CENTER;
+
+                                previewDialogProfile.show();
+                                previewDialogProfile.getWindow().setAttributes(lp2);
+                                new DownloadImageTask((ImageView) previewDialogProfile.findViewById(R.id.dialog_preview_image_view)).execute(profileImgUrl);
+                            }
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new com.android.volley.Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+        mQueue.add(request1);
     }
 }
