@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
@@ -57,8 +56,8 @@
         android:layout_height="wrap_content"
         android:text="@string/email"
         android:textColor="@color/active_button"
-        android:textStyle="italic"
         android:textSize="14sp"
+        android:textStyle="italic"
         app:layout_constraintBottom_toBottomOf="@+id/user_list_role"
         app:layout_constraintEnd_toStartOf="@+id/user_list_role"
         app:layout_constraintStart_toStartOf="parent"
@@ -79,7 +78,7 @@
 
     <TextView
         android:id="@+id/user_list_profile_added"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:text="@string/profile"
@@ -106,11 +105,12 @@
         android:id="@+id/user_list_profile_added_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
         android:layout_marginEnd="5dp"
         android:contentDescription="@string/profile"
         app:layout_constraintBottom_toBottomOf="@+id/user_list_profile_added"
         app:layout_constraintEnd_toStartOf="@+id/user_list_profile_added"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/user_list_registration_added"
         app:layout_constraintTop_toTopOf="@+id/user_list_profile_added"
         app:srcCompat="@drawable/right_small" />
 
@@ -129,12 +129,12 @@
 
     <TextView
         android:id="@+id/user_list_truck_added"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/truck"
-        android:visibility="gone"
         android:textColor="@color/black"
         android:textSize="14sp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/user_list_truck_added_image"
         app:layout_constraintEnd_toStartOf="@+id/user_list_driver_added_image"
         app:layout_constraintStart_toEndOf="@+id/user_list_truck_added_image"
@@ -159,9 +159,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/driver"
-        android:visibility="gone"
         android:textColor="@color/black"
         android:textSize="14sp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/user_list_driver_added_image"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/user_list_driver_added_image"
@@ -198,5 +198,32 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/user_list_profile_added" />
+
+
+    <ImageView
+        android:id="@+id/user_list_registration_added_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:contentDescription="@string/driver"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/user_list_registration_added"
+        app:layout_constraintEnd_toStartOf="@+id/user_list_registration_added"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/user_list_registration_added"
+        app:srcCompat="@drawable/right_small" />
+
+    <TextView
+        android:id="@+id/user_list_registration_added"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/registration"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/user_list_profile_added_image"
+        app:layout_constraintEnd_toStartOf="@+id/user_list_profile_added_image"
+        app:layout_constraintStart_toEndOf="@+id/user_list_registration_added_image"
+        app:layout_constraintTop_toTopOf="@+id/user_list_profile_added_image" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

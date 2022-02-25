@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -17,6 +18,7 @@ import com.example.nlpladmin.R;
 import com.example.nlpladmin.databinding.ActivityDashboardBinding;
 import com.example.nlpladmin.model.UserResponses;
 import com.example.nlpladmin.ui.adapter.DashboardAdapter;
+import com.example.nlpladmin.utils.JumpTo;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -27,6 +29,7 @@ import java.util.ArrayList;
 public class DashboardActivity extends AppCompatActivity {
 
     ActivityDashboardBinding binding;
+    SwipeRefreshLayout swipeRefreshLayout;
 
     private RequestQueue mQueue;
     private ArrayList<UserResponses> userResponsesArrayList = new ArrayList<>();
@@ -39,6 +42,15 @@ public class DashboardActivity extends AppCompatActivity {
         binding.setHandlers(DashboardActivity.this);
 
         mQueue = Volley.newRequestQueue(DashboardActivity.this);
+
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.dashboard_constrain);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                swipeRefreshLayout.setRefreshing(false);
+                JumpTo.dashboardActivity(DashboardActivity.this);
+            }
+        });
 
         LinearLayoutManager linearLayoutManagerBank = new LinearLayoutManager(getApplicationContext());
         linearLayoutManagerBank.setReverseLayout(true);
@@ -108,5 +120,8 @@ public class DashboardActivity extends AppCompatActivity {
         });
         mQueue.add(request);
         //-------------------------------------------------------------------------------------------
+    }
+
+    public void viewUserDetails(UserResponses obj) {
     }
 }
