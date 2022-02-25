@@ -3,7 +3,7 @@ package com.example.nlpladmin.ui.adapter;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
-
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,28 +11,41 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.nlpladmin.R;
 import com.example.nlpladmin.model.UserResponses;
 import com.example.nlpladmin.ui.activity.DashboardActivity;
+import com.example.nlpladmin.utils.DownloadImageTask;
+import com.example.nlpladmin.utils.JumpTo;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
 public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.UserViewHolder> {
 
-    ArrayList<UserResponses> userList;
-    DashboardActivity activity;
+    private ArrayList<UserResponses> userList;
+    private DashboardActivity activity;
+    private RequestQueue mQueue;
 
     public DashboardAdapter(DashboardActivity activity, ArrayList<UserResponses> userList) {
         this.userList = userList;
         this.activity = activity;
+        mQueue = Volley.newRequestQueue(activity);
     }
 
-    @NonNull
     @Override
     public UserViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.user_list, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.users_list, parent, false);
         return new UserViewHolder(view);
     }
 
@@ -40,111 +53,64 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.User
     @Override
     public void onBindViewHolder(UserViewHolder holder, @SuppressLint("RecyclerView") int position) {
         UserResponses obj = userList.get(position);
-//---------------------------------- Get Details ---------------------------------------------------
-        String name = obj.getName();
-        String mobile = obj.getPhone_number();
-        String email = obj.getEmail_id();
-        String role = obj.getUser_type();
-        String address = obj.getAddress() + ", " + obj.getPreferred_location() + ", " + obj.getState_code() + ", " + obj.getPin_code();
-
-        String registrationDetails = obj.getIsRegistration_done();
-        String personalDetails = obj.getIsPersonal_dt_added();
-        String bankDetails = obj.getIsBankDetails_given();
-        String truckDetails = obj.getIsTruck_added();
-        String driverDetails = obj.getIsDriver_added();
 
 //---------------------------------- Set Details ---------------------------------------------------
-        holder.user_name.setText(name);
-        holder.user_mobile.setText("+" + mobile);
-        holder.user_role.setText("User Role: " + role);
-        holder.user_address.setText("Address: " + address);
+        holder.user_name.setText(obj.getName());
+        holder.user_mobile.setText("+" + obj.getPhone_number());
+        holder.user_role.setText(obj.getUser_type());
+        holder.viewUser.setText("View");
 
-        if (email != null) {
-            holder.user_email.setText(email);
-            holder.user_email.setVisibility(View.VISIBLE);
-        } else {
-            holder.user_email.setVisibility(View.GONE);
-        }
-
-        if (role.equals("Customer")) {
-            holder.user_truck.setVisibility(View.GONE);
-            holder.user_driver.setVisibility(View.GONE);
-            holder.truck_status.setVisibility(View.GONE);
-            holder.driver_status.setVisibility(View.GONE);
-
-            if (registrationDetails.equals("1")){
-                holder.registration_status.setImageDrawable(activity.getResources().getDrawable(R.drawable.right_small));
-            }else{
-                holder.registration_status.setImageDrawable(activity.getResources().getDrawable(R.drawable.un_success_small));
+        holder.user_mobile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                activity.onClickOpenDiler("+"+obj.getPhone_number());
             }
-
-            if (personalDetails.equals("1")){
-                holder.profile_status.setImageDrawable(activity.getResources().getDrawable(R.drawable.right_small));
-            }else{
-                holder.profile_status.setImageDrawable(activity.getResources().getDrawable(R.drawable.un_success_small));
-            }
-
-            if (bankDetails.equals("1")){
-                holder.bank_status.setImageDrawable(activity.getResources().getDrawable(R.drawable.right_small));
-            }else{
-                holder.bank_status.setImageDrawable(activity.getResources().getDrawable(R.drawable.un_success_small));
-            }
-
-        } else {
-            holder.user_truck.setVisibility(View.VISIBLE);
-            holder.user_driver.setVisibility(View.VISIBLE);
-            holder.truck_status.setVisibility(View.VISIBLE);
-            holder.driver_status.setVisibility(View.VISIBLE);
-
-            if (registrationDetails.equals("1")){
-                holder.registration_status.setImageDrawable(activity.getResources().getDrawable(R.drawable.right_small));
-            }else{
-                holder.registration_status.setImageDrawable(activity.getResources().getDrawable(R.drawable.un_success_small));
-            }
-
-            if (personalDetails.equals("1")){
-                holder.profile_status.setImageDrawable(activity.getResources().getDrawable(R.drawable.right_small));
-            }else{
-                holder.profile_status.setImageDrawable(activity.getResources().getDrawable(R.drawable.un_success_small));
-            }
-
-            if (bankDetails.equals("1")){
-                holder.bank_status.setImageDrawable(activity.getResources().getDrawable(R.drawable.right_small));
-            }else{
-                holder.bank_status.setImageDrawable(activity.getResources().getDrawable(R.drawable.un_success_small));
-            }
-
-            if (truckDetails.equals("1")){
-                holder.truck_status.setImageDrawable(activity.getResources().getDrawable(R.drawable.right_small));
-            }else{
-                holder.truck_status.setImageDrawable(activity.getResources().getDrawable(R.drawable.un_success_small));
-            }
-
-            if (driverDetails.equals("1")){
-                holder.driver_status.setImageDrawable(activity.getResources().getDrawable(R.drawable.right_small));
-            }else{
-                holder.driver_status.setImageDrawable(activity.getResources().getDrawable(R.drawable.un_success_small));
-            }
-        }
-
-        holder.user_mobile.setOnClickListener(view -> {
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("tel: " + mobile));
-            activity.startActivity(intent);
         });
 
-        holder.user_email.setOnClickListener(view -> {
-            String subject = "Hello! " + name;
-            String body = "";
-            String chooserTitle = "FYT Mail";
+//        String url1 = activity.getString(R.string.baseURL) + "/imgbucket/Images/" + obj.getUser_id();
+//        JsonObjectRequest request1 = new JsonObjectRequest(Request.Method.GET, url1, null, new com.android.volley.Response.Listener<JSONObject>() {
+//            @Override
+//            public void onResponse(JSONObject response) {
+//                try {
+//                    JSONArray imageList = response.getJSONArray("data");
+//                    for (int i = 0; i < imageList.length(); i++) {
+//                        JSONObject obj = imageList.getJSONObject(i);
+//                        String imageType = obj.getString("image_type");
+//
+//                        String profileImgUrl = "";
+//                        if (imageType.equals("profile")) {
+//                            profileImgUrl = obj.getString("image_url");
+//                            if (profileImgUrl.equals("null")){
+//                                holder.profile.setImageDrawable(activity.getResources().getDrawable(R.drawable.blue_profile_small));
+//                            } else {
+//                                new DownloadImageTask(holder.profile).execute(profileImgUrl);
+//                            }
+//                        }
+//                    }
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }, new com.android.volley.Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                error.printStackTrace();
+//            }
+//        });
+//        mQueue.add(request1);
 
-            Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:" + email));
-            emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
-            emailIntent.putExtra(Intent.EXTRA_TEXT, body);
-            activity.startActivity(Intent.createChooser(emailIntent, chooserTitle));
+        holder.profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                activity.ViewProfileOfUser(obj);
+            }
         });
 
-        holder.user_view_details.setOnClickListener(view -> {
-            activity.viewUserDetails(obj);
+        holder.viewUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                JumpTo.viewUserDetailsActivity(activity, obj.getUser_id());
+            }
         });
 
     }
@@ -154,36 +120,22 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.User
         return userList.size();
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     public void updateData(ArrayList<UserResponses> userList) {
         this.userList = userList;
         notifyDataSetChanged();
     }
 
-    public static class UserViewHolder extends RecyclerView.ViewHolder {
-        TextView user_name, user_mobile, user_email, user_role, user_address, user_profile, user_bank, user_truck, user_driver, user_view_details, user_registration;
-        ImageView registration_status, profile_status, bank_status, truck_status, driver_status;
-
+    public class UserViewHolder extends RecyclerView.ViewHolder {
+        private TextView user_name, user_mobile,  user_role, viewUser;
+        private ImageView profile;
         public UserViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            user_name = itemView.findViewById(R.id.user_list_name);
+            profile = itemView.findViewById(R.id.users_list_profilePhto);
+            user_name = itemView.findViewById(R.id.users_list_name);
             user_mobile = itemView.findViewById(R.id.user_list_number);
-            user_email = itemView.findViewById(R.id.user_list_email);
-            user_role = itemView.findViewById(R.id.user_list_role);
-            user_address = itemView.findViewById(R.id.user_list_address);
-            user_registration = itemView.findViewById(R.id.user_list_registration_added);
-            user_profile = itemView.findViewById(R.id.user_list_profile_added);
-            user_bank = itemView.findViewById(R.id.user_list_bank_added);
-            user_truck = itemView.findViewById(R.id.user_list_truck_added);
-            user_driver = itemView.findViewById(R.id.user_list_driver_added);
-            user_view_details = itemView.findViewById(R.id.user_list_view_and_edit_button);
-
-            registration_status = itemView.findViewById(R.id.user_list_registration_added_image);
-            profile_status = itemView.findViewById(R.id.user_list_profile_added_image);
-            bank_status = itemView.findViewById(R.id.user_list_bank_added_image);
-            truck_status = itemView.findViewById(R.id.user_list_truck_added_image);
-            driver_status = itemView.findViewById(R.id.user_list_driver_added_image);
+            user_role = itemView.findViewById(R.id.users_list_role);
+            viewUser = itemView.findViewById(R.id.users_list_view_user);
         }
 
     }

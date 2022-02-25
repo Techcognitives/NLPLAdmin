@@ -13,15 +13,27 @@
 
     //---------------------------- Dashboard Activity ----------------------------------------------
     <string name="name">Name</string>
-    <string name="number_text">Number</string>
+    <string name="number_text">NumberText</string>
     <string name="email">Email</string>
     <string name="role">Role</string>
     <string name="address">Address</string>
     <string name="registration">Registration</string>
     <string name="profile">Profile</string>
+    <string name="profile">  Profile</string>
     <string name="bank">Bank</string>
     <string name="truck">Truck</string>
     <string name="driver">Driver</string>
     <string name="view_details">View all Details</string>
-    <string name="sort_by">Filter by</string>
+    <string name="sort_by">Filter by </string>
+
+    <string-array name="array_filter_by">
+        <item>All Users</item>
+        <item>Service Provider</item>
+        <item>Load Poster</item>
+        <item>Driver</item>
+        <item>Broker</item>
+        <item>unverified Profiles</item>
+        <item>Active Profiles</item>
+        <item>Inactive Profiles</item>
+    </string-array>
 </resources>
