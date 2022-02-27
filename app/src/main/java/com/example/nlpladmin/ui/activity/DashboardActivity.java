@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -26,6 +27,7 @@ import com.example.nlpladmin.R;
 import com.example.nlpladmin.databinding.ActivityDashboardBinding;
 import com.example.nlpladmin.model.UserResponses;
 import com.example.nlpladmin.ui.adapter.DashboardAdapter;
+import com.example.nlpladmin.utils.JumpTo;
 import com.example.nlpladmin.utils.DownloadImageTask;
 import com.example.nlpladmin.utils.JumpTo;
 
@@ -41,6 +43,8 @@ import java.util.Comparator;
 public class DashboardActivity extends AppCompatActivity {
 
     ActivityDashboardBinding binding;
+    SwipeRefreshLayout swipeRefreshLayout;
+
     String filterBy = "All Users";
     Dialog previewDialogProfile;
     private RequestQueue mQueue;
@@ -54,6 +58,15 @@ public class DashboardActivity extends AppCompatActivity {
         binding.setHandlers(DashboardActivity.this);
 
         mQueue = Volley.newRequestQueue(DashboardActivity.this);
+
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.dashboard_constrain);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                swipeRefreshLayout.setRefreshing(false);
+                JumpTo.dashboardActivity(DashboardActivity.this);
+            }
+        });
 
         LinearLayoutManager linearLayoutManagerBank = new LinearLayoutManager(getApplicationContext());
         linearLayoutManagerBank.setReverseLayout(false);
@@ -210,6 +223,9 @@ public class DashboardActivity extends AppCompatActivity {
         });
         mQueue.add(request);
         //-------------------------------------------------------------------------------------------
+    }
+
+    public void viewUserDetails(UserResponses obj) {
     }
 
     public void onClickOpenDiler(String phone_number) {

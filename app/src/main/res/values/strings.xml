@@ -17,6 +17,7 @@
     <string name="email">Email</string>
     <string name="role">Role</string>
     <string name="address">Address</string>
+    <string name="registration">Registration</string>
     <string name="profile">  Profile</string>
     <string name="bank">Bank</string>
     <string name="truck">Truck</string>

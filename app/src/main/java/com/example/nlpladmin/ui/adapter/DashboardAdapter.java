@@ -49,6 +49,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.User
         return new UserViewHolder(view);
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     @Override
     public void onBindViewHolder(UserViewHolder holder, @SuppressLint("RecyclerView") int position) {
         UserResponses obj = userList.get(position);

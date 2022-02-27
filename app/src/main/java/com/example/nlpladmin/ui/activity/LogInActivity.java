@@ -25,6 +25,9 @@ public class LogInActivity extends AppCompatActivity {
 
         binding.logInMobileNo.addTextChangedListener(textWatcher);
         binding.logInPassword.addTextChangedListener(textWatcher);
+
+        binding.logInMobileNo.setText("111");
+        binding.logInPassword.setText("admin");
     }
 
     private final TextWatcher textWatcher = new TextWatcher() {
@@ -38,6 +41,7 @@ public class LogInActivity extends AppCompatActivity {
         public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
             if (i2==1 && binding.logInPassword.getText().toString().trim().length()>0){
                 binding.logInGetOtpButton.setBackgroundTintList(getResources().getColorStateList(R.color.active_button));
+                binding.logInGetOtpButton.performClick();
             }else{
                 binding.logInGetOtpButton.setBackgroundTintList(getResources().getColorStateList(R.color.de_active_button));
             }
