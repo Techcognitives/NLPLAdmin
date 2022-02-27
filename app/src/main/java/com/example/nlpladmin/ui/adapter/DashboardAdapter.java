@@ -66,37 +66,37 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.User
             }
         });
 
-//        String url1 = activity.getString(R.string.baseURL) + "/imgbucket/Images/" + obj.getUser_id();
-//        JsonObjectRequest request1 = new JsonObjectRequest(Request.Method.GET, url1, null, new com.android.volley.Response.Listener<JSONObject>() {
-//            @Override
-//            public void onResponse(JSONObject response) {
-//                try {
-//                    JSONArray imageList = response.getJSONArray("data");
-//                    for (int i = 0; i < imageList.length(); i++) {
-//                        JSONObject obj = imageList.getJSONObject(i);
-//                        String imageType = obj.getString("image_type");
-//
-//                        String profileImgUrl = "";
-//                        if (imageType.equals("profile")) {
-//                            profileImgUrl = obj.getString("image_url");
-//                            if (profileImgUrl.equals("null")){
-//                                holder.profile.setImageDrawable(activity.getResources().getDrawable(R.drawable.blue_profile_small));
-//                            } else {
-//                                new DownloadImageTask(holder.profile).execute(profileImgUrl);
-//                            }
-//                        }
-//                    }
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }, new com.android.volley.Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                error.printStackTrace();
-//            }
-//        });
-//        mQueue.add(request1);
+        String url1 = activity.getString(R.string.baseURL) + "/imgbucket/Images/" + obj.getUser_id();
+        JsonObjectRequest request1 = new JsonObjectRequest(Request.Method.GET, url1, null, new com.android.volley.Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    JSONArray imageList = response.getJSONArray("data");
+                    for (int i = 0; i < imageList.length(); i++) {
+                        JSONObject obj = imageList.getJSONObject(i);
+                        String imageType = obj.getString("image_type");
+
+                        String profileImgUrl = "";
+                        if (imageType.equals("profile")) {
+                            profileImgUrl = obj.getString("image_url");
+                            if (profileImgUrl.equals("null")){
+                                holder.profile.setImageDrawable(activity.getResources().getDrawable(R.drawable.blue_profile_small));
+                            } else {
+                                new DownloadImageTask(holder.profile).execute(profileImgUrl);
+                            }
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new com.android.volley.Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+        mQueue.add(request1);
 
         holder.profile.setOnClickListener(new View.OnClickListener() {
             @Override

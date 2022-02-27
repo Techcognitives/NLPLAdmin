@@ -31,7 +31,7 @@
         <item>Driver</item>
         <item>Broker</item>
         <item>unverified Profiles</item>
-        <item>Active Profiles</item>
-        <item>Inactive Profiles</item>
+<!--        <item>Active Profiles</item>-->
+<!--        <item>Inactive Profiles</item>-->
     </string-array>
 </resources>

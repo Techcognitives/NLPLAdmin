@@ -8,6 +8,7 @@ import com.example.nlpladmin.R;
 
 public class PersonalDetailsAndIdProofActivity extends AppCompatActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

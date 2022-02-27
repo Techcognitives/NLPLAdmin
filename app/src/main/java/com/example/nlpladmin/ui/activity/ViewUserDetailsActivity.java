@@ -134,4 +134,16 @@ public class ViewUserDetailsActivity extends AppCompatActivity {
         });
         mQueue.add(request);
     }
+
+    public void onClickViewBankDetails(View view) {
+        JumpTo.viewBankDetailsActivity(ViewUserDetailsActivity.this, userId, false);
+    }
+
+    public void onClickViewTruckDetails(View view) {
+        JumpTo.viewTruckDetailsActivity(ViewUserDetailsActivity.this, userId, false);
+    }
+
+    public void onClickViewDriverDetails(View view) {
+        JumpTo.viewDriverDetailsActivity(ViewUserDetailsActivity.this, userId, false);
+    }
 }
