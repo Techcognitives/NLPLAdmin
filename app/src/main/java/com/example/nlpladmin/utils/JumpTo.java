@@ -8,7 +8,10 @@ import com.example.nlpladmin.ui.activity.DashboardActivity;
 import com.example.nlpladmin.ui.activity.LogInActivity;
 import com.example.nlpladmin.ui.activity.PersonalDetailsActivity;
 import com.example.nlpladmin.ui.activity.PersonalDetailsAndIdProofActivity;
+import com.example.nlpladmin.ui.activity.ViewBankDetailsActivity;
+import com.example.nlpladmin.ui.activity.ViewDriverDetailsActivity;
 import com.example.nlpladmin.ui.activity.ViewPersonalDetailsActivity;
+import com.example.nlpladmin.ui.activity.ViewTruckDetailsActivity;
 import com.example.nlpladmin.ui.activity.ViewUserDetailsActivity;
 
 public class JumpTo {
@@ -67,4 +70,33 @@ public class JumpTo {
         activity.overridePendingTransition(0, 0);
     }
 
+    public static void viewBankDetailsActivity(Activity activity, String userId, Boolean isFinish){
+        Intent intent = new Intent(activity, ViewBankDetailsActivity.class);
+        intent.putExtra("userId", userId);
+        activity.startActivity(intent);
+        if (isFinish){
+            activity.finish();
+        }
+        activity.overridePendingTransition(0, 0);
+    }
+
+    public static void viewTruckDetailsActivity(Activity activity, String userId, Boolean isFinish){
+        Intent intent = new Intent(activity, ViewTruckDetailsActivity.class);
+        intent.putExtra("userId", userId);
+        activity.startActivity(intent);
+        if (isFinish){
+            activity.finish();
+        }
+        activity.overridePendingTransition(0, 0);
+    }
+
+    public static void viewDriverDetailsActivity(Activity activity, String userId, Boolean isFinish){
+        Intent intent = new Intent(activity, ViewDriverDetailsActivity.class);
+        intent.putExtra("userId", userId);
+        activity.startActivity(intent);
+        if (isFinish){
+            activity.finish();
+        }
+        activity.overridePendingTransition(0, 0);
+    }
 }
