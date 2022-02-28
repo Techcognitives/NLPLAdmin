@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 
 import com.example.nlpladmin.model.UserResponses;
+import com.example.nlpladmin.ui.activity.BankDetailsActivity;
 import com.example.nlpladmin.ui.activity.DashboardActivity;
 import com.example.nlpladmin.ui.activity.LogInActivity;
 import com.example.nlpladmin.ui.activity.PersonalDetailsActivity;
@@ -93,6 +94,18 @@ public class JumpTo {
     public static void viewDriverDetailsActivity(Activity activity, String userId, Boolean isFinish){
         Intent intent = new Intent(activity, ViewDriverDetailsActivity.class);
         intent.putExtra("userId", userId);
+        activity.startActivity(intent);
+        if (isFinish){
+            activity.finish();
+        }
+        activity.overridePendingTransition(0, 0);
+    }
+
+    public static void goToBankDetailsActivity(Activity activity, String userId, Boolean isEdit, Boolean isFinish, String bankId){
+        Intent intent = new Intent(activity, BankDetailsActivity.class);
+        intent.putExtra("userId", userId);
+        intent.putExtra("isEdit", isEdit);
+        intent.putExtra("bankDetailsID", bankId);
         activity.startActivity(intent);
         if (isFinish){
             activity.finish();

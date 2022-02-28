@@ -153,7 +153,6 @@ public class DashboardActivity extends AppCompatActivity {
                         userResponses.setEmail_id(obj.getString("email_id"));
                         userResponses.setPay_type(obj.getString("pay_type"));
                         userResponses.setIs_user_verfied(obj.getString("is_user_verfied"));
-                        userResponses.setUser_ratings(obj.getString("user_ratings"));
                         userResponses.setIs_account_active(obj.getString("is_account_active"));
                         userResponses.setCreated_at(obj.getString("created_at"));
                         userResponses.setUpdated_at(obj.getString("updated_at"));
