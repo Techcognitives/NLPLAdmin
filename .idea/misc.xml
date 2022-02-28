@@ -33,6 +33,20 @@
         <entry key="..\:/Users/DELL/AndroidStudioProjects/NLPLAdmin/app/src/main/res/layout/personal_and_address.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/NLPLAdmin/app/src/main/res/layout/user_list.xml" value="0.33" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/NLPLAdmin/app/src/main/res/layout/users_list.xml" value="0.33" />
+        <entry key="..\:/Users/abhij/AndroidStudioProjects/NLPLAdmin/app/src/main/res/drawable/find_small.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/abhij/AndroidStudioProjects/NLPLAdmin/app/src/main/res/layout/action_bar.xml" value="0.2536231884057971" />
+        <entry key="..\:/Users/abhij/AndroidStudioProjects/NLPLAdmin/app/src/main/res/layout/activity_personal_details.xml" value="0.29393115942028986" />
+        <entry key="..\:/Users/abhij/AndroidStudioProjects/NLPLAdmin/app/src/main/res/layout/activity_view_bank_details.xml" value="0.2536231884057971" />
+        <entry key="..\:/Users/abhij/AndroidStudioProjects/NLPLAdmin/app/src/main/res/layout/activity_view_driver_details.xml" value="0.2536231884057971" />
+        <entry key="..\:/Users/abhij/AndroidStudioProjects/NLPLAdmin/app/src/main/res/layout/activity_view_truck_details.xml" value="0.2536231884057971" />
+        <entry key="..\:/Users/abhij/AndroidStudioProjects/NLPLAdmin/app/src/main/res/layout/activity_view_user_details.xml" value="0.29393115942028986" />
+        <entry key="..\:/Users/abhij/AndroidStudioProjects/NLPLAdmin/app/src/main/res/layout/bank_list.xml" value="0.29393115942028986" />
+        <entry key="..\:/Users/abhij/AndroidStudioProjects/NLPLAdmin/app/src/main/res/layout/custom_list_single.xml" value="0.29393115942028986" />
+        <entry key="..\:/Users/abhij/AndroidStudioProjects/NLPLAdmin/app/src/main/res/layout/dialog_preview_driver_details.xml" value="0.29393115942028986" />
+        <entry key="..\:/Users/abhij/AndroidStudioProjects/NLPLAdmin/app/src/main/res/layout/dialog_preview_driver_truck_details.xml" value="0.29393115942028986" />
+        <entry key="..\:/Users/abhij/AndroidStudioProjects/NLPLAdmin/app/src/main/res/layout/dialog_spinner_bind.xml" value="0.29393115942028986" />
+        <entry key="..\:/Users/abhij/AndroidStudioProjects/NLPLAdmin/app/src/main/res/layout/my_driver_list.xml" value="0.29393115942028986" />
+        <entry key="..\:/Users/abhij/AndroidStudioProjects/NLPLAdmin/app/src/main/res/layout/my_truck_list.xml" value="0.29393115942028986" />
       </map>
     </option>
   </component>
