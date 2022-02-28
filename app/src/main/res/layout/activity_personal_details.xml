@@ -5,6 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.activity.PersonalDetailsActivity">
+    <include
+        android:id="@+id/personal_details_action_bar"
+        layout="@layout/action_bar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
     <include
         android:id="@+id/personal_details_pan_and_aadhar"
@@ -12,11 +21,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/okPersonalDetails"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/personal_details_action_bar" />
 
     <Button
         android:id="@+id/okPersonalDetails"
@@ -26,6 +34,7 @@
         android:layout_marginEnd="5dp"
         android:background="@drawable/button_de_active"
         android:text="Ok"
+        android:onClick="onClickOKPersonal"
         android:textAllCaps="false"
         android:textColor="@color/background"
         android:textSize="20sp"
@@ -35,7 +44,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/personal_details_pan_and_aadhar"
         app:layout_constraintVertical_bias="0.487" />
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

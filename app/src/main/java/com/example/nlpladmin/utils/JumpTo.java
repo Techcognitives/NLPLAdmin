@@ -61,15 +61,14 @@ public class JumpTo {
         activity.overridePendingTransition(0, 0);
     }
 
-    public static void personalDetailsActivity(Activity activity, String userId, Boolean isFinish){
+    public static void personalDetailsActivity(Activity activity, String userId, boolean isFinish){
         Intent intent = new Intent(activity, PersonalDetailsActivity.class);
         intent.putExtra("userId", userId);
         activity.startActivity(intent);
-        if (isFinish){
-            activity.finish();
-        }
-        activity.overridePendingTransition(0, 0);
+        activity.finish();
+        activity.overridePendingTransition(0,0);
     }
+
 
     public static void viewBankDetailsActivity(Activity activity, String userId, Boolean isFinish){
         Intent intent = new Intent(activity, ViewBankDetailsActivity.class);
