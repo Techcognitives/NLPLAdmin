@@ -30,7 +30,7 @@
             android:name=".ui.activity.BankDetailsActivity"
             android:exported="true"
             android:theme="@style/Theme.Design.Light.NoActionBar" />
-        <activity
+         <activity
             android:name=".ui.activity.ViewDriverDetailsActivity"
             android:exported="true"
             android:theme="@style/Theme.Design.Light.NoActionBar" />

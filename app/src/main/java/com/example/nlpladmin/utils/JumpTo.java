@@ -3,6 +3,7 @@ package com.example.nlpladmin.utils;
 import android.app.Activity;
 import android.content.Intent;
 
+import com.example.nlpladmin.model.UserResponses;
 import com.example.nlpladmin.ui.activity.BankDetailsActivity;
 import com.example.nlpladmin.ui.activity.DashboardActivity;
 import com.example.nlpladmin.ui.activity.LogInActivity;
