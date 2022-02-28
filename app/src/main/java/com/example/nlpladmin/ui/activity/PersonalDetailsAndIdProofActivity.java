@@ -14,5 +14,6 @@ public class PersonalDetailsAndIdProofActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_details_and_id_proof);
 
+
     }
 }
