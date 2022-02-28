@@ -23,6 +23,10 @@
         android:theme="@style/Theme.NLPLAdmin"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ui.activity.BankDetailsActivity"
+            android:exported="true"
+            android:theme="@style/Theme.Design.Light.NoActionBar"/>
+        <activity
             android:name=".ui.activity.ViewDriverDetailsActivity"
             android:exported="true"
             android:theme="@style/Theme.Design.Light.NoActionBar"/>

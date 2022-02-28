@@ -161,7 +161,7 @@ public class ViewBankDetailsActivity extends AppCompatActivity {
     }
 
     public void getBankDetails(BankModel obj) {
-
+        JumpTo.goToBankDetailsActivity(ViewBankDetailsActivity.this, userId, true, false, obj.getBank_id());
     }
 
     public void onClickPreviewBankDetails(BankModel obj) {
