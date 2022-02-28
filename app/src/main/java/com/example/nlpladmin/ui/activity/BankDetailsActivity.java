@@ -168,7 +168,6 @@ public class BankDetailsActivity extends AppCompatActivity {
         }
 
         uploadCC.setOnClickListener(view -> DialogChoose());
-
         editCC.setOnClickListener(View -> DialogChoose());
 
     }

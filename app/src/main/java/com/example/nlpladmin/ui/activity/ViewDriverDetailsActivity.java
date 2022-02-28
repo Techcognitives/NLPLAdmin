@@ -314,9 +314,7 @@ public class ViewDriverDetailsActivity extends AppCompatActivity {
             }
         });
         mQueue.add(request);
-
         //------------------------------------------------------------------------------------------------
-
     }
 
     private void getUserDriverBankDetails(String driverUserId) {
