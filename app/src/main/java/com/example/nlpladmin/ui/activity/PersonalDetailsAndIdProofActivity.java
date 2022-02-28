@@ -45,6 +45,7 @@ public class PersonalDetailsAndIdProofActivity extends AppCompatActivity {
     ConstraintLayout aadharConstrain, panConstrain;
     TextView uploadAadharTitle, uploadPanTitle;
     String nameAPI, mobileAPI, addressAPI, pinCodeAPI, roleAPI, cityAPI, stateAPI, emailAPI;
+
     private int GET_FROM_GALLERY = 0;
     private int GET_FROM_GALLERY1 = 1;
     int CAMERA_PIC_REQUEST1 = 5;
