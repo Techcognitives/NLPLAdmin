@@ -177,7 +177,6 @@ public class ViewBankDetailsActivity extends AppCompatActivity {
         Log.i("IMAGE CHEQUE URL", cancelledChequeURL);
 
         new DownloadImageTask((ImageView) previewDialogCancelledCheque.findViewById(R.id.dialog_preview_image_view)).execute(cancelledChequeURL);
-
     }
 
     public void onClickAddBankDetails(View view) {
