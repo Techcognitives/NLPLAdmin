@@ -23,29 +23,33 @@
         android:theme="@style/Theme.NLPLAdmin"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ui.activity.PersonalDetailsActivity"
+            android:exported="true"
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
+        <activity
+            android:name=".ui.activity.BankDetailsActivity"
+            android:exported="true"
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
+        <activity
             android:name=".ui.activity.ViewDriverDetailsActivity"
             android:exported="true"
-            android:theme="@style/Theme.Design.Light.NoActionBar"/>
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
         <activity
             android:name=".ui.activity.ViewTruckDetailsActivity"
             android:exported="true"
-            android:theme="@style/Theme.Design.Light.NoActionBar"/>
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
         <activity
             android:name=".ui.activity.ViewBankDetailsActivity"
             android:exported="true"
-            android:theme="@style/Theme.Design.Light.NoActionBar"/>
-        <activity
-            android:name=".ui.activity.PersonalDetailsActivity"
-            android:exported="true"
-            android:theme="@style/Theme.Design.Light.NoActionBar"/>
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
         <activity
             android:name=".ui.activity.PersonalDetailsAndIdProofActivity"
             android:exported="true"
-            android:theme="@style/Theme.Design.Light.NoActionBar"/>
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
         <activity
             android:name=".ui.activity.ViewPersonalDetailsActivity"
             android:exported="true"
-            android:theme="@style/Theme.Design.Light.NoActionBar"/>
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
         <activity
             android:name=".ui.activity.ViewUserDetailsActivity"
             android:exported="true"

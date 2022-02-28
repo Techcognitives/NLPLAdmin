@@ -3,6 +3,7 @@
 
     //------------------------------------BASE URL--------------------------------------------------
     <string name="baseURL">http://13.234.163.179:3000</string>
+    <string name="internal_storage">internal storage</string>
 
     //---------------------------- LogIn Activity --------------------------------------------------
     <string name="login">Log In</string>
@@ -31,7 +32,7 @@
         <item>Driver</item>
         <item>Broker</item>
         <item>unverified Profiles</item>
-<!--        <item>Active Profiles</item>-->
-<!--        <item>Inactive Profiles</item>-->
+        <!--        <item>Active Profiles</item>-->
+        <!--        <item>Inactive Profiles</item>-->
     </string-array>
 </resources>
