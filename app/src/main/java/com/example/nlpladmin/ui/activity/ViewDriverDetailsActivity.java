@@ -77,6 +77,8 @@ public class ViewDriverDetailsActivity extends AppCompatActivity {
     TextView actionBarTitle;
     ImageView actionBarBackButton, actionBarMenuButton;
 
+    View bottomNav;
+    ConstraintLayout spDashboard, customerDashboard;
     EditText searchDriver;
 
     @Override
