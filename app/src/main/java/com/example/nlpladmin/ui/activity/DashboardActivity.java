@@ -45,7 +45,7 @@ public class DashboardActivity extends AppCompatActivity {
 
     ActivityDashboardBinding binding;
     String filterBy = "All Users";
-    Dialog previewDialogProfile;
+    Dialog previewDialogProfile, dialogMenu;
     private RequestQueue mQueue;
     private ArrayList<UserResponses> userResponsesArrayList = new ArrayList<>();
     private DashboardAdapter dashboardAdapter;
@@ -71,6 +71,13 @@ public class DashboardActivity extends AppCompatActivity {
         previewDialogProfile.setContentView(R.layout.dialog_preview_images);
         previewDialogProfile.getWindow().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.black)));
 
+        dialogMenu = new Dialog(DashboardActivity.this);
+        dialogMenu.setContentView(R.layout.dialog_menu);
+
+    }
+
+    public void action_bar_menu() {
+
         binding.dashboardSearchUser.addTextChangedListener(searchUser);
 
         View actionBar = binding.dashboardActionBar;
@@ -80,18 +87,18 @@ public class DashboardActivity extends AppCompatActivity {
         backButton.setVisibility(View.INVISIBLE);
     }
 
-    public void onClickFilterBy(){
+    public void onClickFilterBy() {
         Collections.reverse(userResponsesArrayList);
         dashboardAdapter.updateData(userResponsesArrayList);
         binding.dashboardActivityFilterBy.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int i, long l) {
 
-                if (parent.getSelectedItem().equals("All Users")){
+                if (parent.getSelectedItem().equals("All Users")) {
                     filterBy = "All Users";
                     getUsersList(filterBy);
                 }
-                if (parent.getSelectedItem().equals("Service Provider")){
+                if (parent.getSelectedItem().equals("Service Provider")) {
                     filterBy = "Service Provider";
                     getUsersList(filterBy);
                 }
@@ -170,28 +177,28 @@ public class DashboardActivity extends AppCompatActivity {
                         if (filterBy.equals("All Users")) {
                             userResponsesArrayList.add(userResponses);
                         }
-                        if (filterBy.equals("Service Provider")){
-                            if (obj.getString("user_type").equals("Owner")){
+                        if (filterBy.equals("Service Provider")) {
+                            if (obj.getString("user_type").equals("Owner")) {
                                 userResponsesArrayList.add(userResponses);
                             }
                         }
-                        if (filterBy.equals("Load Poster")){
-                            if (obj.getString("user_type").equals("Customer")){
+                        if (filterBy.equals("Load Poster")) {
+                            if (obj.getString("user_type").equals("Customer")) {
                                 userResponsesArrayList.add(userResponses);
                             }
                         }
-                        if (filterBy.equals("Driver")){
-                            if (obj.getString("user_type").equals("Driver")){
+                        if (filterBy.equals("Driver")) {
+                            if (obj.getString("user_type").equals("Driver")) {
                                 userResponsesArrayList.add(userResponses);
                             }
                         }
-                        if (filterBy.equals("Broker")){
-                            if (obj.getString("user_type").equals("Broker")){
+                        if (filterBy.equals("Broker")) {
+                            if (obj.getString("user_type").equals("Broker")) {
                                 userResponsesArrayList.add(userResponses);
                             }
                         }
-                        if (filterBy.equals("unverified Profiles")){
-                            if (obj.getString("is_user_verfied").equals("1")){
+                        if (filterBy.equals("unverified Profiles")) {
+                            if (obj.getString("is_user_verfied").equals("1")) {
                                 userResponsesArrayList.add(userResponses);
                             }
                         }
@@ -279,11 +286,11 @@ public class DashboardActivity extends AppCompatActivity {
 
         @Override
         public void afterTextChanged(Editable editable) {
-            if (editable.length()==0){
+            if (editable.length() == 0) {
                 RearrangeItems();
                 binding.dashboardConstrain.setVisibility(View.INVISIBLE);
                 binding.dashboardConstrainMenu.setVisibility(View.VISIBLE);
-            }else{
+            } else {
                 binding.dashboardConstrain.setVisibility(View.VISIBLE);
                 binding.dashboardConstrainMenu.setVisibility(View.INVISIBLE);
             }
