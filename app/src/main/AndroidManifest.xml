@@ -27,10 +27,6 @@
             android:theme="@style/Theme.Design.Light.NoActionBar"
             android:exported="false" />
         <activity
-            android:name=".ui.activity.CustomerDashboardActivity"
-            android:theme="@style/Theme.Design.Light.NoActionBar"
-            android:exported="false" />
-        <activity
             android:name=".ui.activity.ManageBidOrLoadActivity"
             android:theme="@style/Theme.Design.Light.NoActionBar"
             android:exported="false" />

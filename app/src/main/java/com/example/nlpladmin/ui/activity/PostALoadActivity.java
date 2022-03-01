@@ -471,8 +471,8 @@ public class PostALoadActivity extends AppCompatActivity {
         budget.setText(newPreviousBudget);
 
 //        if (!previousBudget.isEmpty()) {
-            okBudget.setEnabled(true);
-            okBudget.setBackgroundResource((R.drawable.button_active));
+        okBudget.setEnabled(true);
+        okBudget.setBackgroundResource((R.drawable.button_active));
 //        } else {
 //
 //            okBudget.setEnabled(false);

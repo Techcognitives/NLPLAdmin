@@ -356,6 +356,7 @@ public class DashboardActivity extends AppCompatActivity {
         EditText search = (EditText) manage.findViewById(R.id.dialog_manage_load_search);
         TextView ok = (TextView) manage.findViewById(R.id.dialog_manage_load_left_button);
         TextView cancel = (TextView) manage.findViewById(R.id.dialog_manage_load_right_button);
+        alertTitle.setText("Manage Bid / Load Post");
 
         ok.setOnClickListener(view1 -> {
             manage.dismiss();

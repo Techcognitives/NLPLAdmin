@@ -23,7 +23,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.nlpladmin.R;
 import com.example.nlpladmin.model.BidsReceivedModel;
 import com.example.nlpladmin.model.UpdateMethods.UpdatePostLoadDetails;
-import com.example.nlpladmin.ui.activity.CustomerDashboardActivity;
+import com.example.nlpladmin.ui.activity.ManageBidOrLoadActivity;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -31,13 +31,13 @@ import java.util.Calendar;
 public class BidsReceivedAdapter extends RecyclerView.Adapter<BidsReceivedAdapter.BidsReceivedViewHolder> {
 
     private ArrayList<BidsReceivedModel> loadList;
-    private CustomerDashboardActivity activity;
+    private ManageBidOrLoadActivity activity;
 
     String sortBy = "Sort By" , bidEndsAt, currentTimeToCompare, bidEndsAtStringTime, finalBidEndsAt, finalDate;
     private RequestQueue mQueue;
     int timeLeftToExpire, timeInMillisec, minLeftToExpire, months;
 
-    public BidsReceivedAdapter(CustomerDashboardActivity activity, ArrayList<BidsReceivedModel> loadList) {
+    public BidsReceivedAdapter(ManageBidOrLoadActivity activity, ArrayList<BidsReceivedModel> loadList) {
         this.loadList = loadList;
         this.activity = activity;
         mQueue = Volley.newRequestQueue(activity);

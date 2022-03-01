@@ -3,12 +3,10 @@ package com.example.nlpladmin.utils;
 import android.app.Activity;
 import android.content.Intent;
 
-import com.example.nlpladmin.model.UserResponses;
 import com.example.nlpladmin.ui.activity.BankDetailsActivity;
-import com.example.nlpladmin.ui.activity.CustomerDashboardActivity;
+import com.example.nlpladmin.ui.activity.ManageBidOrLoadActivity;
 import com.example.nlpladmin.ui.activity.DashboardActivity;
 import com.example.nlpladmin.ui.activity.LogInActivity;
-import com.example.nlpladmin.ui.activity.ManageBidOrLoadActivity;
 import com.example.nlpladmin.ui.activity.PersonalDetailsActivity;
 import com.example.nlpladmin.ui.activity.PersonalDetailsAndIdProofActivity;
 import com.example.nlpladmin.ui.activity.PostALoadActivity;
@@ -115,15 +113,8 @@ public class JumpTo {
         activity.overridePendingTransition(0, 0);
     }
 
-    public static void manageBidsOrLoadActivity(Activity activity, String phone){
-        Intent intent = new Intent(activity, ManageBidOrLoadActivity.class);
-        intent.putExtra("phone", phone);
-        activity.startActivity(intent);
-        activity.overridePendingTransition(0, 0);
-    }
-
     public static void goToCustomerDashboard(Activity activity, String mobileNumber, Boolean isBidsReceived, Boolean isFinish){
-        Intent intent = new Intent(activity, CustomerDashboardActivity.class);
+        Intent intent = new Intent(activity, ManageBidOrLoadActivity.class);
         intent.putExtra("mobile", mobileNumber);
         intent.putExtra("bidsReceived", isBidsReceived);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
