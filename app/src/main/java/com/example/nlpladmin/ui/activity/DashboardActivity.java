@@ -367,4 +367,9 @@ public class DashboardActivity extends AppCompatActivity {
             manage.dismiss();
         });
     }
+
+    public void onClickKYCVerification(View view){
+        binding.dashboardConstrain.setVisibility(View.VISIBLE);
+        binding.dashboardConstrainMenu.setVisibility(View.INVISIBLE);
+    }
 }
