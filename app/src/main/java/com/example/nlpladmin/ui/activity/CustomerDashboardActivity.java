@@ -419,7 +419,7 @@ public class CustomerDashboardActivity extends AppCompatActivity {
     }
 
     public void onClickPostALoad(View view) {
-//        JumpTo.goToPostALoad(CustomerDashboardActivity.this, userId, phone, false, false, null, false);
+        JumpTo.goToPostALoad(CustomerDashboardActivity.this, userId, phone, false, false, null, false);
     }
 
     public void getBidsReceived() {
@@ -853,7 +853,7 @@ public class CustomerDashboardActivity extends AppCompatActivity {
     }
 
     public void onClickEditLoadPost(BidsReceivedModel obj) {
-//        JumpTo.goToPostALoad(CustomerDashboardActivity.this, userId, phone, false, true, obj.getIdpost_load(), false);
+        JumpTo.goToPostALoad(CustomerDashboardActivity.this, userId, phone, false, true, obj.getIdpost_load(), false);
     }
 
 

@@ -11,6 +11,7 @@ import com.example.nlpladmin.ui.activity.LogInActivity;
 import com.example.nlpladmin.ui.activity.ManageBidOrLoadActivity;
 import com.example.nlpladmin.ui.activity.PersonalDetailsActivity;
 import com.example.nlpladmin.ui.activity.PersonalDetailsAndIdProofActivity;
+import com.example.nlpladmin.ui.activity.PostALoadActivity;
 import com.example.nlpladmin.ui.activity.ViewBankDetailsActivity;
 import com.example.nlpladmin.ui.activity.ViewDriverDetailsActivity;
 import com.example.nlpladmin.ui.activity.ViewPersonalDetailsActivity;
@@ -126,6 +127,20 @@ public class JumpTo {
         intent.putExtra("mobile", mobileNumber);
         intent.putExtra("bidsReceived", isBidsReceived);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        activity.startActivity(intent);
+        if (isFinish){
+            activity.finish();
+        }
+        activity.overridePendingTransition(0, 0);
+    }
+
+    public static void goToPostALoad(Activity activity, String userId, String mobileNumber, Boolean reActivate, Boolean isEdit, String loadId, Boolean isFinish){
+        Intent intent = new Intent(activity, PostALoadActivity.class);
+        intent.putExtra("userId", userId);
+        intent.putExtra("mobile", mobileNumber);
+        intent.putExtra("reActivate", reActivate);
+        intent.putExtra("isEdit", isEdit);
+        intent.putExtra("loadId", loadId);
         activity.startActivity(intent);
         if (isFinish){
             activity.finish();

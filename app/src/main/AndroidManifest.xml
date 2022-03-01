@@ -23,6 +23,10 @@
         android:theme="@style/Theme.NLPLAdmin"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ui.activity.PostALoadActivity"
+            android:theme="@style/Theme.Design.Light.NoActionBar"
+            android:exported="false" />
+        <activity
             android:name=".ui.activity.CustomerDashboardActivity"
             android:theme="@style/Theme.Design.Light.NoActionBar"
             android:exported="false" />
