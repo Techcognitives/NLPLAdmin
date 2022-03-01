@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -17,6 +19,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -31,6 +34,7 @@ import com.example.nlpladmin.model.UserResponses;
 import com.example.nlpladmin.ui.adapter.DashboardAdapter;
 import com.example.nlpladmin.utils.DownloadImageTask;
 import com.example.nlpladmin.utils.JumpTo;
+import com.example.nlpladmin.utils.ShowAlert;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -332,5 +336,34 @@ public class DashboardActivity extends AppCompatActivity {
             }
         }
         dashboardAdapter.updateData(searchVehicleList);
+    }
+
+    public void onClickManageBidOrLoad(View view){
+        Dialog manage = new Dialog(DashboardActivity.this);
+        manage.setContentView(R.layout.dialog_manage_load);
+        manage.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(manage.getWindow().getAttributes());
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        lp.height = WindowManager.LayoutParams.MATCH_PARENT;
+        lp.gravity = Gravity.CENTER;
+
+        manage.show();
+        manage.getWindow().setAttributes(lp);
+        manage.setCancelable(true);
+
+        TextView alertTitle = (TextView) manage.findViewById(R.id.dialog_manage_load_title);
+        EditText search = (EditText) manage.findViewById(R.id.dialog_manage_load_search);
+        TextView ok = (TextView) manage.findViewById(R.id.dialog_manage_load_left_button);
+        TextView cancel = (TextView) manage.findViewById(R.id.dialog_manage_load_right_button);
+
+        ok.setOnClickListener(view1 -> {
+            manage.dismiss();
+            JumpTo.goToCustomerDashboard(DashboardActivity.this, "91"+search.getText().toString(), true, false);
+        });
+
+        cancel.setOnClickListener(view1 -> {
+            manage.dismiss();
+        });
     }
 }
