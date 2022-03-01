@@ -53,6 +53,8 @@ public class DashboardActivity extends AppCompatActivity {
     private RequestQueue mQueue;
     private ArrayList<UserResponses> userResponsesArrayList = new ArrayList<>();
     private DashboardAdapter dashboardAdapter;
+    ImageView backButton;
+    TextView title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,10 +83,14 @@ public class DashboardActivity extends AppCompatActivity {
         binding.dashboardSearchUser.addTextChangedListener(searchUser);
 
         View actionBar = binding.dashboardActionBar;
-        TextView title = actionBar.findViewById(R.id.action_bar_title_text);
+        title = actionBar.findViewById(R.id.action_bar_title_text);
         title.setText("Admin");
-        ImageView backButton = actionBar.findViewById(R.id.action_bar_back_button);
+        backButton = actionBar.findViewById(R.id.action_bar_back_button);
         backButton.setVisibility(View.INVISIBLE);
+        backButton.setOnClickListener(view -> {
+            binding.dashboardConstrain.setVisibility(View.INVISIBLE);
+            binding.dashboardConstrainMenu.setVisibility(View.VISIBLE);
+        });
 
     }
 
@@ -369,6 +375,8 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     public void onClickKYCVerification(View view){
+        backButton.setVisibility(View.VISIBLE);
+        title.setText("KYC Verification");
         binding.dashboardConstrain.setVisibility(View.VISIBLE);
         binding.dashboardConstrainMenu.setVisibility(View.INVISIBLE);
     }
