@@ -104,15 +104,11 @@ public class CustomerDashboardActivity extends AppCompatActivity {
 
     Dialog loadingDialog;
     TextView spNumber, driverNumber;
-    ImageView personalDetailsLogoImageView, bankDetailsLogoImageView;
-    Dialog previewDialogProfile, previewDialogProfileOfSp;
+    Dialog previewDialogProfileOfSp;
     ImageView profilePic;
-    Boolean checkedReasonOne = true, checkedReasonTwo = true, checkedReasonThree = true, checkedReasonFour = true, checkedReasonFive = true, checkedReasonSix = true, checkedReasonSeven = true;
 
-    String isPersonalDetailsDone, isBankDetailsDone, isProfileAdded, profileImgUrlForRating, reasonForLowRate="";
-    float ratingGiven;
+    String isPersonalDetailsDone, isBankDetailsDone, isProfileAdded;
     int count = 0;
-    String img_type, paymentMethod = "", paymentPercentage = "threePercent";
 
     View actionBar;
     TextView actionBarTitle;
@@ -198,8 +194,14 @@ public class CustomerDashboardActivity extends AppCompatActivity {
         actionBarMenuButton = (ImageView) actionBar.findViewById(R.id.action_bar_menu_button);
 
         actionBarTitle.setText("Load Poster Dashboard");
-        actionBarBackButton.setVisibility(View.GONE);
+        actionBarBackButton.setVisibility(View.VISIBLE);
         actionBarMenuButton.setVisibility(View.GONE);
+        actionBarBackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CustomerDashboardActivity.this.finish();
+            }
+        });
         //------------------------------------------------------------------------------------------
         acceptedList = new ArrayList<>();
         arrayAssignedDriverId = new ArrayList<>();
@@ -287,6 +289,8 @@ public class CustomerDashboardActivity extends AppCompatActivity {
                             isPersonalDetailsDone = isPersonalD.get(j);
                             isProfileAdded = isProfileArray.get(j);
                             isBankDetailsDone = isBankD.get(j);
+
+                            getUserDetails(userId);
 
                             if (isProfileAdded.equals("1")) {
 //                                getProfilePic();
@@ -1652,4 +1656,76 @@ public class CustomerDashboardActivity extends AppCompatActivity {
             }
         }
     };
+
+    private void getUserDetails(String userIdForGet) {
+
+        String url = getString(R.string.baseURL) + "/user/" + userIdForGet;
+        Log.i("get user details", url);
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new com.android.volley.Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    JSONArray truckLists = response.getJSONArray("data");
+                    for (int i = 0; i < truckLists.length(); i++) {
+                        JSONObject obj = truckLists.getJSONObject(i);
+//                        name = obj.getString("name");
+//                        mobile = obj.getString("phone_number");
+//                        address = obj.getString("address");
+//                        city = obj.getString("preferred_location");
+//                        pinCode = obj.getString("pin_code");
+                        String role = obj.getString("user_type");
+
+                        if (role.equals("Customer")){
+                        }else{
+                            loadingDialog.dismiss();
+                            //----------------------- Alert Dialog -------------------------------------------------
+                            Dialog alert = new Dialog(CustomerDashboardActivity.this);
+                            alert.setContentView(R.layout.dialog_alert);
+                            alert.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                            WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+                            lp.copyFrom(alert.getWindow().getAttributes());
+                            lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+                            lp.height = WindowManager.LayoutParams.MATCH_PARENT;
+                            lp.gravity = Gravity.CENTER;
+
+                            alert.show();
+                            alert.getWindow().setAttributes(lp);
+                            alert.setCancelable(false);
+
+                            TextView alertTitle = (TextView) alert.findViewById(R.id.dialog_alert_title);
+                            TextView alertMessage = (TextView) alert.findViewById(R.id.dialog_alert_message);
+                            TextView alertPositiveButton = (TextView) alert.findViewById(R.id.dialog_alert_positive_button);
+                            TextView alertNegativeButton = (TextView) alert.findViewById(R.id.dialog_alert_negative_button);
+
+                            alertTitle.setText("No Loads Available");
+                            alertMessage.setText(role + " can not Post a Load");
+                            alertPositiveButton.setVisibility(View.GONE);
+                            alertNegativeButton.setText("OK");
+                            alertNegativeButton.setBackground(getResources().getDrawable(R.drawable.button_active));
+                            alertNegativeButton.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.button_blue)));
+
+                            alertNegativeButton.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    alert.dismiss();
+                                    JumpTo.dashboardActivity(CustomerDashboardActivity.this);
+                                }
+                            });
+
+                            //------------------------------------------------------------------------------------------
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new com.android.volley.Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+        mQueue.add(request);
+
+    }
 }
