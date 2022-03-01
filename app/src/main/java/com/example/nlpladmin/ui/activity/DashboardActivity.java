@@ -10,6 +10,8 @@ import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -68,13 +70,12 @@ public class DashboardActivity extends AppCompatActivity {
         previewDialogProfile.setContentView(R.layout.dialog_preview_images);
         previewDialogProfile.getWindow().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.black)));
 
+        binding.dashboardSearchUser.addTextChangedListener(searchUser);
     }
 
     public void onClickFilterBy(){
-
         Collections.reverse(userResponsesArrayList);
         dashboardAdapter.updateData(userResponsesArrayList);
-
         binding.dashboardActivityFilterBy.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int i, long l) {
@@ -257,5 +258,65 @@ public class DashboardActivity extends AppCompatActivity {
             }
         });
         mQueue.add(request1);
+    }
+
+    private TextWatcher searchUser = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+            if (editable.length()==0){
+                RearrangeItems();
+                binding.dashboardConstrain.setVisibility(View.INVISIBLE);
+                binding.dashboardConstrainMenu.setVisibility(View.VISIBLE);
+            }else{
+                binding.dashboardConstrain.setVisibility(View.VISIBLE);
+                binding.dashboardConstrainMenu.setVisibility(View.INVISIBLE);
+            }
+            filter(editable.toString());
+        }
+    };
+
+    public void RearrangeItems() {
+        JumpTo.dashboardActivity(DashboardActivity.this);
+    }
+
+    private void filter(String text) {
+        ArrayList<UserResponses> searchVehicleList = new ArrayList<>();
+        for (UserResponses item : userResponsesArrayList) {
+            if (item.getPhone_number().toLowerCase().contains(text.toLowerCase())) {
+                searchVehicleList.add(item);
+            }
+            if (item.getEmail_id().toLowerCase().contains(text.toLowerCase())) {
+                searchVehicleList.add(item);
+            }
+            if (item.getPin_code().toLowerCase().contains(text.toLowerCase())) {
+                searchVehicleList.add(item);
+            }
+            if (item.getUser_type().toLowerCase().contains(text.toLowerCase())) {
+                searchVehicleList.add(item);
+            }
+            if (item.getName().toLowerCase().contains(text.toLowerCase())) {
+                searchVehicleList.add(item);
+            }
+            if (item.getPreferred_location().toLowerCase().contains(text.toLowerCase())) {
+                searchVehicleList.add(item);
+            }
+            if (item.getState_code().toLowerCase().contains(text.toLowerCase())) {
+                searchVehicleList.add(item);
+            }
+            if (item.getAddress().toLowerCase().contains(text.toLowerCase())) {
+                searchVehicleList.add(item);
+            }
+        }
+        dashboardAdapter.updateData(searchVehicleList);
     }
 }
