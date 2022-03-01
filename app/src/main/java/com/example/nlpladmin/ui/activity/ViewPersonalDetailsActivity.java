@@ -210,7 +210,6 @@ public class ViewPersonalDetailsActivity extends AppCompatActivity {
         });
         mQueue.add(request);
     }
-
     public void onClickPreviewAadharCard(View view) {
         WindowManager.LayoutParams lp2 = new WindowManager.LayoutParams();
         lp2.copyFrom(previewDialogAadhar.getWindow().getAttributes());
