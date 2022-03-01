@@ -90,7 +90,6 @@
         android:paddingTop="2dp"
         android:paddingEnd="5dp"
         android:paddingBottom="2dp"
-        android:onClick="onClickViewAndVerifyKyc"
         android:text="View &amp; Verify"
         android:textAlignment="center"
         android:textColor="@color/button_blue"
