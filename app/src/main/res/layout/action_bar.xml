@@ -29,7 +29,6 @@
         android:textSize="16sp"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
-        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/action_bar_menu_button"
         app:layout_constraintStart_toEndOf="@+id/action_bar_back_button"

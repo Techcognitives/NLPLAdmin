@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -71,6 +72,12 @@ public class DashboardActivity extends AppCompatActivity {
         previewDialogProfile.getWindow().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.black)));
 
         binding.dashboardSearchUser.addTextChangedListener(searchUser);
+
+        View actionBar = binding.dashboardActionBar;
+        TextView title = actionBar.findViewById(R.id.action_bar_title_text);
+        title.setText("Admin");
+        ImageView backButton = actionBar.findViewById(R.id.action_bar_back_button);
+        backButton.setVisibility(View.INVISIBLE);
     }
 
     public void onClickFilterBy(){
