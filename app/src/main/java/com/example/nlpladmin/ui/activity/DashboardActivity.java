@@ -74,10 +74,6 @@ public class DashboardActivity extends AppCompatActivity {
         dialogMenu = new Dialog(DashboardActivity.this);
         dialogMenu.setContentView(R.layout.dialog_menu);
 
-    }
-
-    public void action_bar_menu() {
-
         binding.dashboardSearchUser.addTextChangedListener(searchUser);
 
         View actionBar = binding.dashboardActionBar;
@@ -85,6 +81,11 @@ public class DashboardActivity extends AppCompatActivity {
         title.setText("Admin");
         ImageView backButton = actionBar.findViewById(R.id.action_bar_back_button);
         backButton.setVisibility(View.INVISIBLE);
+
+    }
+
+    public void onClickOpenMenu(View view){
+
     }
 
     public void onClickFilterBy() {
