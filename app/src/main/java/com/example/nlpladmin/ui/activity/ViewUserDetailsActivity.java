@@ -26,7 +26,7 @@ public class ViewUserDetailsActivity extends AppCompatActivity {
     CheckBox VSPersonalCheckBox, VSBankCheckBox, VSTruckCheckBox, VSDriverCheckBox, PCPersonalCheckBox, PCBankCheckBox, PCTruckCheckBox, PCDriverCheckBox;
     private RequestQueue mQueue;
     View verification_status_view, profile_completeness_view, user_list_view;
-    TextView VSTick, PCTick, VSKyc, VSBank, VSTruck, VSDriver, PCPersonal, PCBank, PCTruck, PCDriver, VSTitle, PCTitle, VSViewBtn1, VSViewBtn2, VSViewBtn3, VSViewBtn4, PCViewBtn1, PCViewBtn2, PCViewBtn3, PCViewBtn4;
+    TextView userName, userRole, userNumber, VSTick, PCTick, VSKyc, VSBank, VSTruck, VSDriver, PCPersonal, PCBank, PCTruck, PCDriver, VSTitle, PCTitle, VSViewBtn1, VSViewBtn2, VSViewBtn3, VSViewBtn4, PCViewBtn1, PCViewBtn2, PCViewBtn3, PCViewBtn4;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +40,10 @@ public class ViewUserDetailsActivity extends AppCompatActivity {
         verification_status_view = findViewById(R.id.customer_setting_and_preferences_verification_status);
         profile_completeness_view = findViewById(R.id.customer_setting_and_preferences_profile_completeness);
         user_list_view = findViewById(R.id.customer_setting_and_preferences_user_list);
+
+        userName = user_list_view.findViewById(R.id.users_list_name);
+        userRole = user_list_view.findViewById(R.id.users_list_role);
+        userNumber = user_list_view.findViewById(R.id.user_list_number);
 
         PCTitle = profile_completeness_view.findViewById(R.id.verification_dialog_title);
         PCPersonal = profile_completeness_view.findViewById(R.id.personal_textview);
@@ -102,6 +106,11 @@ public class ViewUserDetailsActivity extends AppCompatActivity {
 
         getUserDetails();
 
+        VSViewBtn1.setOnClickListener(View -> onClickViewAndVerifyKyc());
+        VSViewBtn2.setOnClickListener(View -> onClickViewBankDetails());
+        VSViewBtn3.setOnClickListener(View -> onClickViewTruckDetails());
+        VSViewBtn4.setOnClickListener(View -> onClickViewDriverDetails());
+
     }
 
     private void getUserDetails() {
@@ -114,6 +123,10 @@ public class ViewUserDetailsActivity extends AppCompatActivity {
                     JSONArray truckLists = response.getJSONArray("data");
                     for (int i = 0; i < truckLists.length(); i++) {
                         JSONObject obj = truckLists.getJSONObject(i);
+
+                        userRole.setText(obj.getString("user_type"));
+                        userName.setText(obj.getString("name"));
+                        userNumber.setText(obj.getString("phone_number"));
 
                         if (obj.getString("user_type").equals("Owner") || obj.getString("user_type").equals("Driver") || obj.getString("user_type").equals("Broker")){
                             PCTruck.setVisibility(View.VISIBLE);
@@ -177,19 +190,19 @@ public class ViewUserDetailsActivity extends AppCompatActivity {
         mQueue.add(request);
     }
 
-    public void onClickViewAndVerifyKyc(View view){
+    public void onClickViewAndVerifyKyc(){
         JumpTo.viewPersonalDetailsActivity(ViewUserDetailsActivity.this, userId);
     }
 
-    public void onClickViewBankDetails(View view) {
+    public void onClickViewBankDetails() {
         JumpTo.viewBankDetailsActivity(ViewUserDetailsActivity.this, userId, false);
     }
 
-    public void onClickViewTruckDetails(View view) {
+    public void onClickViewTruckDetails() {
         JumpTo.viewTruckDetailsActivity(ViewUserDetailsActivity.this, userId, false);
     }
 
-    public void onClickViewDriverDetails(View view) {
+    public void onClickViewDriverDetails() {
         JumpTo.viewDriverDetailsActivity(ViewUserDetailsActivity.this, userId, false);
     }
 }
