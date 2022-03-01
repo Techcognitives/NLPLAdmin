@@ -23,6 +23,14 @@
         android:theme="@style/Theme.NLPLAdmin"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ui.activity.CustomerDashboardActivity"
+            android:theme="@style/Theme.Design.Light.NoActionBar"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activity.ManageBidOrLoadActivity"
+            android:theme="@style/Theme.Design.Light.NoActionBar"
+            android:exported="false" />
+        <activity
             android:name=".ui.activity.PersonalDetailsActivity"
             android:exported="true"
             android:theme="@style/Theme.Design.Light.NoActionBar" />
@@ -30,7 +38,7 @@
             android:name=".ui.activity.BankDetailsActivity"
             android:exported="true"
             android:theme="@style/Theme.Design.Light.NoActionBar" />
-         <activity
+        <activity
             android:name=".ui.activity.ViewDriverDetailsActivity"
             android:exported="true"
             android:theme="@style/Theme.Design.Light.NoActionBar" />

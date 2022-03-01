@@ -441,6 +441,7 @@
                     android:drawableStart="@drawable/ic_arrow_right"
                     android:drawableTint="@color/button_blue"
                     android:text="Manage a Bid / Load"
+                    android:onClick="@{handlers :: onClickManageBidOrLoad}"
                     android:textColor="@color/button_blue"
                     android:textSize="14sp"
                     android:textStyle="bold"

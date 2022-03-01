@@ -20,4 +20,6 @@
     <color name="dark_blue">#6221EE</color>
     <color name="golden">#FFD700</color>
     <color name="light_blue">#C7E2FA</color>
+    <color name="orange">#FF7600</color>
+    <color name="green">#228B22</color>
 </resources>
