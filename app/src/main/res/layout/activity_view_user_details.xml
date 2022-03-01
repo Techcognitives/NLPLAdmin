@@ -4,285 +4,54 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/shadow_file"
     tools:context=".ui.activity.ViewUserDetailsActivity">
 
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="130dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Bank Details"
-        android:textColor="@color/black"
-        android:textSize="18dp"
-        app:layout_constraintStart_toStartOf="@+id/textView6"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+    <include
+        android:id="@+id/customer_setting_and_preferences_user_list"
+        layout="@layout/users_list"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/customer_setting_and_preferences_action_bar" />
 
-    <TextView
-        android:id="@+id/view_user_details_truck_details_textView"
-        android:layout_width="130dp"
+    <include
+        android:id="@+id/customer_setting_and_preferences_verification_status"
+        layout="@layout/dialog_verification_status"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Truck Details"
-        android:textColor="@color/black"
-        android:textSize="18dp"
-        android:visibility="gone"
-        app:layout_constraintStart_toStartOf="@+id/textView6"
-        app:layout_constraintTop_toBottomOf="@+id/textView8" />
-
-    <TextView
-        android:id="@+id/view_user_details_driver_details_textView"
-        android:layout_width="130dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Driver Details"
-        android:textColor="@color/black"
-        android:textSize="18dp"
-        android:visibility="gone"
-        app:layout_constraintStart_toStartOf="@+id/textView6"
-        app:layout_constraintTop_toBottomOf="@+id/view_user_details_truck_details_textView" />
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/customer_setting_and_preferences_user_list" />
 
     <include
         android:id="@+id/customer_setting_and_preferences_action_bar"
         layout="@layout/action_bar"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/view_user_details_personal_details"
-        android:layout_width="0dp"
+    <include
+        android:id="@+id/customer_setting_and_preferences_profile_completeness"
+        layout="@layout/dialog_verification_status"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:drawableStart="@drawable/right_small"
-        android:text="  Personal"
-        android:textColor="@color/black"
-        android:textSize="16dp"
-        app:layout_constraintEnd_toStartOf="@+id/view_user_details_bank_details"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-    <TextView
-        android:id="@+id/view_user_details_truck_details"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:drawableStart="@drawable/right_small"
-        android:text="  Truck Details"
-        android:textColor="@color/black"
-        android:textSize="16dp"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="@+id/view_user_details_personal_details"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/view_user_details_personal_details"
-        app:layout_constraintTop_toBottomOf="@+id/view_user_details_personal_details" />
-
-    <TextView
-        android:id="@+id/view_user_details_driver_details"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:drawableStart="@drawable/right_small"
-        android:text="  Driver Details"
-        android:textColor="@color/black"
-        android:textSize="16dp"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="@+id/view_user_details_bank_details"
-        app:layout_constraintStart_toStartOf="@+id/view_user_details_bank_details"
-        app:layout_constraintTop_toTopOf="@+id/view_user_details_truck_details" />
-
-    <TextView
-        android:id="@+id/view_user_details_bank_details"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="16dp"
-        android:drawableStart="@drawable/right_small"
-        android:text="  Bank Details"
-        android:textColor="@color/black"
-        android:textSize="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/view_user_details_personal_details"
-        app:layout_constraintTop_toTopOf="@+id/view_user_details_personal_details" />
-
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="Verify Documents"
-        android:textSize="20dp"
-        android:gravity="center"
-        android:padding="2dp"
-        android:background="@color/red"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view_user_details_truck_details" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:background="@color/red"
-        android:gravity="center"
-        android:padding="2dp"
-        android:text="Profile Completed"
-        android:textColor="@color/white"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/customer_setting_and_preferences_action_bar" />
-
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="12dp"
-        android:text="Personal Details"
-        android:textColor="@color/black"
-        android:textSize="18dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
-
-    <CheckBox
-        android:id="@+id/view_user_details_personal_details_checkBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:text="Verify"
-        android:textSize="16dp"
-        app:layout_constraintEnd_toStartOf="@+id/view_user_details_personal_details_view_btn"
-        app:layout_constraintTop_toTopOf="@+id/textView6" />
-
-    <CheckBox
-        android:id="@+id/view_user_details_bank_details_checkBox2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:text="Verify"
-        android:textSize="16dp"
-        app:layout_constraintBottom_toBottomOf="@+id/textView8"
-        app:layout_constraintEnd_toStartOf="@+id/view_user_details_bank_details_view_btn"
-        app:layout_constraintTop_toTopOf="@+id/textView8" />
-
-    <CheckBox
-        android:id="@+id/view_user_details_truck_details_checkBox3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:text="Verify"
-        android:visibility="gone"
-        android:textSize="16dp"
-        app:layout_constraintBottom_toBottomOf="@+id/view_user_details_truck_details_textView"
-        app:layout_constraintEnd_toStartOf="@+id/view_user_details_truck_details_view_btn"
-        app:layout_constraintTop_toTopOf="@+id/view_user_details_truck_details_textView" />
-
-    <CheckBox
-        android:id="@+id/view_user_details_driver_details_checkBox4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:text="Verify"
-        android:textSize="16dp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/view_user_details_driver_details_textView"
-        app:layout_constraintEnd_toStartOf="@+id/view_user_details_driver_details_view_btn"
-        app:layout_constraintTop_toTopOf="@+id/view_user_details_driver_details_textView" />
-
-    <TextView
-        android:id="@+id/view_user_details_personal_details_view_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/button_active"
-        android:backgroundTint="#ff7600"
-        android:gravity="center"
-        android:paddingStart="5dp"
-        android:paddingTop="2dp"
-        android:paddingEnd="5dp"
-        android:paddingBottom="2dp"
-        android:text="View"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/view_user_details_personal_details_checkBox"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/view_user_details_personal_details_checkBox" />
-
-    <TextView
-        android:id="@+id/view_user_details_bank_details_view_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/button_active"
-        android:backgroundTint="#ff7600"
-        android:gravity="center"
-        android:paddingStart="5dp"
-        android:paddingTop="2dp"
-        android:paddingEnd="5dp"
-        android:paddingBottom="2dp"
-        android:onClick="onClickViewBankDetails"
-        android:text="View"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/view_user_details_bank_details_checkBox2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/view_user_details_bank_details_checkBox2" />
-
-    <TextView
-        android:id="@+id/view_user_details_truck_details_view_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/button_active"
-        android:backgroundTint="#ff7600"
-        android:gravity="center"
-        android:paddingStart="5dp"
-        android:paddingTop="2dp"
-        android:paddingEnd="5dp"
-        android:paddingBottom="2dp"
-        android:text="View"
-        android:onClick="onClickViewTruckDetails"
-        android:visibility="gone"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/view_user_details_truck_details_checkBox3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/view_user_details_truck_details_checkBox3" />
-
-    <TextView
-        android:id="@+id/view_user_details_driver_details_view_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/button_active"
-        android:backgroundTint="#ff7600"
-        android:gravity="center"
-        android:paddingStart="5dp"
-        android:paddingTop="2dp"
-        android:paddingEnd="5dp"
-        android:paddingBottom="2dp"
-        android:text="View"
-        android:onClick="onClickViewDriverDetails"
-        android:visibility="gone"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/view_user_details_driver_details_checkBox4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/view_user_details_driver_details_checkBox4" />
+        app:layout_constraintTop_toBottomOf="@+id/customer_setting_and_preferences_verification_status"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

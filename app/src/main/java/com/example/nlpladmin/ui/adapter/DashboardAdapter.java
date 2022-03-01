@@ -136,6 +136,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.User
             user_mobile = itemView.findViewById(R.id.user_list_number);
             user_role = itemView.findViewById(R.id.users_list_role);
             viewUser = itemView.findViewById(R.id.users_list_view_user);
+            viewUser.setVisibility(View.VISIBLE);
         }
 
     }
