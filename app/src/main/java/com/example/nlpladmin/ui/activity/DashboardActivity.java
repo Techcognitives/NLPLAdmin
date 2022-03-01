@@ -42,7 +42,7 @@ public class DashboardActivity extends AppCompatActivity {
 
     ActivityDashboardBinding binding;
     String filterBy = "All Users";
-    Dialog previewDialogProfile;
+    Dialog previewDialogProfile, dialogMenu;
     private RequestQueue mQueue;
     private ArrayList<UserResponses> userResponsesArrayList = new ArrayList<>();
     private DashboardAdapter dashboardAdapter;
@@ -67,6 +67,13 @@ public class DashboardActivity extends AppCompatActivity {
         previewDialogProfile = new Dialog(DashboardActivity.this);
         previewDialogProfile.setContentView(R.layout.dialog_preview_images);
         previewDialogProfile.getWindow().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.black)));
+
+        dialogMenu = new Dialog(DashboardActivity.this);
+        dialogMenu.setContentView(R.layout.dialog_menu);
+
+    }
+
+    public void action_bar_menu(){
 
     }
 

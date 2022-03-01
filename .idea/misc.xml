@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/DELL/AndroidStudioProjects/NLPLAdmin/app/src/main/res/drawable/all_rounded_small.xml" value="0.2203125" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/NLPLAdmin/app/src/main/res/drawable/bank.xml" value="0.2203125" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/NLPLAdmin/app/src/main/res/drawable/blue_profile_small.xml" value="0.2203125" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/NLPLAdmin/app/src/main/res/drawable/button_active.xml" value="0.2203125" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/NLPLAdmin/app/src/main/res/drawable/button_de_active.xml" value="0.2203125" />
@@ -18,9 +19,13 @@
         <entry key="..\:/Users/DELL/AndroidStudioProjects/NLPLAdmin/app/src/main/res/drawable/ic_upload.xml" value="0.2203125" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/NLPLAdmin/app/src/main/res/drawable/mobile_number_left_red.xml" value="0.2203125" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/NLPLAdmin/app/src/main/res/drawable/mobile_number_right_red.xml" value="0.2203125" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/NLPLAdmin/app/src/main/res/drawable/payments_small.xml" value="0.2203125" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/NLPLAdmin/app/src/main/res/drawable/personal.xml" value="0.2203125" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/NLPLAdmin/app/src/main/res/drawable/personal_details_buttons_active.xml" value="0.2203125" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/NLPLAdmin/app/src/main/res/drawable/personal_details_buttons_de_active.xml" value="0.2203125" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/NLPLAdmin/app/src/main/res/drawable/shadow_file.xml" value="0.2203125" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/NLPLAdmin/app/src/main/res/drawable/truck.xml" value="0.2203125" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/NLPLAdmin/app/src/main/res/drawable/truck_history_small.xml" value="0.2203125" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/NLPLAdmin/app/src/main/res/layout/action_bar.xml" value="0.33" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/NLPLAdmin/app/src/main/res/layout/activity_dashboard.xml" value="0.22" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/NLPLAdmin/app/src/main/res/layout/activity_log_in.xml" value="0.20416666666666666" />
@@ -32,6 +37,7 @@
         <entry key="..\:/Users/DELL/AndroidStudioProjects/NLPLAdmin/app/src/main/res/layout/activity_view_user_details.xml" value="0.25" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/NLPLAdmin/app/src/main/res/layout/custom_list_row.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/NLPLAdmin/app/src/main/res/layout/dialog_choose.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/NLPLAdmin/app/src/main/res/layout/dialog_menu.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/NLPLAdmin/app/src/main/res/layout/dialog_preview_images.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/NLPLAdmin/app/src/main/res/layout/dialog_spinner.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/NLPLAdmin/app/src/main/res/layout/pan_and_aadhar.xml" value="0.20416666666666666" />
