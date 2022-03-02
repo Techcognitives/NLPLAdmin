@@ -62,7 +62,6 @@ public class DashboardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_dashboard);
         binding.setHandlers(DashboardActivity.this);
-
         mQueue = Volley.newRequestQueue(DashboardActivity.this);
 
         LinearLayoutManager linearLayoutManagerBank = new LinearLayoutManager(getApplicationContext());
