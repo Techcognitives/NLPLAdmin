@@ -20,7 +20,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.nlpladmin.R;
 import com.example.nlpladmin.model.BidsAcceptedModel;
 import com.example.nlpladmin.model.UpdateMethods.UpdatePostLoadDetails;
-import com.example.nlpladmin.ui.activity.ManageBidOrLoadActivity;
+import com.example.nlpladmin.ui.activity.ManageLoadActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,13 +34,13 @@ import java.util.Calendar;
 public class BidsAcceptedAdapter extends RecyclerView.Adapter<BidsAcceptedAdapter.BidsAcceptedViewHolder> {
 
     private ArrayList<BidsAcceptedModel> acceptedList;
-    private ManageBidOrLoadActivity activity;
+    private ManageLoadActivity activity;
     ArrayList<String> arrayBidId, arrayBidStatus;
     String fianlBidId, bidEndsAt, currentTimeToCompare, bidEndsAtStringTime, finalBidEndsAt, finalDate;
     int timeLeftToExpire, timeInMillisec, minLeftToExpire, months;
     private RequestQueue mQueue;
 
-    public BidsAcceptedAdapter(ManageBidOrLoadActivity activity, ArrayList<BidsAcceptedModel> acceptedList) {
+    public BidsAcceptedAdapter(ManageLoadActivity activity, ArrayList<BidsAcceptedModel> acceptedList) {
         this.acceptedList = acceptedList;
         this.activity = activity;
     }

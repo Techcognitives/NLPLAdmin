@@ -1050,5 +1050,7 @@
     <string name="select_state">State</string>
     <string name="select_city">City</string>
     <string name="pin_code">PIN Code</string>
+    <string name="addTruck">+ Add Truck</string>
+    <string name="addDriver">+ Add Driver</string>
 
 </resources>

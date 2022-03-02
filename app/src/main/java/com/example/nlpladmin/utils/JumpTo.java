@@ -4,12 +4,13 @@ import android.app.Activity;
 import android.content.Intent;
 
 import com.example.nlpladmin.ui.activity.BankDetailsActivity;
-import com.example.nlpladmin.ui.activity.ManageBidOrLoadActivity;
+import com.example.nlpladmin.ui.activity.ManageLoadActivity;
 import com.example.nlpladmin.ui.activity.DashboardActivity;
 import com.example.nlpladmin.ui.activity.LogInActivity;
 import com.example.nlpladmin.ui.activity.PersonalDetailsActivity;
 import com.example.nlpladmin.ui.activity.PersonalDetailsAndIdProofActivity;
 import com.example.nlpladmin.ui.activity.PostALoadActivity;
+import com.example.nlpladmin.ui.activity.ServiceProviderDashboardActivity;
 import com.example.nlpladmin.ui.activity.ViewBankDetailsActivity;
 import com.example.nlpladmin.ui.activity.ViewDriverDetailsActivity;
 import com.example.nlpladmin.ui.activity.ViewPersonalDetailsActivity;
@@ -114,7 +115,7 @@ public class JumpTo {
     }
 
     public static void goToCustomerDashboard(Activity activity, String mobileNumber, Boolean isBidsReceived, Boolean isFinish){
-        Intent intent = new Intent(activity, ManageBidOrLoadActivity.class);
+        Intent intent = new Intent(activity, ManageLoadActivity.class);
         intent.putExtra("mobile", mobileNumber);
         intent.putExtra("bidsReceived", isBidsReceived);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -132,6 +133,18 @@ public class JumpTo {
         intent.putExtra("reActivate", reActivate);
         intent.putExtra("isEdit", isEdit);
         intent.putExtra("loadId", loadId);
+        activity.startActivity(intent);
+        if (isFinish){
+            activity.finish();
+        }
+        activity.overridePendingTransition(0, 0);
+    }
+
+    public static void goToServiceProviderDashboard(Activity activity, String mobileNumber, Boolean isFromLoadNotification, Boolean isFinish){
+        Intent intent = new Intent(activity, ServiceProviderDashboardActivity.class);
+        intent.putExtra("mobile2", mobileNumber);
+        intent.putExtra("loadNotification", isFromLoadNotification);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         activity.startActivity(intent);
         if (isFinish){
             activity.finish();

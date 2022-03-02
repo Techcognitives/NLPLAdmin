@@ -5,53 +5,56 @@ import android.icu.text.DecimalFormat;
 import android.icu.text.NumberFormat;
 import android.os.Build;
 import android.os.CountDownTimer;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.nlpladmin.R;
-import com.example.nlpladmin.model.BidsReceivedModel;
+import com.example.nlpladmin.model.BidSubmittedModel;
 import com.example.nlpladmin.model.UpdateMethods.UpdatePostLoadDetails;
-import com.example.nlpladmin.ui.activity.ManageLoadActivity;
+import com.example.nlpladmin.ui.activity.ServiceProviderDashboardActivity;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class BidsReceivedAdapter extends RecyclerView.Adapter<BidsReceivedAdapter.BidsReceivedViewHolder> {
+public class LoadSubmittedAdapter extends RecyclerView.Adapter<LoadSubmittedAdapter.LoadSubmittedViewHolder> {
 
-    private ArrayList<BidsReceivedModel> loadList;
-    private ManageLoadActivity activity;
-
-    String sortBy = "Sort By" , bidEndsAt, currentTimeToCompare, bidEndsAtStringTime, finalBidEndsAt, finalDate;
+    private ArrayList<BidSubmittedModel> loadSubmittedList;
+    private ServiceProviderDashboardActivity activity;
     private RequestQueue mQueue;
+    String bidEndsAt, currentTimeToCompare, bidEndsAtStringTime, finalBidEndsAt, finalDate;
     int timeLeftToExpire, timeInMillisec, minLeftToExpire, months;
 
-    public BidsReceivedAdapter(ManageLoadActivity activity, ArrayList<BidsReceivedModel> loadList) {
-        this.loadList = loadList;
+    public LoadSubmittedAdapter(ServiceProviderDashboardActivity activity, ArrayList<BidSubmittedModel> loadSubmittedList) {
+        this.loadSubmittedList = loadSubmittedList;
         this.activity = activity;
+    }
+
+    @Override
+    public LoadSubmittedViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         mQueue = Volley.newRequestQueue(activity);
+
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.load_list, parent, false);
+        return new LoadSubmittedViewHolder(view);
     }
 
     @Override
-    public BidsReceivedViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.bids_received_list, parent, false);
-        return new BidsReceivedViewHolder(view);
-    }
+    public void onBindViewHolder(LoadSubmittedViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
-    @Override
-    public void onBindViewHolder(BidsReceivedViewHolder holder, @SuppressLint("RecyclerView") int position) {
-        BidsReceivedModel obj = loadList.get(position);
+        BidSubmittedModel obj = loadSubmittedList.get(position);
 
         if (obj.getBid_ends_at().equals("null")) {
             bidEndsAt = "2022-02-01 12:05:11.598";
@@ -72,7 +75,6 @@ public class BidsReceivedAdapter extends RecyclerView.Adapter<BidsReceivedAdapte
         int year = currentTime.get(Calendar.YEAR);
         int month = currentTime.get(Calendar.MONTH);
         int day = currentTime.get(Calendar.DAY_OF_MONTH);
-
 
         if (month == 0) {
             months = 1;
@@ -114,9 +116,6 @@ public class BidsReceivedAdapter extends RecyclerView.Adapter<BidsReceivedAdapte
         }
 
         String dateEndsAt = bidEndsAt.substring(0, 10);
-
-        Log.i("Date from mobile", finalDate);
-        Log.i("Date from API", dateEndsAt);
 
         int sizeOfHr = String.valueOf(hour).length();
         int sizeOfMin = String.valueOf(minute).length();
@@ -163,7 +162,6 @@ public class BidsReceivedAdapter extends RecyclerView.Adapter<BidsReceivedAdapte
             String getSec = "0" + String.valueOf(seconds);
             currentTimeToCompare = getHour + ":" + getMin + ":" + getSec;
         }
-
         int endHr = Integer.valueOf(finalBidEndsAt.substring(0, 2));
         int currentHr = Integer.valueOf(currentTimeToCompare.substring(0, 2));
 
@@ -209,9 +207,6 @@ public class BidsReceivedAdapter extends RecyclerView.Adapter<BidsReceivedAdapte
         String dropCity = obj.getDrop_city();
         holder.destinationEnd.setText("  " + dropCity);
 
-        String budget = obj.getBudget();
-        holder.budget.setText("₹ " + budget);
-
         String date = obj.getPick_up_date();
         holder.date.setText("Date: " + date);
 
@@ -233,107 +228,129 @@ public class BidsReceivedAdapter extends RecyclerView.Adapter<BidsReceivedAdapte
         String bodyType = obj.getBody_type();
         holder.body.setText("Body: " + bodyType);
 
-        LinearLayoutManager linearLayoutManagerBank = new LinearLayoutManager(activity);
-        linearLayoutManagerBank.setReverseLayout(false);
-        linearLayoutManagerBank.setOrientation(LinearLayoutManager.VERTICAL);
-        holder.bidsResponsesRecyclerView.setLayoutManager(linearLayoutManagerBank);
-        holder.bidsResponsesRecyclerView.setHasFixedSize(true);
+        String pickUpLocation = obj.getPick_add();
+        holder.pickUpLocation.setText(" " + pickUpLocation);
 
-        holder.editLoadButton.setBackgroundTintList(activity.getResources().getColorStateList(R.color.orange));
-        holder.editLoadButton.setOnClickListener(new View.OnClickListener() {
+        //----------------------------------------------------------
+        String url = activity.getString(R.string.baseURL) + "/spbid/bidDtByBidId/" + obj.getBidId();
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new com.android.volley.Response.Listener<JSONObject>() {
             @Override
-            public void onClick(View view) {
-                activity.onClickEditLoadPost(obj);
+            public void onResponse(JSONObject response) {
+                try {
+                    JSONArray truckLists = response.getJSONArray("data");
+                    for (int i = 0; i < truckLists.length(); i++) {
+                        JSONObject obj1 = truckLists.getJSONObject(i);
+                        String bid_status = obj1.getString("bid_status");
+
+                        if (bid_status.equals("submittedNego")) {
+                            holder.budget.setText("₹" + obj1.getString("is_bid_accpted_by_sp"));
+                            holder.bidNowButton.setText("Bid Submitted");
+                        }
+
+                        if (bid_status.equals("Accepted")) {
+                            holder.budget.setText("₹" + obj1.getString("is_bid_accpted_by_sp"));
+                            holder.bidNowButton.setText("You Responded");
+                            holder.bidNowButton.setBackgroundTintList(activity.getResources().getColorStateList(R.color.button_blue));
+
+                        }
+
+                        if (bid_status.equals("AcceptedBySp")) {
+                            holder.budget.setText("₹" + obj1.getString("is_bid_accpted_by_sp"));
+                            holder.bidNowButton.setText("You Responded");
+                            holder.bidNowButton.setBackgroundTintList(activity.getResources().getColorStateList(R.color.button_blue));
+
+                        }
+
+                        if (bid_status.equals("RespondedByLp")) {
+                            holder.budget.setText("₹" + obj1.getString("is_bid_accpted_by_sp"));
+                            holder.bidNowButton.setText("Accept Revised");
+                            holder.bidNowButton.setBackgroundTintList(activity.getResources().getColorStateList(R.color.red));
+
+                            holder.bidNowButton.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    activity.acceptRevisedBid(obj);
+                                }
+                            });
+                        }
+                        if (bid_status.equals("submittedNonNego")) {
+                            holder.budget.setText("₹" + obj1.getString("is_bid_accpted_by_sp"));
+                            holder.bidNowButton.setText("You Responded");
+                            holder.bidNowButton.setBackgroundTintList(activity.getResources().getColorStateList(R.color.button_blue));
+                        }
+
+                        if (bid_status.equals("FinalAccepted")) {
+                            holder.budget.setText("₹" + obj1.getString("is_bid_accpted_by_sp"));
+                            holder.bidNowButton.setText("View Consignment");
+                            holder.bidNowButton.setBackgroundTintList(activity.getResources().getColorStateList(R.color.green));
+                            holder.bidNowButton.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    activity.viewConsignment(obj);
+                                }
+                            });
+                        }
+
+                        if (bid_status.equals("withdrawnByLp")){
+                            holder.budget.setText("₹" + obj1.getString("is_bid_accpted_by_sp"));
+                            holder.bidNowButton.setText("Customer Withdrawn");
+                            holder.bidNowButton.setBackgroundTintList(activity.getResources().getColorStateList(R.color.dark_grey));
+                        }
+
+                        if (bid_status.equals("withdrawnBySp")){
+                            holder.budget.setText("₹" + obj1.getString("is_bid_accpted_by_sp"));
+                            holder.bidNowButton.setText("You\n Withdrawn");
+                            holder.bidNowButton.setBackgroundTintList(activity.getResources().getColorStateList(R.color.dark_grey));
+                        }
+
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new com.android.volley.Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
             }
         });
 
-        activity.getBidsResponsesList(obj, holder.bidsResponsesRecyclerView, holder.bidsReceived, holder.showRecyclerView, sortBy);
-
-
-
-        if (obj.getSp_count()>3){
-
-        } else {
-
-            holder.sortBy.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-                @Override
-                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    //Change the selected item's text color
-                    try {
-                        ((TextView) view).setTextColor(activity.getResources().getColor(R.color.white));
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    if (parent.getSelectedItem().equals("By Recent Activity")){
-                        sortBy = "Sort By";
-                        activity.getBidsResponsesList(obj, holder.bidsResponsesRecyclerView, holder.bidsReceived, holder.showRecyclerView, sortBy);
-                    }
-                    if (parent.getSelectedItem().equals("By Price High-low")) {
-                        sortBy = "Price High-low";
-                        activity.getBidsResponsesList(obj, holder.bidsResponsesRecyclerView, holder.bidsReceived, holder.showRecyclerView, sortBy);
-                    }
-                    if (parent.getSelectedItem().equals("By Price Low-high")) {
-                        sortBy = "Price Low-high";
-                        activity.getBidsResponsesList(obj, holder.bidsResponsesRecyclerView, holder.bidsReceived, holder.showRecyclerView, sortBy);
-                    }
-                    if (parent.getSelectedItem().equals("By Latest Response")) {
-                        sortBy = "Recent Responses";
-                        activity.getBidsResponsesList(obj, holder.bidsResponsesRecyclerView, holder.bidsReceived, holder.showRecyclerView, sortBy);
-                    }
-                    if (parent.getSelectedItem().equals("By Initial Response")) {
-                        sortBy = "Initial Responses";
-                        activity.getBidsResponsesList(obj, holder.bidsResponsesRecyclerView, holder.bidsReceived, holder.showRecyclerView, sortBy);
-                    }
-
-                }
-
-                @Override
-                public void onNothingSelected(AdapterView<?> parent) {
-                }
-            });
-        }
-
+        mQueue.add(request);
+        //----------------------------------------------------------
     }
 
     @Override
     public int getItemCount() {
-        return loadList.size();
+        return loadSubmittedList.size();
     }
 
-    public void updateData(ArrayList<BidsReceivedModel> loadList ) {
-        this.loadList = loadList;
+    public void updateData(ArrayList<BidSubmittedModel> loadSubmittedList) {
+        this.loadSubmittedList = loadSubmittedList;
         notifyDataSetChanged();
     }
 
-    public class BidsReceivedViewHolder extends RecyclerView.ViewHolder {
-        private TextView timeLeft, destinationStart, destinationEnd, budget, date, time, distance, model, feet, capacity, body, editLoadButton, bidsReceived;
-        RecyclerView bidsResponsesRecyclerView;
-        Spinner sortBy;
-        ConstraintLayout showRecyclerView;
+    public class LoadSubmittedViewHolder extends RecyclerView.ViewHolder {
+        private TextView timeLeft, destinationStart, destinationEnd, budget, date, time, distance, model, feet, capacity, body, pickUpLocation, bidNowButton;
 
-        public BidsReceivedViewHolder(@NonNull View itemView) {
+        public LoadSubmittedViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            sortBy = itemView.findViewById(R.id.bids_received_list_sort_by_textview);
-            timeLeft = itemView.findViewById(R.id.bids_responses_time_left);
-            destinationStart = itemView.findViewById(R.id.bids_received_pick_up);
-            destinationEnd = itemView.findViewById(R.id.bids_responses_drop);
-            budget = itemView.findViewById(R.id.bids_responses_budget);
-            date = itemView.findViewById(R.id.bids_responses_pick_up_date);
-            time = itemView.findViewById(R.id.bids_responses_pick_up_time);
-            distance = itemView.findViewById(R.id.bids_responses_kms_approx);
-            model = itemView.findViewById(R.id.bids_responses_model);
-            feet = itemView.findViewById(R.id.bids_responses_feet);
-            capacity = itemView.findViewById(R.id.bids_responses_capacity);
-            body = itemView.findViewById(R.id.bids_responses_body);
-            editLoadButton = itemView.findViewById(R.id.bids_responses_edit_load_button);
-            bidsReceived = itemView.findViewById(R.id.bids_responses_no_of_responses);
-            bidsResponsesRecyclerView = itemView.findViewById(R.id.bids_received_recycler_view);
-            showRecyclerView = itemView.findViewById(R.id.bids_received_show_recycler_view_constrain);
+            timeLeft = itemView.findViewById(R.id.load_list_time_left);
+            destinationStart = itemView.findViewById(R.id.load_list_pick_up);
+            destinationEnd = itemView.findViewById(R.id.load_list_drop);
+            budget = itemView.findViewById(R.id.load_list_budget);
+            date = itemView.findViewById(R.id.load_list_pick_up_date);
+            time = itemView.findViewById(R.id.load_list_pick_up_time);
+            distance = itemView.findViewById(R.id.load_list_kms_approx);
+            model = itemView.findViewById(R.id.load_list_model);
+            feet = itemView.findViewById(R.id.load_list_feet);
+            capacity = itemView.findViewById(R.id.load_list_capacity);
+            body = itemView.findViewById(R.id.load_list_body);
+            pickUpLocation = itemView.findViewById(R.id.load_list_location);
+            bidNowButton = itemView.findViewById(R.id.load_list_bid_now_button);
 
         }
-
     }
-
+//--------------------------------------------------------------------------------------------------
 }
