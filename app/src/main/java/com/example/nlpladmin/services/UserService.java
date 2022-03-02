@@ -6,6 +6,7 @@ import com.example.nlpladmin.model.Models.UpdateUserDetails.UpdateUserIsBankDeta
 import com.example.nlpladmin.model.Models.UpdateUserDetails.UpdateUserIsCompanyAdded;
 import com.example.nlpladmin.model.Models.UpdateUserDetails.UpdateUserIsDriverAdded;
 import com.example.nlpladmin.model.Models.UpdateUserDetails.UpdateUserIsPersonalDetailsAdded;
+import com.example.nlpladmin.model.Models.UpdateUserDetails.UpdateUserIsProfileActive;
 import com.example.nlpladmin.model.Models.UpdateUserDetails.UpdateUserIsProfileAdded;
 import com.example.nlpladmin.model.Models.UpdateUserDetails.UpdateUserIsRegistrationDone;
 import com.example.nlpladmin.model.Models.UpdateUserDetails.UpdateUserIsTruckAdded;
@@ -75,6 +76,9 @@ public interface UserService {
 
     @PUT("/user/{userId}")
     Call<UpdateUserIsProfileAdded> updateUserIsProfileAdded(@Path("userId") String userId, @Body UpdateUserIsProfileAdded updateUserIsProfileAdded);
+
+    @PUT("/user/{userId}")
+    Call<UpdateUserIsProfileActive> updateUserIsProfileActive(@Path("userId") String userId, @Body UpdateUserIsProfileActive updateUserIsProfileActive);
 
     @PUT("/user/{userId}")
     Call<UpdateUserEmailId> updateUserEmailId(@Path("userId") String userId, @Body UpdateUserEmailId updateUserEmailId);

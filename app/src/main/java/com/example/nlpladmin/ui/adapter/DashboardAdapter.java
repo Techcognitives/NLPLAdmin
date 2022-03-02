@@ -56,7 +56,12 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.User
 //---------------------------------- Set Details ---------------------------------------------------
         holder.user_name.setText(obj.getName());
         holder.user_mobile.setText("+" + obj.getPhone_number());
-        holder.user_role.setText(obj.getUser_type());
+        if (obj.getUser_type().equals("Customer")){
+            holder.user_role.setText("Load Poster");
+        } else {
+            holder.user_role.setText(obj.getUser_type());
+        }
+
         holder.viewUser.setText("View");
 
         holder.user_mobile.setOnClickListener(new View.OnClickListener() {
@@ -65,6 +70,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.User
                 activity.onClickOpenDiler("+"+obj.getPhone_number());
             }
         });
+
 
 //        String url1 = activity.getString(R.string.baseURL) + "/imgbucket/Images/" + obj.getUser_id();
 //        JsonObjectRequest request1 = new JsonObjectRequest(Request.Method.GET, url1, null, new com.android.volley.Response.Listener<JSONObject>() {
