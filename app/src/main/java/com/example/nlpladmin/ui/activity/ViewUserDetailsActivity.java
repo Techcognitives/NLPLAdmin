@@ -3,9 +3,11 @@ package com.example.nlpladmin.ui.activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -29,6 +31,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import javax.crypto.spec.IvParameterSpec;
+
 public class ViewUserDetailsActivity extends AppCompatActivity {
 
     String userId, isProfileActive;
@@ -38,6 +42,7 @@ public class ViewUserDetailsActivity extends AppCompatActivity {
     TextView deactivateProfile, userName, userRole, userNumber, VSTick, PCTick, VSKyc, VSBank, VSTruck, VSDriver, PCPersonal, PCBank, PCTruck, PCDriver, VSTitle, PCTitle, VSViewBtn1, VSViewBtn2, VSViewBtn3, VSViewBtn4, PCViewBtn1, PCViewBtn2, PCViewBtn3, PCViewBtn4;
     ImageView profilePic;
     Dialog previewDialogProfile;
+    boolean isUserVerified;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -133,9 +138,34 @@ public class ViewUserDetailsActivity extends AppCompatActivity {
         VSViewBtn3.setOnClickListener(View -> onClickViewTruckDetails());
         VSViewBtn4.setOnClickListener(View -> onClickViewDriverDetails());
 
+        VSPersonalCheckBox.setOnClickListener(View -> onClickPersonalCheckbox());
+        VSBankCheckBox.setOnClickListener(View -> onClickBankCheckbox());
+        VSTruckCheckBox.setOnClickListener(View -> onClickTruckCheckbox());
+        VSDriverCheckBox.setOnClickListener(View -> onClickDriverCheckbox());
+
     }
 
-    public void viewProfile(View view){
+    private void onClickPersonalCheckbox() {
+        if (isUserVerified) {
+            UpdateUserDetails.updateIsUserVerified(userId, "0");
+        } else {
+            UpdateUserDetails.updateIsUserVerified(userId, "1");
+        }
+    }
+
+    private void onClickBankCheckbox() {
+
+    }
+
+    private void onClickTruckCheckbox() {
+
+    }
+
+    private void onClickDriverCheckbox() {
+
+    }
+
+    public void viewProfile(View view) {
         String url1 = getString(R.string.baseURL) + "/imgbucket/Images/" + userId;
         JsonObjectRequest request1 = new JsonObjectRequest(Request.Method.GET, url1, null, new com.android.volley.Response.Listener<JSONObject>() {
             @Override
@@ -195,27 +225,36 @@ public class ViewUserDetailsActivity extends AppCompatActivity {
 
                         JSONObject obj = truckLists.getJSONObject(i);
 
-                        if (obj.getString("isProfile_pic_added").equals("1")){
-                            getProfilePic();
+                        if (obj.getString("is_user_verfied").equals("1")){
+                            isUserVerified = true;
+                            VSPersonalCheckBox.setChecked(true);
                         } else {
-
+                            isUserVerified = false;
+                            VSPersonalCheckBox.setChecked(false);
                         }
 
-                        if (obj.getString("user_type").equals("Customer")){
+                        if (obj.getString("isProfile_pic_added").equals("1")) {
+                            getProfilePic();
+                        }
+
+                        if (obj.getString("user_type").equals("Customer")) {
                             userRole.setText("Load Poster");
                         } else {
                             userRole.setText(obj.getString("user_type"));
                         }
 
+                        String phone = obj.getString("phone_number");
                         userName.setText(obj.getString("name"));
-                        userNumber.setText(obj.getString("phone_number"));
+                        userNumber.setText("+" + obj.getString("phone_number"));
                         isProfileActive = obj.getString("is_account_active");
 
-                        if (isProfileActive.equals("null")){
+                        userNumber.setOnClickListener(View -> onClickOpenDialer(phone));
+
+                        if (isProfileActive.equals("null")) {
                             deactivateProfile.setBackground(getResources().getDrawable(R.drawable.red_color));
                             deactivateProfile.setText("Deactivate Profile");
                             deactivateProfile.setOnClickListener(View -> onClickDeactivateProfile("0"));
-                        }  else if (isProfileActive.equals("1")){
+                        } else if (isProfileActive.equals("1")) {
                             deactivateProfile.setBackground(getResources().getDrawable(R.drawable.red_color));
                             deactivateProfile.setText("Deactivate Profile");
                             deactivateProfile.setOnClickListener(View -> onClickDeactivateProfile("0"));
@@ -225,7 +264,7 @@ public class ViewUserDetailsActivity extends AppCompatActivity {
                             deactivateProfile.setOnClickListener(View -> onClickDeactivateProfile("1"));
                         }
 
-                        if (obj.getString("user_type").equals("Owner") || obj.getString("user_type").equals("Driver") || obj.getString("user_type").equals("Broker")){
+                        if (obj.getString("user_type").equals("Owner") || obj.getString("user_type").equals("Driver") || obj.getString("user_type").equals("Broker")) {
                             PCTruck.setVisibility(View.VISIBLE);
                             PCDriver.setVisibility(View.VISIBLE);
                             PCViewBtn3.setVisibility(View.VISIBLE);
@@ -251,32 +290,40 @@ public class ViewUserDetailsActivity extends AppCompatActivity {
                         //--------------------------------------------------------------------------------------------------------
                         if (obj.getString("isPersonal_dt_added").equals("1")) {
                             VSViewBtn1.setEnabled(true);
+                            VSPersonalCheckBox.setEnabled(true);
                             PCPersonal.setCompoundDrawablesWithIntrinsicBounds(R.drawable.right_small, 0, 0, 0);
                         } else {
+                            VSPersonalCheckBox.setEnabled(false);
                             VSViewBtn1.setEnabled(false);
                             PCPersonal.setCompoundDrawablesWithIntrinsicBounds(R.drawable.un_success_small, 0, 0, 0);
                         }
 
                         if (obj.getString("isBankDetails_given").equals("1")) {
+                            VSBankCheckBox.setEnabled(true);
                             VSViewBtn2.setEnabled(true);
                             PCBank.setCompoundDrawablesWithIntrinsicBounds(R.drawable.right_small, 0, 0, 0);
                         } else {
+                            VSBankCheckBox.setEnabled(false);
                             VSViewBtn2.setEnabled(false);
                             PCBank.setCompoundDrawablesWithIntrinsicBounds(R.drawable.un_success_small, 0, 0, 0);
                         }
 
                         if (obj.getString("isTruck_added").equals("1")) {
+                            VSTruckCheckBox.setEnabled(true);
                             VSViewBtn3.setEnabled(true);
                             PCTruck.setCompoundDrawablesWithIntrinsicBounds(R.drawable.right_small, 0, 0, 0);
                         } else {
+                            VSTruckCheckBox.setEnabled(false);
                             VSViewBtn3.setEnabled(false);
                             PCTruck.setCompoundDrawablesWithIntrinsicBounds(R.drawable.un_success_small, 0, 0, 0);
                         }
 
                         if (obj.getString("isDriver_added").equals("1")) {
+                            VSDriverCheckBox.setEnabled(true);
                             VSViewBtn4.setEnabled(true);
                             PCDriver.setCompoundDrawablesWithIntrinsicBounds(R.drawable.right_small, 0, 0, 0);
                         } else {
+                            VSDriverCheckBox.setEnabled(false);
                             VSViewBtn4.setEnabled(false);
                             PCDriver.setCompoundDrawablesWithIntrinsicBounds(R.drawable.un_success_small, 0, 0, 0);
                         }
@@ -293,6 +340,11 @@ public class ViewUserDetailsActivity extends AppCompatActivity {
             }
         });
         mQueue.add(request);
+    }
+
+    private void onClickOpenDialer(String phone_number) {
+        Intent i1 = new Intent(Intent.ACTION_VIEW, Uri.parse("tel:" + phone_number));
+        startActivity(i1);
     }
 
     private void getProfilePic() {
@@ -325,7 +377,7 @@ public class ViewUserDetailsActivity extends AppCompatActivity {
         mQueue.add(request1);
     }
 
-    public void  alertForActivation(String status){
+    public void alertForActivation(String status) {
 
         //----------------------- Alert Dialog -------------------------------------------------
         Dialog alert = new Dialog(ViewUserDetailsActivity.this);
@@ -346,7 +398,7 @@ public class ViewUserDetailsActivity extends AppCompatActivity {
         TextView alertPositiveButton = (TextView) alert.findViewById(R.id.dialog_alert_positive_button);
         TextView alertNegativeButton = (TextView) alert.findViewById(R.id.dialog_alert_negative_button);
 
-        if (status.equals("0")){
+        if (status.equals("0")) {
             alertTitle.setText("Account Deactivation");
             alertMessage.setText("User account deactivated successfully");
         } else {
@@ -370,7 +422,7 @@ public class ViewUserDetailsActivity extends AppCompatActivity {
 
     }
 
-    public void onClickViewAndVerifyKyc(){
+    public void onClickViewAndVerifyKyc() {
         JumpTo.viewPersonalDetailsActivity(ViewUserDetailsActivity.this, userId);
     }
 

@@ -1,5 +1,6 @@
 package com.example.nlpladmin.services;
 
+import com.example.nlpladmin.model.Models.UpdateUserDetails.UpdateIsUserVerified;
 import com.example.nlpladmin.model.Models.UpdateUserDetails.UpdateUserAddress;
 import com.example.nlpladmin.model.Models.UpdateUserDetails.UpdateUserEmailId;
 import com.example.nlpladmin.model.Models.UpdateUserDetails.UpdateUserIsBankDetailsGiven;
@@ -79,6 +80,9 @@ public interface UserService {
 
     @PUT("/user/{userId}")
     Call<UpdateUserIsProfileActive> updateUserIsProfileActive(@Path("userId") String userId, @Body UpdateUserIsProfileActive updateUserIsProfileActive);
+
+    @PUT("/user/{userId}")
+    Call<UpdateIsUserVerified> updateIsUserVerified(@Path("userId") String userId, @Body UpdateIsUserVerified updateIsUserVerified);
 
     @PUT("/user/{userId}")
     Call<UpdateUserEmailId> updateUserEmailId(@Path("userId") String userId, @Body UpdateUserEmailId updateUserEmailId);

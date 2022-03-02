@@ -3,6 +3,7 @@ package com.example.nlpladmin.model.UpdateMethods;
 import android.util.Log;
 
 
+import com.example.nlpladmin.model.Models.UpdateUserDetails.UpdateIsUserVerified;
 import com.example.nlpladmin.model.Models.UpdateUserDetails.UpdateUserAddress;
 import com.example.nlpladmin.model.Models.UpdateUserDetails.UpdateUserEmailId;
 import com.example.nlpladmin.model.Models.UpdateUserDetails.UpdateUserIsBankDetailsGiven;
@@ -362,6 +363,23 @@ public class UpdateUserDetails {
 
             @Override
             public void onFailure(Call<UpdateUserIsProfileActive> call, Throwable t) {
+
+            }
+        });
+    }
+
+    //-------------------------------- Update User is Profile Details -----------------------------
+    public static void updateIsUserVerified(String userId, String isUserVerified) {
+        UpdateIsUserVerified updateIsUserVerified = new UpdateIsUserVerified(isUserVerified);
+        Call<UpdateIsUserVerified> call = ApiClient.getUserService().updateIsUserVerified("" + userId, updateIsUserVerified);
+        call.enqueue(new Callback<UpdateIsUserVerified>() {
+            @Override
+            public void onResponse(Call<UpdateIsUserVerified> call, Response<UpdateIsUserVerified> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<UpdateIsUserVerified> call, Throwable t) {
 
             }
         });
