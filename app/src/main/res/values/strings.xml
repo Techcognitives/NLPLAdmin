@@ -975,14 +975,14 @@
     <string name="sort_by">Filter by </string>
 
     <string-array name="array_filter_by">
-        <item>All Users</item>
-        <item>Service Provider</item>
-        <item>Load Poster</item>
-        <item>Driver</item>
-        <item>Broker</item>
-        <item>unverified Profiles</item>
-        <!--        <item>Active Profiles</item>-->
-        <!--        <item>Inactive Profiles</item>-->
+        <item>Results for All Users</item>
+        <item>Results for Service Provider</item>
+        <item>Results for Load Poster</item>
+        <item>Results for Driver</item>
+        <item>Results for Broker</item>
+        <item>Results for Unverified Profiles</item>
+        <item>Results for Active Profiles</item>
+        <item>Results for Inactive Profiles</item>
     </string-array>
 
     //--------------------------------------Bid_now dialog------------------------------------------

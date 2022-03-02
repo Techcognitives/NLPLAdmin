@@ -48,7 +48,7 @@ import java.util.Comparator;
 public class DashboardActivity extends AppCompatActivity {
 
     ActivityDashboardBinding binding;
-    String filterBy = "All Users";
+    String filterBy = "Results for All Users";
     Dialog previewDialogProfile, dialogMenu;
     private RequestQueue mQueue;
     private ArrayList<UserResponses> userResponsesArrayList = new ArrayList<>();
@@ -108,36 +108,36 @@ public class DashboardActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int i, long l) {
 
-                if (parent.getSelectedItem().equals("All Users")) {
-                    filterBy = "All Users";
+                if (parent.getSelectedItem().equals("Results for All Users")) {
+                    filterBy = "Results for All Users";
                     getUsersList(filterBy);
                 }
-                if (parent.getSelectedItem().equals("Service Provider")) {
-                    filterBy = "Service Provider";
+                if (parent.getSelectedItem().equals("Results for Service Provider")) {
+                    filterBy = "Results for Service Provider";
                     getUsersList(filterBy);
                 }
-                if (parent.getSelectedItem().equals("Load Poster")) {
-                    filterBy = "Load Poster";
+                if (parent.getSelectedItem().equals("Results for Load Poster")) {
+                    filterBy = "Results for Load Poster";
                     getUsersList(filterBy);
                 }
-                if (parent.getSelectedItem().equals("Driver")) {
-                    filterBy = "Driver";
+                if (parent.getSelectedItem().equals("Results for Driver")) {
+                    filterBy = "Results for Driver";
                     getUsersList(filterBy);
                 }
-                if (parent.getSelectedItem().equals("Broker")) {
-                    filterBy = "Broker";
+                if (parent.getSelectedItem().equals("Results forBroker")) {
+                    filterBy = "Results for Broker";
                     getUsersList(filterBy);
                 }
-                if (parent.getSelectedItem().equals("unverified Profiles")) {
-                    filterBy = "unverified Profiles";
+                if (parent.getSelectedItem().equals("Results for Unverified Profiles")) {
+                    filterBy = "Results for Unverified Profiles";
                     getUsersList(filterBy);
                 }
-                if (parent.getSelectedItem().equals("Active Profiles")) {
-                    filterBy = "Active Profiles";
+                if (parent.getSelectedItem().equals("Results for Active Profiles")) {
+                    filterBy = "Results for Active Profiles";
                     getUsersList(filterBy);
                 }
-                if (parent.getSelectedItem().equals("Inactive Profiles")) {
-                    filterBy = "Inactive Profiles";
+                if (parent.getSelectedItem().equals("Results for Inactive Profiles")) {
+                    filterBy = "Results for Inactive Profiles";
                     getUsersList(filterBy);
                 }
             }
@@ -188,31 +188,41 @@ public class DashboardActivity extends AppCompatActivity {
                         userResponses.setDeleted_at(obj.getString("deleted_at"));
                         userResponses.setDeleted_by(obj.getString("deleted_by"));
 
-                        if (filterBy.equals("All Users")) {
+                        if (filterBy.equals("Results for All Users")) {
                             userResponsesArrayList.add(userResponses);
                         }
-                        if (filterBy.equals("Service Provider")) {
+                        if (filterBy.equals("Results for Service Provider")) {
                             if (obj.getString("user_type").equals("Owner")) {
                                 userResponsesArrayList.add(userResponses);
                             }
                         }
-                        if (filterBy.equals("Load Poster")) {
+                        if (filterBy.equals("Results for Load Poster")) {
                             if (obj.getString("user_type").equals("Customer")) {
                                 userResponsesArrayList.add(userResponses);
                             }
                         }
-                        if (filterBy.equals("Driver")) {
+                        if (filterBy.equals("Results for Driver")) {
                             if (obj.getString("user_type").equals("Driver")) {
                                 userResponsesArrayList.add(userResponses);
                             }
                         }
-                        if (filterBy.equals("Broker")) {
+                        if (filterBy.equals("Results for Broker")) {
                             if (obj.getString("user_type").equals("Broker")) {
                                 userResponsesArrayList.add(userResponses);
                             }
                         }
-                        if (filterBy.equals("unverified Profiles")) {
+                        if (filterBy.equals("Results for Unverified Profiles")) {
                             if (obj.getString("is_user_verfied").equals("1")) {
+                                userResponsesArrayList.add(userResponses);
+                            }
+                        }
+                        if (filterBy.equals("Results for Active Profiles")) {
+                            if (obj.getString("is_account_active").equals("1")) {
+                                userResponsesArrayList.add(userResponses);
+                            }
+                        }
+                        if (filterBy.equals("Results for Inactive Profiles")) {
+                            if (obj.getString("is_account_active").equals("0") || obj.getString("is_account_active").equals("null")) {
                                 userResponsesArrayList.add(userResponses);
                             }
                         }
@@ -477,4 +487,5 @@ public class DashboardActivity extends AppCompatActivity {
         //------------------------------------------------------------------------------------------------
 
     }
+
 }

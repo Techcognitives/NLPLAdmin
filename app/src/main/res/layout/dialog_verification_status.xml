@@ -208,7 +208,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="64dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginBottom="2dp"
         android:text="Tick the box if Verified"
         android:textAlignment="viewEnd"

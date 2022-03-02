@@ -3,12 +3,14 @@ package com.example.nlpladmin.model.UpdateMethods;
 import android.util.Log;
 
 
+import com.example.nlpladmin.model.Models.UpdateUserDetails.UpdateIsUserVerified;
 import com.example.nlpladmin.model.Models.UpdateUserDetails.UpdateUserAddress;
 import com.example.nlpladmin.model.Models.UpdateUserDetails.UpdateUserEmailId;
 import com.example.nlpladmin.model.Models.UpdateUserDetails.UpdateUserIsBankDetailsGiven;
 import com.example.nlpladmin.model.Models.UpdateUserDetails.UpdateUserIsCompanyAdded;
 import com.example.nlpladmin.model.Models.UpdateUserDetails.UpdateUserIsDriverAdded;
 import com.example.nlpladmin.model.Models.UpdateUserDetails.UpdateUserIsPersonalDetailsAdded;
+import com.example.nlpladmin.model.Models.UpdateUserDetails.UpdateUserIsProfileActive;
 import com.example.nlpladmin.model.Models.UpdateUserDetails.UpdateUserIsProfileAdded;
 import com.example.nlpladmin.model.Models.UpdateUserDetails.UpdateUserIsRegistrationDone;
 import com.example.nlpladmin.model.Models.UpdateUserDetails.UpdateUserIsTruckAdded;
@@ -344,6 +346,40 @@ public class UpdateUserDetails {
 
             @Override
             public void onFailure(Call<UpdateUserIsProfileAdded> call, Throwable t) {
+
+            }
+        });
+    }
+
+    //-------------------------------- Update User is Profile Details -----------------------------
+    public static void updateUserIsProfileActive(String userId, String isProfileActive) {
+        UpdateUserIsProfileActive updateUserIsProfileActive = new UpdateUserIsProfileActive(isProfileActive);
+        Call<UpdateUserIsProfileActive> call = ApiClient.getUserService().updateUserIsProfileActive("" + userId, updateUserIsProfileActive);
+        call.enqueue(new Callback<UpdateUserIsProfileActive>() {
+            @Override
+            public void onResponse(Call<UpdateUserIsProfileActive> call, Response<UpdateUserIsProfileActive> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<UpdateUserIsProfileActive> call, Throwable t) {
+
+            }
+        });
+    }
+
+    //-------------------------------- Update User is Profile Details -----------------------------
+    public static void updateIsUserVerified(String userId, String isUserVerified) {
+        UpdateIsUserVerified updateIsUserVerified = new UpdateIsUserVerified(isUserVerified);
+        Call<UpdateIsUserVerified> call = ApiClient.getUserService().updateIsUserVerified("" + userId, updateIsUserVerified);
+        call.enqueue(new Callback<UpdateIsUserVerified>() {
+            @Override
+            public void onResponse(Call<UpdateIsUserVerified> call, Response<UpdateIsUserVerified> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<UpdateIsUserVerified> call, Throwable t) {
 
             }
         });

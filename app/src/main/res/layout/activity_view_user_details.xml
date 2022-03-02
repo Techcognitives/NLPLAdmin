@@ -7,6 +7,24 @@
     android:background="@drawable/shadow_file"
     tools:context=".ui.activity.ViewUserDetailsActivity">
 
+    <TextView
+        android:id="@+id/user_details_deactivate_profile_btn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/red_color"
+        android:gravity="center"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:text="Deactivate Profile"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/customer_setting_and_preferences_profile_completeness" />
+
     <include
         android:id="@+id/customer_setting_and_preferences_user_list"
         layout="@layout/users_list"
