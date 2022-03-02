@@ -45,6 +45,7 @@ public class ViewPersonalDetailsActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             userId = bundle.getString("userId");
+            Log.i("userIdViewP", userId);
         }
 
         mQueue = Volley.newRequestQueue(ViewPersonalDetailsActivity.this);

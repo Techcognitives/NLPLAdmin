@@ -87,11 +87,11 @@ public class ManageLoadActivity extends AppCompatActivity {
 
     View actionBar;
     TextView actionBarTitle;
-    ImageView actionBarBackButton, actionBarMenuButton;
+    ImageView actionBarBackButton, actionBarMenuButton, profilePicture;
     Dialog previewDialogAcceptANdBid, setBudget, acceptFinalBid, viewConsignmentCustomer;
 
     ConstraintLayout loadAcceptedConstrain, bidsReceivedConstrain;
-    TextView quoteBySp1, timeLeftTextview, timeLeft00, loadAcceptedTextView, bidsReceivedTextView, customerQuote, submitResponseBtn, cancleBtn;
+    TextView quoteBySp1, lpNameProfile, lpRoleProfile, lpNumberProfile, viewProfile, timeLeftTextview, timeLeft00, loadAcceptedTextView, bidsReceivedTextView, customerQuote, submitResponseBtn, cancleBtn;
     RadioButton negotiable_yes, negotiable_no;
     EditText notesCustomer;
     String userId, phone, s1, customerEmail;
@@ -117,6 +117,18 @@ public class ManageLoadActivity extends AppCompatActivity {
         bidsReceivedConstrain = (ConstraintLayout) findViewById(R.id.customer_dashboard_bids_received_constrain);
         loadAcceptedTextView = (TextView) findViewById(R.id.customer_dashboard_loads_accepted_button);
         bidsReceivedTextView = (TextView) findViewById(R.id.customer_dashboard_bids_received_button);
+
+        profilePicture = (ImageView) findViewById(R.id.users_list_profilePhto);
+        lpNameProfile = (TextView) findViewById(R.id.users_list_name);
+        lpRoleProfile = (TextView) findViewById(R.id.users_list_role);
+        lpNumberProfile = (TextView) findViewById(R.id.user_list_number);
+        viewProfile = (TextView) findViewById(R.id.users_list_view_user);
+        viewProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                JumpTo.viewPersonalDetailsActivity(ManageLoadActivity.this, userId);
+            }
+        });
 
         if (isbidsReceivedSelected) {
             bidsReceivedSelected = true;
@@ -260,6 +272,10 @@ public class ManageLoadActivity extends AppCompatActivity {
                             String customerNumberAPI = arrayMobileNo.get(j);
                             s1 = customerNumberAPI.substring(2, 12);
                             customerEmail = arrayCustomerEmail.get(j);
+
+                            lpNameProfile.setText(customerNameAPI);
+                            lpRoleProfile.setText("Load Poster");
+                            lpNumberProfile.setText("+91 "+s1);
 
                             isPersonalDetailsDone = isPersonalD.get(j);
                             isProfileAdded = isProfileArray.get(j);
