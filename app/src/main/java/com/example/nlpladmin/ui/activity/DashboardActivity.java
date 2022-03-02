@@ -54,6 +54,7 @@ public class DashboardActivity extends AppCompatActivity {
     private ArrayList<UserResponses> userResponsesArrayList = new ArrayList<>();
     private DashboardAdapter dashboardAdapter;
     ImageView backButton;
+    ArrayList<String> arrayRole, arrayMobileNo;
     TextView title;
 
     @Override
@@ -92,6 +93,8 @@ public class DashboardActivity extends AppCompatActivity {
             binding.dashboardConstrainMenu.setVisibility(View.VISIBLE);
         });
 
+        arrayRole = new ArrayList<>();
+        arrayMobileNo = new ArrayList<>();
     }
 
     public void onClickOpenMenu(View view){
@@ -376,7 +379,7 @@ public class DashboardActivity extends AppCompatActivity {
 
         ok.setOnClickListener(view1 -> {
             manage.dismiss();
-            JumpTo.goToCustomerDashboard(DashboardActivity.this, "91"+search.getText().toString(), true, false);
+            checkPhoneInAPI("91"+search.getText().toString());
         });
 
         cancel.setOnClickListener(view1 -> {
@@ -389,6 +392,101 @@ public class DashboardActivity extends AppCompatActivity {
         title.setText("KYC Verification");
         binding.dashboardConstrain.setVisibility(View.VISIBLE);
         binding.dashboardConstrainMenu.setVisibility(View.INVISIBLE);
+    }
+
+    private void checkPhoneInAPI(String getMobile) {
+        String receivedMobile = getMobile;
+
+        //------------------------------get user details by mobile Number---------------------------------
+        //-----------------------------------Get User Details---------------------------------------
+        String url = getString(R.string.baseURL) + "/user/get";
+        Log.i("URL at Profile:", url);
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new com.android.volley.Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    JSONArray jsonArray = response.getJSONArray("data");
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject data = jsonArray.getJSONObject(i);
+                        String userRole = data.getString("user_type");
+                        String mobileNoAPI = data.getString("phone_number");
+
+                        arrayMobileNo.add(mobileNoAPI);
+                        arrayRole.add(userRole);
+                    }
+
+                    for (int j = 0; j < arrayMobileNo.size(); j++) {
+                        if (arrayMobileNo.get(j).equals(receivedMobile)) {
+
+//                            driverUserIdGet = arrayUserId.get(j);
+//                            String nameGet = arrayName.get(j);
+//                            String phoneGet = arrayMobileNo.get(j);
+//                            String addressGet = arrayAddress.get(j);
+//                            String pinCodeGet = arrayPinCode.get(j);
+//                            String cityGet = arrayCity.get(j);
+                            String roleGet = arrayRole.get(j);
+//                            String isRegistrationDoneGet = arrayRegDone.get(j);
+                            if (roleGet.equals("Customer")){
+                                JumpTo.goToCustomerDashboard(DashboardActivity.this, getMobile, true, false);
+                            }else{
+                                JumpTo.goToServiceProviderDashboard(DashboardActivity.this, getMobile, true, false);
+                            }
+
+                            break;
+                        } else {
+                            //----------------------- Alert Dialog -------------------------------------------------
+                            Dialog alert = new Dialog(DashboardActivity.this);
+                            alert.setContentView(R.layout.dialog_alert);
+                            alert.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                            WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+                            lp.copyFrom(alert.getWindow().getAttributes());
+                            lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+                            lp.height = WindowManager.LayoutParams.MATCH_PARENT;
+                            lp.gravity = Gravity.CENTER;
+
+                            alert.show();
+                            alert.getWindow().setAttributes(lp);
+                            alert.setCancelable(false);
+
+                            TextView alertTitle = (TextView) alert.findViewById(R.id.dialog_alert_title);
+                            TextView alertMessage = (TextView) alert.findViewById(R.id.dialog_alert_message);
+                            TextView alertPositiveButton = (TextView) alert.findViewById(R.id.dialog_alert_positive_button);
+                            TextView alertNegativeButton = (TextView) alert.findViewById(R.id.dialog_alert_negative_button);
+
+                            alertTitle.setText("User not found");
+                            alertMessage.setText("User does not exists in the database");
+                            alertPositiveButton.setVisibility(View.GONE);
+                            alertNegativeButton.setText("OK");
+                            alertNegativeButton.setBackground(getResources().getDrawable(R.drawable.button_active));
+                            alertNegativeButton.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.button_blue)));
+
+                            alertNegativeButton.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    alert.dismiss();
+                                }
+                            });
+
+                            //------------------------------------------------------------------------------------------
+                        }
+                    }
+
+//
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new com.android.volley.Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        mQueue.add(request);
+
+        //------------------------------------------------------------------------------------------------
+
     }
 
 }

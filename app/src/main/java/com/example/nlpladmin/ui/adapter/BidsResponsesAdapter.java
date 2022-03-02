@@ -18,7 +18,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.nlpladmin.R;
 import com.example.nlpladmin.model.BidsResponsesModel;
-import com.example.nlpladmin.ui.activity.ManageBidOrLoadActivity;
+import com.example.nlpladmin.ui.activity.ManageLoadActivity;
 import com.example.nlpladmin.utils.DownloadImageTask;
 
 import org.json.JSONArray;
@@ -30,12 +30,12 @@ import java.util.ArrayList;
 public class BidsResponsesAdapter extends RecyclerView.Adapter<BidsResponsesAdapter.BidsResponsesViewHolder> {
 
     private ArrayList<BidsResponsesModel> bidsResponsesList;
-    private ManageBidOrLoadActivity activity;
+    private ManageLoadActivity activity;
     private RequestQueue mQueue;
 
     String name;
 
-    public BidsResponsesAdapter(ManageBidOrLoadActivity activity, ArrayList<BidsResponsesModel> bidsResponsesList) {
+    public BidsResponsesAdapter(ManageLoadActivity activity, ArrayList<BidsResponsesModel> bidsResponsesList) {
         this.bidsResponsesList = bidsResponsesList;
         this.activity = activity;
         mQueue = Volley.newRequestQueue(activity);

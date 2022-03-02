@@ -58,7 +58,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-public class ManageBidOrLoadActivity extends AppCompatActivity {
+public class ManageLoadActivity extends AppCompatActivity {
 
     SwipeRefreshLayout swipeRefreshLayout;
     private RequestQueue mQueue;
@@ -104,14 +104,14 @@ public class ManageBidOrLoadActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_manage_bid_or_load);
+        setContentView(R.layout.activity_manage_load);
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             phone = bundle.getString("mobile");
         }
         isbidsReceivedSelected = bundle.getBoolean("bidsReceived");
-        mQueue = Volley.newRequestQueue(ManageBidOrLoadActivity.this);
+        mQueue = Volley.newRequestQueue(ManageLoadActivity.this);
 
         loadAcceptedConstrain = (ConstraintLayout) findViewById(R.id.customer_dashboard_loads_accepted_constrain);
         bidsReceivedConstrain = (ConstraintLayout) findViewById(R.id.customer_dashboard_bids_received_constrain);
@@ -135,7 +135,7 @@ public class ManageBidOrLoadActivity extends AppCompatActivity {
 
         getUserId(phone);
 
-        loadingDialog = new Dialog(ManageBidOrLoadActivity.this);
+        loadingDialog = new Dialog(ManageLoadActivity.this);
         loadingDialog.setContentView(R.layout.dialog_loading);
         loadingDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
@@ -151,7 +151,7 @@ public class ManageBidOrLoadActivity extends AppCompatActivity {
         loadingDialog.setCancelable(true);
         loadingDialog.getWindow().setAttributes(lp2);
 
-        Animation rotate = AnimationUtils.loadAnimation(ManageBidOrLoadActivity.this, R.anim.clockwiserotate);
+        Animation rotate = AnimationUtils.loadAnimation(ManageLoadActivity.this, R.anim.clockwiserotate);
         loading_img.startAnimation(rotate);
 
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
@@ -174,7 +174,7 @@ public class ManageBidOrLoadActivity extends AppCompatActivity {
         actionBarBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ManageBidOrLoadActivity.this.finish();
+                ManageLoadActivity.this.finish();
             }
         });
         //------------------------------------------------------------------------------------------
@@ -193,7 +193,7 @@ public class ManageBidOrLoadActivity extends AppCompatActivity {
         bidsListRecyclerView.setLayoutManager(linearLayoutManagerBank);
         bidsListRecyclerView.setHasFixedSize(true);
 
-        bidsListAdapter = new BidsReceivedAdapter(ManageBidOrLoadActivity.this, bidsList);
+        bidsListAdapter = new BidsReceivedAdapter(ManageLoadActivity.this, bidsList);
         bidsListRecyclerView.setAdapter(bidsListAdapter);
         //------------------------------------------------------------------------------------------
 
@@ -206,19 +206,19 @@ public class ManageBidOrLoadActivity extends AppCompatActivity {
         bidsAcceptedRecyclerView.setLayoutManager(linearLayoutManagerAccepted);
         bidsAcceptedRecyclerView.setHasFixedSize(true);
 
-        bidsAcceptedAdapter = new BidsAcceptedAdapter(ManageBidOrLoadActivity.this, acceptedList);
+        bidsAcceptedAdapter = new BidsAcceptedAdapter(ManageLoadActivity.this, acceptedList);
         bidsAcceptedRecyclerView.setAdapter(bidsAcceptedAdapter);
         //------------------------------------------------------------------------------------------
 
-        previewDialogAcceptANdBid = new Dialog(ManageBidOrLoadActivity.this);
+        previewDialogAcceptANdBid = new Dialog(ManageLoadActivity.this);
         previewDialogAcceptANdBid.setContentView(R.layout.dialog_acept_bid_customer);
         previewDialogAcceptANdBid.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-        acceptFinalBid = new Dialog(ManageBidOrLoadActivity.this);
+        acceptFinalBid = new Dialog(ManageLoadActivity.this);
         acceptFinalBid.setContentView(R.layout.dialog_acept_bid_customer);
         acceptFinalBid.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-        viewConsignmentCustomer = new Dialog(ManageBidOrLoadActivity.this);
+        viewConsignmentCustomer = new Dialog(ManageLoadActivity.this);
         viewConsignmentCustomer.setContentView(R.layout.dialog_acept_bid_customer);
         viewConsignmentCustomer.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
     }
@@ -295,7 +295,7 @@ public class ManageBidOrLoadActivity extends AppCompatActivity {
     }
 
     public void RearrangeItems() {
-        JumpTo.goToCustomerDashboard(ManageBidOrLoadActivity.this, phone, bidsReceivedSelected, true);
+        JumpTo.goToCustomerDashboard(ManageLoadActivity.this, phone, bidsReceivedSelected, true);
     }
 
     public void getBidsAccepted() {
@@ -394,7 +394,7 @@ public class ManageBidOrLoadActivity extends AppCompatActivity {
     }
 
     public void onClickPostALoad(View view) {
-        JumpTo.goToPostALoad(ManageBidOrLoadActivity.this, userId, phone, false, false, null, false);
+        JumpTo.goToPostALoad(ManageLoadActivity.this, userId, phone, false, false, null, false);
     }
 
     public void getBidsReceived() {
@@ -558,7 +558,7 @@ public class ManageBidOrLoadActivity extends AppCompatActivity {
         cancleBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                JumpTo.goToCustomerDashboard(ManageBidOrLoadActivity.this, phone, bidsReceivedSelected, true);
+                JumpTo.goToCustomerDashboard(ManageLoadActivity.this, phone, bidsReceivedSelected, true);
                 previewDialogAcceptANdBid.dismiss();
             }
         });
@@ -575,7 +575,7 @@ public class ManageBidOrLoadActivity extends AppCompatActivity {
                 UpdatePostLoadDetails.updateCount(obj.getIdpost_load(), count + 1);
 
                 //----------------------- Alert Dialog -------------------------------------------------
-                Dialog alert = new Dialog(ManageBidOrLoadActivity.this);
+                Dialog alert = new Dialog(ManageLoadActivity.this);
                 alert.setContentView(R.layout.dialog_alert);
                 alert.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
@@ -606,7 +606,7 @@ public class ManageBidOrLoadActivity extends AppCompatActivity {
 
                         if (count == 3) {
                             //----------------------- Alert Dialog -------------------------------------------------
-                            Dialog alert = new Dialog(ManageBidOrLoadActivity.this);
+                            Dialog alert = new Dialog(ManageLoadActivity.this);
                             alert.setContentView(R.layout.dialog_alert);
                             alert.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                             WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
@@ -635,7 +635,7 @@ public class ManageBidOrLoadActivity extends AppCompatActivity {
                                 @Override
                                 public void onClick(View view) {
                                     alert.dismiss();
-                                    Intent intent = new Intent(ManageBidOrLoadActivity.this, ManageBidOrLoadActivity.class);
+                                    Intent intent = new Intent(ManageLoadActivity.this, ManageLoadActivity.class);
                                     intent.putExtra("userId", userId);
                                     intent.putExtra("mobile", phone);
                                     intent.putExtra("bidsReveived", bidsReceivedSelected);
@@ -647,7 +647,7 @@ public class ManageBidOrLoadActivity extends AppCompatActivity {
                             //------------------------------------------------------------------------------------------
                         } else {
                             alert.dismiss();
-                            Intent intent = new Intent(ManageBidOrLoadActivity.this, ManageBidOrLoadActivity.class);
+                            Intent intent = new Intent(ManageLoadActivity.this, ManageLoadActivity.class);
                             intent.putExtra("userId", userId);
                             intent.putExtra("mobile", phone);
                             intent.putExtra("bidsReveived", bidsReceivedSelected);
@@ -705,7 +705,7 @@ public class ManageBidOrLoadActivity extends AppCompatActivity {
 
     private void budgetSet(String previousBudget) {
 
-        setBudget = new Dialog(ManageBidOrLoadActivity.this);
+        setBudget = new Dialog(ManageLoadActivity.this);
         setBudget.setContentView(R.layout.dialog_budget);
 
         WindowManager.LayoutParams lp2 = new WindowManager.LayoutParams();
@@ -828,7 +828,7 @@ public class ManageBidOrLoadActivity extends AppCompatActivity {
     }
 
     public void onClickEditLoadPost(BidsReceivedModel obj) {
-        JumpTo.goToPostALoad(ManageBidOrLoadActivity.this, userId, phone, false, true, obj.getIdpost_load(), false);
+        JumpTo.goToPostALoad(ManageLoadActivity.this, userId, phone, false, true, obj.getIdpost_load(), false);
     }
 
 
@@ -875,7 +875,7 @@ public class ManageBidOrLoadActivity extends AppCompatActivity {
                     }
 
                     if (obj1.getSp_count() >= 3) {
-                        bidsResponsesAdapter = new BidsResponsesAdapter(ManageBidOrLoadActivity.this, bidResponsesList);
+                        bidsResponsesAdapter = new BidsResponsesAdapter(ManageLoadActivity.this, bidResponsesList);
                         bidsResponsesRecyclerView.setAdapter(bidsResponsesAdapter);
                         bidsResponsesAdapter.updateData(bidResponsesList);
                     } else {
@@ -896,19 +896,19 @@ public class ManageBidOrLoadActivity extends AppCompatActivity {
                                         }
                                     });
 
-                                    bidsResponsesAdapter = new BidsResponsesAdapter(ManageBidOrLoadActivity.this, bidResponsesList);
+                                    bidsResponsesAdapter = new BidsResponsesAdapter(ManageLoadActivity.this, bidResponsesList);
                                     bidsResponsesRecyclerView.setAdapter(bidsResponsesAdapter);
                                     bidsResponsesAdapter.updateData(bidResponsesList);
                                 }
 
                                 if (sortBy.equals("Recent Responses")) {
-                                    bidsResponsesAdapter = new BidsResponsesAdapter(ManageBidOrLoadActivity.this, bidResponsesList);
+                                    bidsResponsesAdapter = new BidsResponsesAdapter(ManageLoadActivity.this, bidResponsesList);
                                     bidsResponsesRecyclerView.setAdapter(bidsResponsesAdapter);
                                     bidsResponsesAdapter.updateData(bidResponsesList);
                                 }
 
                                 if (sortBy.equals("Initial Responses")) {
-                                    bidsResponsesAdapter = new BidsResponsesAdapter(ManageBidOrLoadActivity.this, bidResponsesList);
+                                    bidsResponsesAdapter = new BidsResponsesAdapter(ManageLoadActivity.this, bidResponsesList);
                                     bidsResponsesRecyclerView.setAdapter(bidsResponsesAdapter);
                                     bidsResponsesAdapter.updateData(bidResponsesList);
                                 }
@@ -925,7 +925,7 @@ public class ManageBidOrLoadActivity extends AppCompatActivity {
                                         }
                                     });
 
-                                    bidsResponsesAdapter = new BidsResponsesAdapter(ManageBidOrLoadActivity.this, bidResponsesList);
+                                    bidsResponsesAdapter = new BidsResponsesAdapter(ManageLoadActivity.this, bidResponsesList);
                                     bidsResponsesRecyclerView.setAdapter(bidsResponsesAdapter);
                                     bidsResponsesAdapter.updateData(bidResponsesList);
                                 }
@@ -942,7 +942,7 @@ public class ManageBidOrLoadActivity extends AppCompatActivity {
                                         }
                                     });
 
-                                    bidsResponsesAdapter = new BidsResponsesAdapter(ManageBidOrLoadActivity.this, bidResponsesList);
+                                    bidsResponsesAdapter = new BidsResponsesAdapter(ManageLoadActivity.this, bidResponsesList);
                                     bidsResponsesRecyclerView.setAdapter(bidsResponsesAdapter);
                                     bidsResponsesAdapter.updateData(bidResponsesList);
                                 }
@@ -1065,7 +1065,7 @@ public class ManageBidOrLoadActivity extends AppCompatActivity {
         cancleBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                JumpTo.goToCustomerDashboard(ManageBidOrLoadActivity.this, phone, bidsReceivedSelected, true);
+                JumpTo.goToCustomerDashboard(ManageLoadActivity.this, phone, bidsReceivedSelected, true);
                 acceptFinalBid.dismiss();
             }
         });
@@ -1297,7 +1297,7 @@ public class ManageBidOrLoadActivity extends AppCompatActivity {
                         public void onClick(View view) {
 
                             //----------------------- Alert Dialog -------------------------------------------------
-                            Dialog alert = new Dialog(ManageBidOrLoadActivity.this);
+                            Dialog alert = new Dialog(ManageLoadActivity.this);
                             alert.setContentView(R.layout.dialog_alert);
                             alert.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                             WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
@@ -1333,7 +1333,7 @@ public class ManageBidOrLoadActivity extends AppCompatActivity {
                                     UpdatePostLoadDetails.updateStatus(obj.getIdpost_load(), "delete");
 
                                     //----------------------- Alert Dialog -------------------------------------------------
-                                    Dialog alert = new Dialog(ManageBidOrLoadActivity.this);
+                                    Dialog alert = new Dialog(ManageLoadActivity.this);
                                     alert.setContentView(R.layout.dialog_alert);
                                     alert.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                                     WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
@@ -1363,7 +1363,7 @@ public class ManageBidOrLoadActivity extends AppCompatActivity {
                                         public void onClick(View view) {
                                             alert.dismiss();
                                             viewConsignmentCustomer.dismiss();
-                                            JumpTo.goToCustomerDashboard(ManageBidOrLoadActivity.this, phone, bidsReceivedSelected, true);
+                                            JumpTo.goToCustomerDashboard(ManageLoadActivity.this, phone, bidsReceivedSelected, true);
                                         }
                                     });
                                     //------------------------------------------------------------------------------------------
@@ -1380,7 +1380,7 @@ public class ManageBidOrLoadActivity extends AppCompatActivity {
                                     UpdateBidDetails.updateBidStatus(fianlBidId, "withdrawnByLp");
 
                                     //----------------------- Alert Dialog -------------------------------------------------
-                                    Dialog alert = new Dialog(ManageBidOrLoadActivity.this);
+                                    Dialog alert = new Dialog(ManageLoadActivity.this);
                                     alert.setContentView(R.layout.dialog_alert);
                                     alert.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                                     WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
@@ -1410,7 +1410,7 @@ public class ManageBidOrLoadActivity extends AppCompatActivity {
                                         public void onClick(View view) {
                                             alert.dismiss();
                                             viewConsignmentCustomer.dismiss();
-                                            JumpTo.goToCustomerDashboard(ManageBidOrLoadActivity.this, phone, bidsReceivedSelected, true);
+                                            JumpTo.goToCustomerDashboard(ManageLoadActivity.this, phone, bidsReceivedSelected, true);
                                         }
                                     });
                                     //------------------------------------------------------------------------------------------
@@ -1434,7 +1434,7 @@ public class ManageBidOrLoadActivity extends AppCompatActivity {
                     cancleBtn.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            JumpTo.goToCustomerDashboard(ManageBidOrLoadActivity.this, phone, bidsReceivedSelected, true);
+                            JumpTo.goToCustomerDashboard(ManageLoadActivity.this, phone, bidsReceivedSelected, true);
                             viewConsignmentCustomer.dismiss();
                         }
                     });
@@ -1541,7 +1541,7 @@ public class ManageBidOrLoadActivity extends AppCompatActivity {
 
     public void continueWithOtherSp(BidsAcceptedModel obj) {
         //----------------------- Alert Dialog -------------------------------------------------
-        Dialog alert = new Dialog(ManageBidOrLoadActivity.this);
+        Dialog alert = new Dialog(ManageLoadActivity.this);
         alert.setContentView(R.layout.dialog_alert);
         alert.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
@@ -1572,7 +1572,7 @@ public class ManageBidOrLoadActivity extends AppCompatActivity {
             public void onClick(View view) {
                 alert.dismiss();
                 viewConsignmentCustomer.dismiss();
-                JumpTo.goToCustomerDashboard(ManageBidOrLoadActivity.this, phone, bidsReceivedSelected, true);
+                JumpTo.goToCustomerDashboard(ManageLoadActivity.this, phone, bidsReceivedSelected, true);
             }
         });
         //------------------------------------------------------------------------------------------
@@ -1585,7 +1585,7 @@ public class ManageBidOrLoadActivity extends AppCompatActivity {
                 UpdatePostLoadDetails.updateStatus(obj.getIdpost_load(), "loadPosted");
 
                 //----------------------- Alert Dialog -------------------------------------------------
-                Dialog alert = new Dialog(ManageBidOrLoadActivity.this);
+                Dialog alert = new Dialog(ManageLoadActivity.this);
                 alert.setContentView(R.layout.dialog_alert);
                 alert.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
@@ -1615,7 +1615,7 @@ public class ManageBidOrLoadActivity extends AppCompatActivity {
                     public void onClick(View view) {
                         alert.dismiss();
                         viewConsignmentCustomer.dismiss();
-                        JumpTo.goToCustomerDashboard(ManageBidOrLoadActivity.this, phone, bidsReceivedSelected, true);
+                        JumpTo.goToCustomerDashboard(ManageLoadActivity.this, phone, bidsReceivedSelected, true);
                     }
                 });
                 //------------------------------------------------------------------------------------------
@@ -1626,7 +1626,7 @@ public class ManageBidOrLoadActivity extends AppCompatActivity {
     final Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             int state = msg.getData().getInt("state");
-            if (state == 1){
+            if (state == 1) {
                 loadingDialog.dismiss();
             }
         }
@@ -1650,44 +1650,9 @@ public class ManageBidOrLoadActivity extends AppCompatActivity {
 //                        pinCode = obj.getString("pin_code");
                         String role = obj.getString("user_type");
 
-                        if (role.equals("Customer")){
-                        }else{
+                        if (role.equals("Customer")) {
+                        } else {
                             loadingDialog.dismiss();
-                            //----------------------- Alert Dialog -------------------------------------------------
-                            Dialog alert = new Dialog(ManageBidOrLoadActivity.this);
-                            alert.setContentView(R.layout.dialog_alert);
-                            alert.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                            WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-                            lp.copyFrom(alert.getWindow().getAttributes());
-                            lp.width = WindowManager.LayoutParams.MATCH_PARENT;
-                            lp.height = WindowManager.LayoutParams.MATCH_PARENT;
-                            lp.gravity = Gravity.CENTER;
-
-                            alert.show();
-                            alert.getWindow().setAttributes(lp);
-                            alert.setCancelable(false);
-
-                            TextView alertTitle = (TextView) alert.findViewById(R.id.dialog_alert_title);
-                            TextView alertMessage = (TextView) alert.findViewById(R.id.dialog_alert_message);
-                            TextView alertPositiveButton = (TextView) alert.findViewById(R.id.dialog_alert_positive_button);
-                            TextView alertNegativeButton = (TextView) alert.findViewById(R.id.dialog_alert_negative_button);
-
-                            alertTitle.setText("No Loads Available");
-                            alertMessage.setText(role + " can not Post a Load");
-                            alertPositiveButton.setVisibility(View.GONE);
-                            alertNegativeButton.setText("OK");
-                            alertNegativeButton.setBackground(getResources().getDrawable(R.drawable.button_active));
-                            alertNegativeButton.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.button_blue)));
-
-                            alertNegativeButton.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    alert.dismiss();
-                                    JumpTo.dashboardActivity(ManageBidOrLoadActivity.this);
-                                }
-                            });
-
-                            //------------------------------------------------------------------------------------------
                         }
                     }
                 } catch (JSONException e) {

@@ -35,7 +35,7 @@
             android:textColor="@color/white"
             android:textColorHint="@color/grey"
             android:background="@drawable/edit_text_border_grey"
-            android:drawableStart="@drawable/find_small"
+            android:drawableStart="@drawable/search_small"
             android:ems="10"
             android:hint="  Search (User, Truck, etc..)"
             android:inputType="textPersonName"
