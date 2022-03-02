@@ -1,19 +1,13 @@
 package com.example.nlpladmin.ui.activity;
 
-
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.Dialog;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.content.Context;
+
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.location.Address;
@@ -24,7 +18,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.provider.MediaStore;
+
 import android.text.Editable;
 import android.text.Html;
 import android.text.TextWatcher;
@@ -52,7 +46,6 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -72,13 +65,11 @@ import com.example.nlpladmin.model.UpdateMethods.UpdateBidDetails;
 import com.example.nlpladmin.ui.adapter.LoadNotificationAdapter;
 import com.example.nlpladmin.ui.adapter.LoadSubmittedAdapter;
 import com.example.nlpladmin.utils.ApiClient;
-import com.example.nlpladmin.utils.DownloadImageTask;
 import com.example.nlpladmin.utils.EnglishNumberToWords;
 import com.example.nlpladmin.utils.FooThread;
 import com.example.nlpladmin.utils.GetCurrentLocation;
+
 import com.example.nlpladmin.utils.JumpTo;
-import com.example.nlpladmin.utils.SelectCity;
-import com.example.nlpladmin.utils.SelectState;
 import com.example.nlpladmin.utils.ShowAlert;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -89,17 +80,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 
@@ -107,77 +93,24 @@ public class ServiceProviderDashboardActivity extends AppCompatActivity {
 
     SwipeRefreshLayout swipeRefreshLayout;
     FusedLocationProviderClient fusedLocationProviderClient;
-
-    private RequestQueue mQueue;
-    boolean isBackPressed = false;
-    String img_type, pathForRC, pathForInsurance, pathForDL, pathForSelfie;
-    TextView textRC, editRC, textDS, textDL;
-    TextView textInsurance, editInsurance;
-    int requestCode;
-    int resultCode;
-    Intent data;
-    EditText vehicleNumberEdit, driverMobile;
-    private int CAMERA_PIC_REQUEST_profile = 8;
-    private int GET_FROM_GALLERY_profile = 5;
-    int GET_FROM_GALLERY_vehicle = 4;
-    int GET_FROM_GALLERY1_vehicle2 = 1;
-    int CAMERA_PIC_REQUEST1_vehicle = 7;
-    int CAMERA_PIC_REQUEST2_vehicle2 = 12;
-    int GET_FROM_GALLERY = 0;
-    int GET_FROM_GALLERY1 = 11;
-    int CAMERA_PIC_REQUEST = 45;
-    int CAMERA_PIC_REQUEST1 = 61;
-    Boolean fromBidNow = false, isDLUploaded = false, isEdit, isSelfieUploded = false, idDLEdited = false;
-    Boolean isRcUploaded = false, isInsurance = false, truckSelected = false, isModelSelected = false;
-    ImageView previewRcBook, previewInsurance, previewRcBookImageView, previewInsuranceImageView, driverLicenseImage, driverSelfieImg, previewDrivingLicense, previewSelfie, previewDLImageView, previewSelfieImageView;
-    Dialog previewDialogDL, previewDialogSelfie;
-    Button okDriverDetails;
-    CheckBox driverCheckBox;
+    RequestQueue mQueue;
     GetCurrentLocation getCurrentLocation;
-
-    EditText driverName, driverNumber, driverEmail, driverAddress, driverPinCode;
-    TextView driverState, driverCity, driverSeries, setLocation, editDL, editDS;
-
-    private ArrayList<LoadNotificationModel> loadList = new ArrayList<>();
-    private ArrayList<LoadNotificationModel> loadListToCompare = new ArrayList<>();
-
-    private ArrayList<BidSubmittedModel> loadSubmittedList = new ArrayList<>();
-    private ArrayList<BidSubmittedModel> updatedLoadSubmittedList = new ArrayList<>();
-
-    private LoadNotificationAdapter loadListAdapter;
-    private LoadSubmittedAdapter loadSubmittedAdapter;
-    private RecyclerView loadListRecyclerView, loadSubmittedRecyclerView;
-
-    RadioButton openSelected, closeSelected, tarpaulinSelected;
+    ArrayList<LoadNotificationModel> loadList = new ArrayList<>(), loadListToCompare = new ArrayList<>();
+    ArrayList<BidSubmittedModel> loadSubmittedList = new ArrayList<>(), updatedLoadSubmittedList = new ArrayList<>();
+    LoadNotificationAdapter loadListAdapter;
+    LoadSubmittedAdapter loadSubmittedAdapter;
+    RecyclerView loadListRecyclerView, loadSubmittedRecyclerView;
     Dialog loadingDialog, setBudget, selectTruckDialog, previewDialogBidNow, dialogAcceptRevisedBid, dialogViewConsignment;
-    Dialog previewDialogRcBook, previewDialogInsurance;
-
-    String updateAssignedDriverId, selectedState, s1, truckIdPass, updateAssignedTruckId, bodyTypeSelected, spQuoteOnClickBidNow, bidStatus, vehicle_no, truckId, isProfileAdded, isPersonalDetailsDone, isBankDetailsDone, isTruckDetailsDone, isDriverDetailsDone, isFirmDetailsDone;
-
-    SwipeListener swipeListener;
-    ArrayList<String> arrayVehicleType, arrayToDisplayCapacity, updatedArrayTruckFt, arrayTruckFtForCompare, arrayCapacityForCompare, arrayTruckFt, arrayCapacity;
-
-    ImageView openType, closedType, tarpaulinType;
+    String updateAssignedDriverId, mobile, name, address, pinCode, city, role, emailIdAPI, s1, updateAssignedTruckId, bidStatus, vehicle_no, loadId, selectedDriverId, selectedDriverName, userId, userIdAPI, phone, mobileNoAPI, truckId, isProfileAdded, isPersonalDetailsDone, isBankDetailsDone, isTruckDetailsDone, isDriverDetailsDone, isFirmDetailsDone;
+    ArrayList<String> arrayUserId, arrayTruckId, arrayDriverId, arrayDriverName, arrayTruckList, arrayMobileNo, arrayDriverMobileNo, arrayPinCode, arrayName, arrayRole, arrayCity, arrayAddress, arrayRegDone;
     View actionBar;
-    TextView customerNumber, customerNumberHeading, customerName, customerNameHeading, customerFirstBudget, customerSecondBudget, cancel2, cancel, acceptAndBid, spQuote, addDriver, selectDriver, addTruck, selectTruck, selectedTruckModel, selectedTruckFeet, selectedTruckCapacity, selectedTruckBodyType, actionBarTitle;
-    EditText notesSp, addTruckVehicleNumber;
+    TextView customerNumber, viewProfile, spNumberProfile, spNameProfile, spRoleProfile, loadNotificationTextView, bidsSubmittedTextView, currentLocationText, customerNumberHeading, customerName, timeLeft00, timeLeftTextview, partitionTextview, customerNameHeading, customerFirstBudget, customerSecondBudget, cancel2, cancel, acceptAndBid, spQuote, addDriver, selectDriver, addTruck, selectTruck, selectedTruckModel, selectedTruckFeet, selectedTruckCapacity, selectedTruckBodyType, actionBarTitle;
+    EditText notesSp;
     CheckBox declaration;
     RadioButton negotiable_yes, negotiable_no;
-    Boolean isLoadNotificationSelected, loadNotificationSelected, profileAdded, isTruckSelectedToBid = false, negotiable = null, isNegotiableSelected = false, fromAdapter = false;
-    ImageView actionBarBackButton, actionBarMenuButton;
-
-    TextView addTruckModel, addTruckFeet, addTruckCapacity;
-
-    WindowManager.LayoutParams lpForTruck;
-    TextView timeLeft00, timeLeftTextview, partitionTextview;
-
+    Boolean isLoadNotificationSelected, loadNotificationSelected, isTruckSelectedToBid = false, negotiable = null, isNegotiableSelected = false, fromAdapter = false;
+    ImageView actionBarBackButton, profilePicture, actionBarMenuButton;
     ConstraintLayout loadNotificationConstrain, bidsSubmittedConstrain;
-    TextView loadNotificationTextView, bidsSubmittedTextView, currentLocationText;
-
-    String loadId, selectedDriverId, selectedDriverName, userId, userIdAPI, phone, mobileNoAPI, vehicle_typeAPI, truck_ftAPI, truck_carrying_capacityAPI;
-    ArrayList<String> arrayUserId, arrayTruckId, arrayDriverId, arrayDriverName, arrayTruckList, arrayMobileNo, arrayDriverMobileNo, arrayPinCode, arrayName, arrayRole, arrayCity, arrayAddress, arrayRegDone;
-
-    String mobile, name, address, pinCode, city, role, emailIdAPI;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -199,6 +132,17 @@ public class ServiceProviderDashboardActivity extends AppCompatActivity {
         bidsSubmittedConstrain = (ConstraintLayout) findViewById(R.id.dashboard_bids_submitted_constrain);
         loadNotificationTextView = (TextView) findViewById(R.id.dashboard_load_notification_button);
         bidsSubmittedTextView = (TextView) findViewById(R.id.dashboard_bids_submitted_button);
+        profilePicture = (ImageView) findViewById(R.id.users_list_profilePhto);
+        spNameProfile = (TextView) findViewById(R.id.users_list_name);
+        spRoleProfile = (TextView) findViewById(R.id.users_list_role);
+        spNumberProfile = (TextView) findViewById(R.id.user_list_number);
+        viewProfile = (TextView) findViewById(R.id.users_list_view_user);
+        viewProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                JumpTo.viewPersonalDetailsActivity(ServiceProviderDashboardActivity.this, userId);
+            }
+        });
 
         getCurrentLocation = new GetCurrentLocation();
 
@@ -226,24 +170,14 @@ public class ServiceProviderDashboardActivity extends AppCompatActivity {
         actionBarBackButton = (ImageView) actionBar.findViewById(R.id.action_bar_back_button);
         actionBarMenuButton = (ImageView) actionBar.findViewById(R.id.action_bar_menu_button);
 
-        actionBarTitle.setText("SP Dashboard");
-        actionBarMenuButton.setVisibility(View.VISIBLE);
-        actionBarBackButton.setVisibility(View.GONE);
-
+        actionBarTitle.setText("Service Provider Dashboard");
+        actionBarMenuButton.setVisibility(View.GONE);
+        actionBarBackButton.setVisibility(View.VISIBLE);
+        actionBarBackButton.setOnClickListener(view -> {
+            ServiceProviderDashboardActivity.this.finish();
+        });
 
         //------------------------------------------------------------------------------------------
-        arrayVehicleType = new ArrayList<>();
-        arrayToDisplayCapacity = new ArrayList<>();
-        updatedArrayTruckFt = new ArrayList<>();
-        arrayTruckFtForCompare = new ArrayList<>();
-        arrayCapacityForCompare = new ArrayList<>();
-        arrayTruckFt = new ArrayList<>();
-        arrayCapacity = new ArrayList<>();
-        arrayVehicleType.add("Tata");
-        arrayVehicleType.add("Mahindra");
-        arrayVehicleType.add("Eicher");
-        arrayVehicleType.add("Other");
-
         arrayUserId = new ArrayList<>();
         arrayMobileNo = new ArrayList<>();
         arrayDriverMobileNo = new ArrayList<>();
@@ -259,7 +193,6 @@ public class ServiceProviderDashboardActivity extends AppCompatActivity {
         arrayDriverName = new ArrayList<>();
 
         getUserId(phone);
-
         loadListRecyclerView = (RecyclerView) findViewById(R.id.dashboard_load_notification_recycler_view);
         loadSubmittedRecyclerView = (RecyclerView) findViewById(R.id.dashboard_load_notification_submitted_recycler_view);
 
@@ -309,7 +242,7 @@ public class ServiceProviderDashboardActivity extends AppCompatActivity {
 
     public void RearrangeItems() {
         getLocation();
-//        JumpTo.goToServiceProviderDashboard(ServiceProviderDashboardActivity.this, phone, loadNotificationSelected);
+        JumpTo.goToServiceProviderDashboard(ServiceProviderDashboardActivity.this, phone, loadNotificationSelected, true);
     }
 
     private void getUserId(String userMobileNumber) {
@@ -416,6 +349,9 @@ public class ServiceProviderDashboardActivity extends AppCompatActivity {
                         //-------------------------------------Personal details ---- -------------------------------------
                         s1 = mobile.substring(2, 12);
 
+                        spNameProfile.setText(name);
+                        spRoleProfile.setText(role);
+                        spNumberProfile.setText("+91 "+s1);
 
                         if (isProfileAdded.equals("1")) {
 //                            getProfilePic();
@@ -2020,11 +1956,6 @@ public class ServiceProviderDashboardActivity extends AppCompatActivity {
         });
         mQueue.add(request);
         //----------------------------------------------------------
-    }
-
-    public void onClickGetCurrentLocation(View view) {
-//        GetCurrentLocation.getCurrentLocation(RegistrationActivity.this, address, pinCode, selectStateText, selectDistrictText);
-        getCurrentLocation.getCurrentLocationMaps(ServiceProviderDashboardActivity.this, driverAddress, driverPinCode);
     }
 
     public void openMaps(LoadNotificationModel obj) {

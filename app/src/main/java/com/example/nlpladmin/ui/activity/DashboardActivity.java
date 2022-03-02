@@ -431,7 +431,6 @@ public class DashboardActivity extends AppCompatActivity {
                             }else{
                                 JumpTo.goToServiceProviderDashboard(DashboardActivity.this, getMobile, true, false);
                             }
-
                             break;
                         } else {
                             //----------------------- Alert Dialog -------------------------------------------------
@@ -444,7 +443,7 @@ public class DashboardActivity extends AppCompatActivity {
                             lp.height = WindowManager.LayoutParams.MATCH_PARENT;
                             lp.gravity = Gravity.CENTER;
 
-                            alert.show();
+//                            alert.show();
                             alert.getWindow().setAttributes(lp);
                             alert.setCancelable(false);
 

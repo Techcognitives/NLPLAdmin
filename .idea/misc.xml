@@ -60,10 +60,12 @@
         <entry key="..\:/Users/abhij/AndroidStudioProjects/NLPLAdmin/app/src/main/res/layout/activity_dashboard.xml" value="0.30480072463768115" />
         <entry key="..\:/Users/abhij/AndroidStudioProjects/NLPLAdmin/app/src/main/res/layout/activity_log_in.xml" value="0.21557971014492755" />
         <entry key="..\:/Users/abhij/AndroidStudioProjects/NLPLAdmin/app/src/main/res/layout/activity_manage_bid_or_load.xml" value="0.2259963768115942" />
+        <entry key="..\:/Users/abhij/AndroidStudioProjects/NLPLAdmin/app/src/main/res/layout/activity_manage_load.xml" value="0.3625" />
         <entry key="..\:/Users/abhij/AndroidStudioProjects/NLPLAdmin/app/src/main/res/layout/activity_personal_details.xml" value="0.29393115942028986" />
         <entry key="..\:/Users/abhij/AndroidStudioProjects/NLPLAdmin/app/src/main/res/layout/activity_post_aload.xml" value="0.3625" />
         <entry key="..\:/Users/abhij/AndroidStudioProjects/NLPLAdmin/app/src/main/res/layout/activity_view_bank_details.xml" value="0.2536231884057971" />
         <entry key="..\:/Users/abhij/AndroidStudioProjects/NLPLAdmin/app/src/main/res/layout/activity_view_driver_details.xml" value="0.2536231884057971" />
+        <entry key="..\:/Users/abhij/AndroidStudioProjects/NLPLAdmin/app/src/main/res/layout/activity_view_personal_details.xml" value="0.203125" />
         <entry key="..\:/Users/abhij/AndroidStudioProjects/NLPLAdmin/app/src/main/res/layout/activity_view_truck_details.xml" value="0.2536231884057971" />
         <entry key="..\:/Users/abhij/AndroidStudioProjects/NLPLAdmin/app/src/main/res/layout/activity_view_user_details.xml" value="0.29393115942028986" />
         <entry key="..\:/Users/abhij/AndroidStudioProjects/NLPLAdmin/app/src/main/res/layout/bank_list.xml" value="0.29393115942028986" />
@@ -84,6 +86,7 @@
         <entry key="..\:/Users/abhij/AndroidStudioProjects/NLPLAdmin/app/src/main/res/layout/load_list.xml" value="0.3625" />
         <entry key="..\:/Users/abhij/AndroidStudioProjects/NLPLAdmin/app/src/main/res/layout/my_driver_list.xml" value="0.29393115942028986" />
         <entry key="..\:/Users/abhij/AndroidStudioProjects/NLPLAdmin/app/src/main/res/layout/my_truck_list.xml" value="0.29393115942028986" />
+        <entry key="..\:/Users/abhij/AndroidStudioProjects/NLPLAdmin/app/src/main/res/layout/personal_and_address.xml" value="0.20364583333333333" />
         <entry key="..\:/Users/abhij/AndroidStudioProjects/NLPLAdmin/app/src/main/res/layout/users_list.xml" value="0.322463768115942" />
       </map>
     </option>
