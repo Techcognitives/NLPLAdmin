@@ -250,4 +250,10 @@ public class ViewPersonalDetailsActivity extends AppCompatActivity {
     public void onClickAddPersonalDetails(View view) {
         JumpTo.personalDetailsActivity(ViewPersonalDetailsActivity.this, userId, false);
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        JumpTo.viewUserDetailsActivity(ViewPersonalDetailsActivity.this, userId);
+    }
 }
