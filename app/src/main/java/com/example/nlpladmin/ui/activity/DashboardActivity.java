@@ -12,6 +12,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -22,6 +23,7 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -56,7 +58,7 @@ public class DashboardActivity extends AppCompatActivity {
     ImageView backButton;
     ArrayList<String> arrayRole, arrayMobileNo;
     TextView title;
-    Boolean isVisible;
+    Boolean isVisible, isBackPressed = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -396,6 +398,47 @@ public class DashboardActivity extends AppCompatActivity {
         binding.dashboardConstrainMenu.setVisibility(View.INVISIBLE);
     }
 
+    public void onClickDeActivateUser(View view){
+        Dialog manage = new Dialog(DashboardActivity.this);
+        manage.setContentView(R.layout.dialog_manage_load);
+        manage.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(manage.getWindow().getAttributes());
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        lp.height = WindowManager.LayoutParams.MATCH_PARENT;
+        lp.gravity = Gravity.CENTER;
+
+        manage.show();
+        manage.getWindow().setAttributes(lp);
+        manage.setCancelable(true);
+
+        TextView alertTitle = (TextView) manage.findViewById(R.id.dialog_manage_load_title);
+        EditText search = (EditText) manage.findViewById(R.id.dialog_manage_load_search);
+        TextView ok = (TextView) manage.findViewById(R.id.dialog_manage_load_left_button);
+        TextView cancel = (TextView) manage.findViewById(R.id.dialog_manage_load_right_button);
+        alertTitle.setText("Deactivate User Account");
+
+        ok.setOnClickListener(view1 -> {
+            manage.dismiss();
+            ArrayList<UserResponses> searchUserByNumber = new ArrayList<>();
+            for (UserResponses item : userResponsesArrayList) {
+                if (item.getPhone_number().toLowerCase().contains("91"+search.getText().toString())) {
+                    searchUserByNumber.add(item);
+                }
+            }
+            dashboardAdapter.updateData(searchUserByNumber);
+
+            backButton.setVisibility(View.VISIBLE);
+            title.setText("Deactivate User Account");
+            binding.dashboardConstrain.setVisibility(View.VISIBLE);
+            binding.dashboardConstrainMenu.setVisibility(View.INVISIBLE);
+        });
+
+        cancel.setOnClickListener(view1 -> {
+            manage.dismiss();
+        });
+    }
+
     public void onClickTrucksVerification(View view){
         JumpTo.viewTruckDetailsActivity(DashboardActivity.this, null, false, true);
     }
@@ -502,14 +545,20 @@ public class DashboardActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        if (isVisible) {
-            title.setText("Dashboard");
-            backButton.setVisibility(View.INVISIBLE);
-            binding.dashboardConstrain.setVisibility(View.INVISIBLE);
-            binding.dashboardConstrainMenu.setVisibility(View.VISIBLE);
-        }else{
-
+        if (isBackPressed) {
+            finishAffinity();
+            System.exit(0);
+        } else {
+            Toast.makeText(getApplicationContext(), "Please click back again to exit", Toast.LENGTH_SHORT).show();
+            isBackPressed = true;
         }
+
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                isBackPressed = false;
+            }
+        };
+        new Handler().postDelayed(runnable, 3000);
     }
 }
