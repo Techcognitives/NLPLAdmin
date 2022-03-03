@@ -65,13 +65,12 @@ public class ViewTruckDetailsActivity extends AppCompatActivity {
     ImageView previewDL, previewSelfie;
 
     ArrayList<String> arrayuserAllDrivers;
-
     View actionBar;
     TextView actionBarTitle;
     ImageView actionBarBackButton, actionBarMenuButton;
 
     EditText searchVehicle;
-
+    Boolean allTrucks;
     Dialog previewDialogDriverDetails;
     TextView previewDriverDetailsTitle, previewDriverDetailsDriverName, previewDriverDetailsDriverNumber, textviewGone, textviewGone2, previewDriverDetailsDriverEmails, previewDriverDetailsDriverLicence, previewDriverDetailsDriverSelfie, previewDriverDetailsAssignDriverButton, previewDriverDetailsOKButton, previewDriverDetailsMessage;
 
@@ -83,6 +82,7 @@ public class ViewTruckDetailsActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             userId = bundle.getString("userId");
+            allTrucks = bundle.getBoolean("allTrucks");
         }
 
         mQueue = Volley.newRequestQueue(ViewTruckDetailsActivity.this);
@@ -118,10 +118,15 @@ public class ViewTruckDetailsActivity extends AppCompatActivity {
 
         arrayuserAllDrivers = new ArrayList<>();
 
-        truckListAdapter = new TrucksAdapter(ViewTruckDetailsActivity.this, truckList);
+        truckListAdapter = new TrucksAdapter(ViewTruckDetailsActivity.this, truckList, allTrucks);
         truckListRecyclerView.setAdapter(truckListAdapter);
 
-        getTruckList();
+        if (allTrucks){
+            getTruckAllList();
+        }else{
+            getTruckList();
+        }
+
         //------------------------------------------------------------------------------------------
         previewDialogDL = new Dialog(ViewTruckDetailsActivity.this);
         previewDialogDL.setContentView(R.layout.dialog_preview_images);
@@ -199,7 +204,12 @@ public class ViewTruckDetailsActivity extends AppCompatActivity {
     }
 
     public void RearrangeItems() {
-        JumpTo.viewTruckDetailsActivity(ViewTruckDetailsActivity.this, userId, true);
+        if (allTrucks){
+            JumpTo.viewTruckDetailsActivity(ViewTruckDetailsActivity.this, userId, true, true);
+        }else{
+            JumpTo.viewTruckDetailsActivity(ViewTruckDetailsActivity.this, userId, true, false);
+        }
+
     }
 
     public void getTruckList() {
@@ -226,6 +236,74 @@ public class ViewTruckDetailsActivity extends AppCompatActivity {
                         model.setVehicle_insurance(obj.getString("vehicle_insurance"));
                         model.setTruck_id(obj.getString("truck_id"));
                         model.setDriver_id(obj.getString("driver_id"));
+                        model.setCreated_at(obj.getString("created_at"));
+                        model.setUpdated_at(obj.getString("updated_at"));
+                        model.setUpdated_by(obj.getString("updated_by"));
+                        model.setDeleted_at(obj.getString("deleted_at"));
+                        model.setDeleted_by(obj.getString("deleted_by"));
+                        model.setIs_rc_verified(obj.getString("is_rc_verified"));
+                        model.setIs_insurance_verified(obj.getString("is_insurance_verified"));
+                        truckList.add(model);
+                    }
+                    if (truckList.size() > 0) {
+                        truckListAdapter.updateData(truckList);
+                    } else {
+                    }
+
+//                    if (truckList.size() > 5) {
+//                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+//                        params.height = 235; //height recycleviewer
+//                        truckListRecyclerView.setLayoutParams(params);
+//                    } else {
+//                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+//                        truckListRecyclerView.setLayoutParams(params);
+//                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new com.android.volley.Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+        mQueue.add(request);
+        //-------------------------------------------------------------------------------------------
+    }
+
+    public void getTruckAllList() {
+        //---------------------------- Get Truck Details -------------------------------------------
+        String url1 = getString(R.string.baseURL) + "/truck/get";
+        Log.i("URL: ", url1);
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url1, null, new com.android.volley.Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    truckList = new ArrayList<>();
+                    JSONArray truckLists = response.getJSONArray("data");
+                    for (int i = 0; i < truckLists.length(); i++) {
+                        JSONObject obj = truckLists.getJSONObject(i);
+                        TruckModel model = new TruckModel();
+                        model.setUser_id(obj.getString("user_id"));
+                        model.setVehicle_no(obj.getString("vehicle_no"));
+                        model.setTruck_type(obj.getString("truck_type"));
+                        model.setVehicle_type(obj.getString("vehicle_type"));
+                        model.setTruck_ft(obj.getString("truck_ft"));
+                        model.setTruck_carrying_capacity(obj.getString("truck_carrying_capacity"));
+                        model.setRc_book(obj.getString("rc_book"));
+                        model.setVehicle_insurance(obj.getString("vehicle_insurance"));
+                        model.setTruck_id(obj.getString("truck_id"));
+                        model.setDriver_id(obj.getString("driver_id"));
+                        model.setCreated_at(obj.getString("created_at"));
+                        model.setUpdated_at(obj.getString("updated_at"));
+                        model.setUpdated_by(obj.getString("updated_by"));
+                        model.setDeleted_at(obj.getString("deleted_at"));
+                        model.setDeleted_by(obj.getString("deleted_by"));
+                        model.setIs_rc_verified(obj.getString("is_rc_verified"));
+                        model.setIs_insurance_verified(obj.getString("is_insurance_verified"));
                         truckList.add(model);
                     }
                     if (truckList.size() > 0) {
@@ -257,7 +335,7 @@ public class ViewTruckDetailsActivity extends AppCompatActivity {
     }
 
     public void getTruckDetails(TruckModel obj) {
-
+        JumpTo.goToVehicleDetailsActivity(ViewTruckDetailsActivity.this, userId, phone, true, false, false, false,null, obj.getTruck_id());
     }
 
     public void getOnClickPreviewTruckRcBook(TruckModel obj) {
@@ -403,7 +481,11 @@ public class ViewTruckDetailsActivity extends AppCompatActivity {
 
     public void onClickCloseDialogDriverBankDetails(View view) {
         previewDialogDriverDetails.dismiss();
-        JumpTo.viewTruckDetailsActivity(ViewTruckDetailsActivity.this, userId, true);
+        if (allTrucks){
+            JumpTo.viewTruckDetailsActivity(ViewTruckDetailsActivity.this, userId, true, true);
+        }else{
+            JumpTo.viewTruckDetailsActivity(ViewTruckDetailsActivity.this, userId, true, false);
+        }
     }
 
     public void onClickReAssignTruck(View view) {
@@ -440,7 +522,7 @@ public class ViewTruckDetailsActivity extends AppCompatActivity {
                         modelDriver.setTruck_id(obj.getString("truck_id"));
                         modelDriver.setDriver_id(obj.getString("driver_id"));
                         modelDriver.setDriver_name(obj.getString("driver_name"));
-                        modelDriver.setUpload_lc(obj.getString("upload_dl"));
+                        modelDriver.setUpload_dl(obj.getString("upload_dl"));
                         modelDriver.setDriver_selfie(obj.getString("driver_selfie"));
                         modelDriver.setDriver_number(obj.getString("driver_number"));
                         modelDriver.setDriver_emailId(obj.getString("driver_emailId"));
@@ -469,12 +551,20 @@ public class ViewTruckDetailsActivity extends AppCompatActivity {
     public void onClickCancelSelectBind(View view) {
         previewDialogSpinner.dismiss();
         previewDialogDriverDetails.dismiss();
-        JumpTo.viewTruckDetailsActivity(ViewTruckDetailsActivity.this, userId, true);
+        if (allTrucks){
+            JumpTo.viewTruckDetailsActivity(ViewTruckDetailsActivity.this, userId, true, true);
+        }else{
+            JumpTo.viewTruckDetailsActivity(ViewTruckDetailsActivity.this, userId, true, false);
+        }
     }
 
     public void onClickReAssignDriver(DriverModel obj) {
         UpdateTruckDetails.updateTruckDriverId(truckIdPass, obj.getDriver_id());
-        JumpTo.viewTruckDetailsActivity(ViewTruckDetailsActivity.this, userId, true);
+        if (allTrucks){
+            JumpTo.viewTruckDetailsActivity(ViewTruckDetailsActivity.this, userId, true, true);
+        }else{
+            JumpTo.viewTruckDetailsActivity(ViewTruckDetailsActivity.this, userId, true, false);
+        }
     }
 
     private TextWatcher searchVehicleWatcher = new TextWatcher() {

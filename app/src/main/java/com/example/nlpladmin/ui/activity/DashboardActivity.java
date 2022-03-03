@@ -396,9 +396,20 @@ public class DashboardActivity extends AppCompatActivity {
         binding.dashboardConstrainMenu.setVisibility(View.INVISIBLE);
     }
 
+    public void onClickTrucksVerification(View view){
+        JumpTo.viewTruckDetailsActivity(DashboardActivity.this, null, false, true);
+    }
+
+    public void onClickDriverVerification(View view){
+        JumpTo.viewDriverDetailsActivity(DashboardActivity.this, null, false, true);
+    }
+
+    public void onClickBankVerification(View view){
+        JumpTo.viewBankDetailsActivity(DashboardActivity.this, null, false, true);
+    }
+
     private void checkPhoneInAPI(String getMobile) {
         String receivedMobile = getMobile;
-
         //------------------------------get user details by mobile Number---------------------------------
         //-----------------------------------Get User Details---------------------------------------
         String url = getString(R.string.baseURL) + "/user/get";

@@ -441,14 +441,14 @@ public class ViewUserDetailsActivity extends AppCompatActivity {
     }
 
     public void onClickViewBankDetails() {
-        JumpTo.viewBankDetailsActivity(ViewUserDetailsActivity.this, userId, false);
+        JumpTo.viewBankDetailsActivity(ViewUserDetailsActivity.this, userId, false, false);
     }
 
     public void onClickViewTruckDetails() {
-        JumpTo.viewTruckDetailsActivity(ViewUserDetailsActivity.this, userId, false);
+        JumpTo.viewTruckDetailsActivity(ViewUserDetailsActivity.this, userId, false, false);
     }
 
     public void onClickViewDriverDetails() {
-        JumpTo.viewDriverDetailsActivity(ViewUserDetailsActivity.this, userId, false);
+        JumpTo.viewDriverDetailsActivity(ViewUserDetailsActivity.this, userId, false, false);
     }
 }
