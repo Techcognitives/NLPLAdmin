@@ -1060,6 +1060,19 @@
     <string name="insurance">Insurance</string>
     //----------------------------------------------------------------------------------------------
 
+    //---------------------------------------Driver Details Activity--------------------------------
+    <string name="DriverName">Driver Name, Number &amp; Email</string>
+    <string name="EnterDriverName">Enter Driver Name</string>
+    <string name="UploadDriverLicense">Upload Driver License</string>
+    <string name="UploadDriverSelfie">Photo - Selfie</string>
+    <string name="DriverLicense">Driver License</string>
+    <string name="TakePhoto">Take a Photo</string>
+    <string name="camera">Camera</string>
+    <string name="driver_mobile_number_hint">Enter Driver Mobile Number</string>
+    <string name="AddAnotherDriver">ADD ANOTHER DRIVER</string>
+    <string name="driver_mobile_number">Driver Mobile Number</string>
+    //----------------------------------------------------------------------------------------------
+
     <string name="select_state">State</string>
     <string name="select_city">City</string>
     <string name="pin_code">PIN Code</string>

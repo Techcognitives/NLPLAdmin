@@ -489,11 +489,7 @@ public class ViewDriverDetailsActivity extends AppCompatActivity {
     }
 
     public void getDriverDetails(DriverModel obj) {
-        if (allDrivers) {
-            JumpTo.viewDriverDetailsActivity(ViewDriverDetailsActivity.this, userId, true, true);
-        } else {
-            JumpTo.viewDriverDetailsActivity(ViewDriverDetailsActivity.this, userId, true, false);
-        }
+        JumpTo.goToDriverDetailsActivity(ViewDriverDetailsActivity.this, userId, obj.getDriver_number(),true, false, false, null, obj.getDriver_id());
     }
 
     public void onClickPreviewAssignedTruckDetails(DriverModel obj) {

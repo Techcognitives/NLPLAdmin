@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 
 import com.example.nlpladmin.ui.activity.BankDetailsActivity;
+import com.example.nlpladmin.ui.activity.DriverDetailsActivity;
 import com.example.nlpladmin.ui.activity.ManageLoadActivity;
 import com.example.nlpladmin.ui.activity.DashboardActivity;
 import com.example.nlpladmin.ui.activity.LogInActivity;
@@ -167,6 +168,22 @@ public class JumpTo {
         intent.putExtra("assignTruck", isFromAssignTruck);
         intent.putExtra("driverId", driverId);
         intent.putExtra("truckId", truckId);
+        activity.startActivity(intent);
+        if (isFinish){
+            activity.finish();
+        }
+        activity.overridePendingTransition(0, 0);
+    }
+
+    public static void goToDriverDetailsActivity(Activity activity, String userId, String mobileNumber, Boolean isEdit, Boolean isFromBidNow, Boolean isFinish, String truckId, String driverId){
+        Intent intent = new Intent(activity, DriverDetailsActivity.class);
+        intent.putExtra("userId", userId);
+        intent.putExtra("mobile", mobileNumber);
+        intent.putExtra("isEdit", isEdit);
+        intent.putExtra("fromBidNow", isFromBidNow);
+        intent.putExtra("truckIdPass", truckId);
+        intent.putExtra("driverId", driverId);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         activity.startActivity(intent);
         if (isFinish){
             activity.finish();
