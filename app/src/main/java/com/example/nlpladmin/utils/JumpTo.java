@@ -10,7 +10,7 @@ import com.example.nlpladmin.ui.activity.LogInActivity;
 import com.example.nlpladmin.ui.activity.PersonalDetailsActivity;
 import com.example.nlpladmin.ui.activity.PersonalDetailsAndIdProofActivity;
 import com.example.nlpladmin.ui.activity.PostALoadActivity;
-import com.example.nlpladmin.ui.activity.ServiceProviderDashboardActivity;
+import com.example.nlpladmin.ui.activity.ManageBidsActivity;
 import com.example.nlpladmin.ui.activity.ViewBankDetailsActivity;
 import com.example.nlpladmin.ui.activity.ViewDriverDetailsActivity;
 import com.example.nlpladmin.ui.activity.ViewPersonalDetailsActivity;
@@ -141,7 +141,7 @@ public class JumpTo {
     }
 
     public static void goToServiceProviderDashboard(Activity activity, String mobileNumber, Boolean isFromLoadNotification, Boolean isFinish){
-        Intent intent = new Intent(activity, ServiceProviderDashboardActivity.class);
+        Intent intent = new Intent(activity, ManageBidsActivity.class);
         intent.putExtra("mobile2", mobileNumber);
         intent.putExtra("loadNotification", isFromLoadNotification);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

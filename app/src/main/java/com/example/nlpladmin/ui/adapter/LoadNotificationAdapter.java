@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.nlpladmin.R;
 import com.example.nlpladmin.model.LoadNotificationModel;
 import com.example.nlpladmin.model.UpdateMethods.UpdatePostLoadDetails;
-import com.example.nlpladmin.ui.activity.ServiceProviderDashboardActivity;
+import com.example.nlpladmin.ui.activity.ManageBidsActivity;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -24,11 +24,11 @@ import java.util.Calendar;
 public class LoadNotificationAdapter extends RecyclerView.Adapter<LoadNotificationAdapter.LoadNotificationViewHolder> {
 
     private ArrayList<LoadNotificationModel> loadList;
-    private ServiceProviderDashboardActivity activity;
+    private ManageBidsActivity activity;
     String bidEndsAt, currentTimeToCompare, bidEndsAtStringTime, finalBidEndsAt, finalDate;
     int timeLeftToExpire, timeInMillisec, minLeftToExpire, months;
 
-    public LoadNotificationAdapter(ServiceProviderDashboardActivity activity, ArrayList<LoadNotificationModel> loadList) {
+    public LoadNotificationAdapter(ManageBidsActivity activity, ArrayList<LoadNotificationModel> loadList) {
         this.loadList = loadList;
         this.activity = activity;
     }

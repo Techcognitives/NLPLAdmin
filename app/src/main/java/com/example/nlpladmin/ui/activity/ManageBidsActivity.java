@@ -39,7 +39,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -90,7 +89,7 @@ import java.util.Locale;
 import retrofit2.Call;
 import retrofit2.Callback;
 
-public class ServiceProviderDashboardActivity extends AppCompatActivity {
+public class ManageBidsActivity extends AppCompatActivity {
 
     SwipeRefreshLayout swipeRefreshLayout;
     FusedLocationProviderClient fusedLocationProviderClient;
@@ -116,7 +115,7 @@ public class ServiceProviderDashboardActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_service_provider_dashboard);
+        setContentView(R.layout.activity_manage_bids);
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
@@ -141,7 +140,7 @@ public class ServiceProviderDashboardActivity extends AppCompatActivity {
         viewProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                JumpTo.viewPersonalDetailsActivity(ServiceProviderDashboardActivity.this, userId);
+                JumpTo.viewPersonalDetailsActivity(ManageBidsActivity.this, userId);
             }
         });
 
@@ -161,7 +160,7 @@ public class ServiceProviderDashboardActivity extends AppCompatActivity {
             loadNotificationTextView.setBackground(getResources().getDrawable(R.drawable.personal_details_buttons_de_active));
         }
 
-        mQueue = Volley.newRequestQueue(ServiceProviderDashboardActivity.this);
+        mQueue = Volley.newRequestQueue(ManageBidsActivity.this);
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         currentLocationText = (TextView) findViewById(R.id.dashboard_current_location_text_view);
         getLocation();
@@ -175,7 +174,7 @@ public class ServiceProviderDashboardActivity extends AppCompatActivity {
         actionBarMenuButton.setVisibility(View.GONE);
         actionBarBackButton.setVisibility(View.VISIBLE);
         actionBarBackButton.setOnClickListener(view -> {
-            ServiceProviderDashboardActivity.this.finish();
+            ManageBidsActivity.this.finish();
         });
 
         //------------------------------------------------------------------------------------------
@@ -206,7 +205,7 @@ public class ServiceProviderDashboardActivity extends AppCompatActivity {
             }
         });
 
-        loadingDialog = new Dialog(ServiceProviderDashboardActivity.this);
+        loadingDialog = new Dialog(ManageBidsActivity.this);
         loadingDialog.setContentView(R.layout.dialog_loading);
         loadingDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
@@ -227,15 +226,15 @@ public class ServiceProviderDashboardActivity extends AppCompatActivity {
 
 //        swipeListener = new SwipeListener(loadListRecyclerView);
 
-        previewDialogBidNow = new Dialog(ServiceProviderDashboardActivity.this);
+        previewDialogBidNow = new Dialog(ManageBidsActivity.this);
         previewDialogBidNow.setContentView(R.layout.dialog_bid_now);
         previewDialogBidNow.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-        dialogAcceptRevisedBid = new Dialog(ServiceProviderDashboardActivity.this);
+        dialogAcceptRevisedBid = new Dialog(ManageBidsActivity.this);
         dialogAcceptRevisedBid.setContentView(R.layout.dialog_bid_now);
         dialogAcceptRevisedBid.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-        dialogViewConsignment = new Dialog(ServiceProviderDashboardActivity.this);
+        dialogViewConsignment = new Dialog(ManageBidsActivity.this);
         dialogViewConsignment.setContentView(R.layout.dialog_bid_now);
         dialogViewConsignment.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
@@ -243,7 +242,7 @@ public class ServiceProviderDashboardActivity extends AppCompatActivity {
 
     public void RearrangeItems() {
         getLocation();
-        JumpTo.goToServiceProviderDashboard(ServiceProviderDashboardActivity.this, phone, loadNotificationSelected, true);
+        JumpTo.goToServiceProviderDashboard(ManageBidsActivity.this, phone, loadNotificationSelected, true);
     }
 
     private void getUserId(String userMobileNumber) {
@@ -291,11 +290,11 @@ public class ServiceProviderDashboardActivity extends AppCompatActivity {
                     loadSubmittedRecyclerView.setLayoutManager(linearLayoutManagerBank1);
                     loadSubmittedRecyclerView.setHasFixedSize(true);
 
-                    loadSubmittedAdapter = new LoadSubmittedAdapter(ServiceProviderDashboardActivity.this, updatedLoadSubmittedList);
+                    loadSubmittedAdapter = new LoadSubmittedAdapter(ManageBidsActivity.this, updatedLoadSubmittedList);
                     loadSubmittedRecyclerView.setAdapter(loadSubmittedAdapter);
                     loadSubmittedRecyclerView.scrollToPosition(loadSubmittedAdapter.getItemCount() - 1);
 
-                    loadListAdapter = new LoadNotificationAdapter(ServiceProviderDashboardActivity.this, loadListToCompare);
+                    loadListAdapter = new LoadNotificationAdapter(ManageBidsActivity.this, loadListToCompare);
 //                    loadListRecyclerView.setAdapter(loadListAdapter);
                     loadListRecyclerView.scrollToPosition(loadListAdapter.getItemCount() - 1);
 
@@ -438,7 +437,7 @@ public class ServiceProviderDashboardActivity extends AppCompatActivity {
 
 //        Collections.reverse(loadListToCompare);
 
-        loadListAdapter = new LoadNotificationAdapter(ServiceProviderDashboardActivity.this, loadListToCompare);
+        loadListAdapter = new LoadNotificationAdapter(ManageBidsActivity.this, loadListToCompare);
         loadListRecyclerView.setAdapter(loadListAdapter);
 
         if (loadListToCompare.size() > 0) {
@@ -495,7 +494,7 @@ public class ServiceProviderDashboardActivity extends AppCompatActivity {
                     Collections.reverse(loadList);
                     TextView noLoadAvailable = (TextView) findViewById(R.id.dashboard_load_here_text);
 
-                    loadListAdapter = new LoadNotificationAdapter(ServiceProviderDashboardActivity.this, loadList);
+                    loadListAdapter = new LoadNotificationAdapter(ManageBidsActivity.this, loadList);
                     loadListRecyclerView.setAdapter(loadListAdapter);
 
                     if (loadList.size() > 0) {
@@ -524,7 +523,7 @@ public class ServiceProviderDashboardActivity extends AppCompatActivity {
     public void onClickBidNow(LoadNotificationModel obj) {
         if (userId == null) {
             //----------------------- Alert Dialog -------------------------------------------------
-            Dialog alert = new Dialog(ServiceProviderDashboardActivity.this);
+            Dialog alert = new Dialog(ManageBidsActivity.this);
             alert.setContentView(R.layout.dialog_alert);
             alert.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
@@ -677,7 +676,7 @@ public class ServiceProviderDashboardActivity extends AppCompatActivity {
 
                         Log.i("loadId bidded", obj.getIdpost_load());
                         //----------------------- Alert Dialog -------------------------------------------------
-                        Dialog alert = new Dialog(ServiceProviderDashboardActivity.this);
+                        Dialog alert = new Dialog(ManageBidsActivity.this);
                         alert.setContentView(R.layout.dialog_alert);
                         alert.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
@@ -714,7 +713,7 @@ public class ServiceProviderDashboardActivity extends AppCompatActivity {
                     }
                 } else {
                     //----------------------- Alert Dialog -------------------------------------------------
-                    Dialog alert = new Dialog(ServiceProviderDashboardActivity.this);
+                    Dialog alert = new Dialog(ManageBidsActivity.this);
                     alert.setContentView(R.layout.dialog_alert);
                     alert.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                     WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
@@ -765,7 +764,7 @@ public class ServiceProviderDashboardActivity extends AppCompatActivity {
 
                                 Log.i("loadId bidded", obj.getIdpost_load());
                                 //----------------------- Alert Dialog -------------------------------------------------
-                                Dialog alert = new Dialog(ServiceProviderDashboardActivity.this);
+                                Dialog alert = new Dialog(ManageBidsActivity.this);
                                 alert.setContentView(R.layout.dialog_alert);
                                 alert.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                                 WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
@@ -906,7 +905,7 @@ public class ServiceProviderDashboardActivity extends AppCompatActivity {
                     }
                     if (arrayDriverName.size() == 0) {
                         //----------------------- Alert Dialog -------------------------------------------------
-                        Dialog alert = new Dialog(ServiceProviderDashboardActivity.this);
+                        Dialog alert = new Dialog(ManageBidsActivity.this);
                         alert.setContentView(R.layout.dialog_alert);
                         alert.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
@@ -957,7 +956,7 @@ public class ServiceProviderDashboardActivity extends AppCompatActivity {
 
     private void selectTruckToBid(ArrayList<String> arrayTruckId) {
 
-        selectTruckDialog = new Dialog(ServiceProviderDashboardActivity.this);
+        selectTruckDialog = new Dialog(ManageBidsActivity.this);
         selectTruckDialog.setContentView(R.layout.dialog_spinner);
         selectTruckDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         selectTruckDialog.show();
@@ -995,7 +994,7 @@ public class ServiceProviderDashboardActivity extends AppCompatActivity {
 
     private void selectDriverToBid(ArrayList<String> arrayDriverId) {
 
-        selectTruckDialog = new Dialog(ServiceProviderDashboardActivity.this);
+        selectTruckDialog = new Dialog(ManageBidsActivity.this);
         selectTruckDialog.setContentView(R.layout.dialog_spinner);
         selectTruckDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         selectTruckDialog.show();
@@ -1259,7 +1258,7 @@ public class ServiceProviderDashboardActivity extends AppCompatActivity {
 
     private void budgetSet(String previousBudget) {
 
-        setBudget = new Dialog(ServiceProviderDashboardActivity.this);
+        setBudget = new Dialog(ManageBidsActivity.this);
         setBudget.setContentView(R.layout.dialog_budget);
 
         WindowManager.LayoutParams lp2 = new WindowManager.LayoutParams();
@@ -1379,7 +1378,7 @@ public class ServiceProviderDashboardActivity extends AppCompatActivity {
                 int spBudget = Integer.valueOf(sb);
 
                 if (spBudget < customer50Budget) {
-                    ShowAlert.showAlert(ServiceProviderDashboardActivity.this, "Enter Appropriate Quote", "You cannot bid less than 50% of customer Budget", true, false, "Ok", "null");
+                    ShowAlert.showAlert(ManageBidsActivity.this, "Enter Appropriate Quote", "You cannot bid less than 50% of customer Budget", true, false, "Ok", "null");
                 } else {
                     if (isNegotiableSelected && isTruckSelectedToBid && !spQuote.getText().toString().isEmpty() && !selectDriver.getText().toString().isEmpty() && declaration.isChecked()) {
                         acceptAndBid.setEnabled(true);
@@ -1414,7 +1413,7 @@ public class ServiceProviderDashboardActivity extends AppCompatActivity {
                     }
                     if (arrayTruckId.size() == 0) {
                         //----------------------- Alert Dialog -------------------------------------------------
-                        Dialog alert = new Dialog(ServiceProviderDashboardActivity.this);
+                        Dialog alert = new Dialog(ManageBidsActivity.this);
                         alert.setContentView(R.layout.dialog_alert);
                         alert.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
@@ -1609,7 +1608,7 @@ public class ServiceProviderDashboardActivity extends AppCompatActivity {
                 UpdateBidDetails.updateAssignedDriverId(obj.getBidId(), updateAssignedDriverId);
 
                 //----------------------- Alert Dialog -------------------------------------------------
-                Dialog alert = new Dialog(ServiceProviderDashboardActivity.this);
+                Dialog alert = new Dialog(ManageBidsActivity.this);
                 alert.setContentView(R.layout.dialog_alert);
                 alert.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
@@ -1835,7 +1834,7 @@ public class ServiceProviderDashboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //----------------------- Alert Dialog -------------------------------------------------
-                Dialog alert = new Dialog(ServiceProviderDashboardActivity.this);
+                Dialog alert = new Dialog(ManageBidsActivity.this);
                 alert.setContentView(R.layout.dialog_alert);
                 alert.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
@@ -1875,7 +1874,7 @@ public class ServiceProviderDashboardActivity extends AppCompatActivity {
                     public void onClick(View view) {
                         UpdateBidDetails.updateBidStatus(obj.getBidId(), "withdrawnBySp");
                         //----------------------- Alert Dialog -------------------------------------------------
-                        Dialog alert = new Dialog(ServiceProviderDashboardActivity.this);
+                        Dialog alert = new Dialog(ManageBidsActivity.this);
                         alert.setContentView(R.layout.dialog_alert);
                         alert.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
@@ -1923,7 +1922,7 @@ public class ServiceProviderDashboardActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 //----------------------- Alert Dialog -------------------------------------------------
-                Dialog alert = new Dialog(ServiceProviderDashboardActivity.this);
+                Dialog alert = new Dialog(ManageBidsActivity.this);
                 alert.setContentView(R.layout.dialog_alert);
                 alert.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
@@ -2071,13 +2070,13 @@ public class ServiceProviderDashboardActivity extends AppCompatActivity {
     }
 
     private void getLocation() {
-        if (ActivityCompat.checkSelfPermission(ServiceProviderDashboardActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(ManageBidsActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
                 @Override
                 public void onComplete(@NonNull Task<Location> task) {
                     Location location = task.getResult();
                     if (location != null) {
-                        Geocoder geocoder = new Geocoder(ServiceProviderDashboardActivity.this, Locale.getDefault());
+                        Geocoder geocoder = new Geocoder(ManageBidsActivity.this, Locale.getDefault());
                         try {
                             String latitudeCurrent, longitudeCurrent, countryCurrent, stateCurrent, cityCurrent, subCityCurrent, addressCurrent, pinCodeCurrent;
                             List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
@@ -2098,7 +2097,7 @@ public class ServiceProviderDashboardActivity extends AppCompatActivity {
                 }
             });
         } else {
-            ActivityCompat.requestPermissions(ServiceProviderDashboardActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
+            ActivityCompat.requestPermissions(ManageBidsActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
         }
     }
 

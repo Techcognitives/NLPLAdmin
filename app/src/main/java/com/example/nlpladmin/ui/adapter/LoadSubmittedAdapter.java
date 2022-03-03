@@ -21,7 +21,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.nlpladmin.R;
 import com.example.nlpladmin.model.BidSubmittedModel;
 import com.example.nlpladmin.model.UpdateMethods.UpdatePostLoadDetails;
-import com.example.nlpladmin.ui.activity.ServiceProviderDashboardActivity;
+import com.example.nlpladmin.ui.activity.ManageBidsActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,12 +33,12 @@ import java.util.Calendar;
 public class LoadSubmittedAdapter extends RecyclerView.Adapter<LoadSubmittedAdapter.LoadSubmittedViewHolder> {
 
     private ArrayList<BidSubmittedModel> loadSubmittedList;
-    private ServiceProviderDashboardActivity activity;
+    private ManageBidsActivity activity;
     private RequestQueue mQueue;
     String bidEndsAt, currentTimeToCompare, bidEndsAtStringTime, finalBidEndsAt, finalDate;
     int timeLeftToExpire, timeInMillisec, minLeftToExpire, months;
 
-    public LoadSubmittedAdapter(ServiceProviderDashboardActivity activity, ArrayList<BidSubmittedModel> loadSubmittedList) {
+    public LoadSubmittedAdapter(ManageBidsActivity activity, ArrayList<BidSubmittedModel> loadSubmittedList) {
         this.loadSubmittedList = loadSubmittedList;
         this.activity = activity;
     }

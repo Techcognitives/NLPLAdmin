@@ -23,7 +23,7 @@
         android:theme="@style/Theme.NLPLAdmin"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".ui.activity.ServiceProviderDashboardActivity"
+            android:name=".ui.activity.ManageBidsActivity"
             android:theme="@style/Theme.Design.Light.NoActionBar"
             android:exported="false" />
         <activity
