@@ -68,9 +68,9 @@ import retrofit2.Response;
 
 public class PersonalDetailsAndIdProofActivity extends AppCompatActivity {
 
-    View action_bar;
+    View actionBar;
     TextView actionBarTitle;
-    ImageView actionBarBackButton;
+    ImageView actionBarBackButton, actionBarMenuButton;
 
     View personalAndAddressView;
     Button personalAddressButton;
@@ -116,6 +116,18 @@ public class PersonalDetailsAndIdProofActivity extends AppCompatActivity {
             userId = bundle.getString("userId");
         }
 
+        actionBar = findViewById(R.id.personal_details_id_proof_action_bar);
+        actionBarTitle = (TextView) actionBar.findViewById(R.id.action_bar_title_text);
+        actionBarBackButton = (ImageView) actionBar.findViewById(R.id.action_bar_back_button);
+        actionBarMenuButton = (ImageView) actionBar.findViewById(R.id.action_bar_menu_button);
+
+        actionBarTitle.setText("Personal Details");
+        actionBarMenuButton.setVisibility(View.GONE);
+        actionBarBackButton.setVisibility(View.VISIBLE);
+        actionBarBackButton.setOnClickListener(view -> {
+            PersonalDetailsAndIdProofActivity.this.finish();
+        });
+
         //------------------------------------------------------------------------------------------
         personalAndAddressView = (View) findViewById(R.id.personal_details_id_proof_personal_and_address_layout);
         personalAddressButton = (Button) findViewById(R.id.personal_details_id_proof_personal_address_button);
@@ -131,6 +143,7 @@ public class PersonalDetailsAndIdProofActivity extends AppCompatActivity {
         pinCode = (EditText) personalAndAddressView.findViewById(R.id.registration_pin_code_edit);
         address = (EditText) personalAndAddressView.findViewById(R.id.registration_address_edit);
         mobileEdit = (EditText) personalAndAddressView.findViewById(R.id.registration_mobile_no_edit);
+        mobileEdit.setEnabled(false);
         series = (TextView) personalAndAddressView.findViewById(R.id.registration_prefix);
         selectStateText = (TextView) personalAndAddressView.findViewById(R.id.registration_select_state);
         selectDistrictText = (TextView) personalAndAddressView.findViewById(R.id.registration_select_city);
@@ -149,7 +162,7 @@ public class PersonalDetailsAndIdProofActivity extends AppCompatActivity {
         uploadAadharTitle.setVisibility(View.VISIBLE);
         uploadPanTitle.setVisibility(View.VISIBLE);
 
-        setCurrentLocation.setVisibility(View.VISIBLE);
+        setCurrentLocation.setVisibility(View.GONE);
 
         name.addTextChangedListener(proofAndPersonalWatcher);
         selectStateText.addTextChangedListener(proofAndPersonalWatcher);

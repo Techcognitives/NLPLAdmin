@@ -1052,5 +1052,6 @@
     <string name="pin_code">PIN Code</string>
     <string name="addTruck">+ Add Truck</string>
     <string name="addDriver">+ Add Driver</string>
+    <string name="hint_search">  Search <em>(Phone, Name, Role...)</em></string>
 
 </resources>

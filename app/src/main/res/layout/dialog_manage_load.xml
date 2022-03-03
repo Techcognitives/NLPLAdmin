@@ -119,7 +119,7 @@
             android:background="@drawable/edit_text_border_grey"
             android:drawableStart="@drawable/find_small"
             android:ems="10"
-            android:hint="  Search (Phone)"
+            android:hint="  Search by Phone"
             android:inputType="number"
             android:maxLength="10"
             android:paddingStart="5dp"

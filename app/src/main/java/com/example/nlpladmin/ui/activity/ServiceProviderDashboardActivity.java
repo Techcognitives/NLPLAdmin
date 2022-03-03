@@ -65,6 +65,7 @@ import com.example.nlpladmin.model.UpdateMethods.UpdateBidDetails;
 import com.example.nlpladmin.ui.adapter.LoadNotificationAdapter;
 import com.example.nlpladmin.ui.adapter.LoadSubmittedAdapter;
 import com.example.nlpladmin.utils.ApiClient;
+import com.example.nlpladmin.utils.DownloadImageTask;
 import com.example.nlpladmin.utils.EnglishNumberToWords;
 import com.example.nlpladmin.utils.FooThread;
 import com.example.nlpladmin.utils.GetCurrentLocation;
@@ -354,7 +355,7 @@ public class ServiceProviderDashboardActivity extends AppCompatActivity {
                         spNumberProfile.setText("+91 "+s1);
 
                         if (isProfileAdded.equals("1")) {
-//                            getProfilePic();
+                            getProfilePic();
                         } else {
 //                            profilePic.setImageDrawable(getResources().getDrawable(blue_profile_small));
                         }
@@ -372,6 +373,35 @@ public class ServiceProviderDashboardActivity extends AppCompatActivity {
         });
         mQueue.add(request);
 
+    }
+
+    private void getProfilePic() {
+        String url1 = getString(R.string.baseURL) + "/imgbucket/Images/" + userId;
+        JsonObjectRequest request1 = new JsonObjectRequest(Request.Method.GET, url1, null, new com.android.volley.Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    JSONArray imageList = response.getJSONArray("data");
+                    for (int i = 0; i < imageList.length(); i++) {
+                        JSONObject obj = imageList.getJSONObject(i);
+                        String imageType = obj.getString("image_type");
+                        String profileImgUrl = "";
+                        if (imageType.equals("profile")) {
+                            profileImgUrl = obj.getString("image_url");
+                            new DownloadImageTask(profilePicture).execute(profileImgUrl);
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new com.android.volley.Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+        mQueue.add(request1);
     }
 
     public void onClickLoadAndBids(View view) {

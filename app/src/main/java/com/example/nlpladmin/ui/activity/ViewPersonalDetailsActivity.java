@@ -48,6 +48,18 @@ public class ViewPersonalDetailsActivity extends AppCompatActivity {
             Log.i("userIdViewP", userId);
         }
 
+        actionBar = findViewById(R.id.view_personal_details_action_bar);
+        actionBarTitle = (TextView) actionBar.findViewById(R.id.action_bar_title_text);
+        actionBarBackButton = (ImageView) actionBar.findViewById(R.id.action_bar_back_button);
+        actionBarMenuButton = (ImageView) actionBar.findViewById(R.id.action_bar_menu_button);
+
+        actionBarTitle.setText("Personal Details");
+        actionBarMenuButton.setVisibility(View.GONE);
+        actionBarBackButton.setVisibility(View.VISIBLE);
+        actionBarBackButton.setOnClickListener(view -> {
+            ViewPersonalDetailsActivity.this.finish();
+        });
+
         mQueue = Volley.newRequestQueue(ViewPersonalDetailsActivity.this);
 
         userNameTextView = (TextView) findViewById(R.id.view_personal_details_name_text_view);

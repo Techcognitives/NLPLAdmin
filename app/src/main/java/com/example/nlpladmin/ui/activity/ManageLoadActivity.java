@@ -284,7 +284,7 @@ public class ManageLoadActivity extends AppCompatActivity {
                             getUserDetails(userId);
 
                             if (isProfileAdded.equals("1")) {
-//                                getProfilePic();
+                                getProfilePic();
                             } else {
 //                                profilePic.setImageDrawable(getResources().getDrawable(blue_profile_small));
                             }
@@ -1526,7 +1526,6 @@ public class ManageLoadActivity extends AppCompatActivity {
     }
 
     private void getProfilePic() {
-
         String url1 = getString(R.string.baseURL) + "/imgbucket/Images/" + userId;
         JsonObjectRequest request1 = new JsonObjectRequest(Request.Method.GET, url1, null, new com.android.volley.Response.Listener<JSONObject>() {
             @Override
@@ -1539,7 +1538,7 @@ public class ManageLoadActivity extends AppCompatActivity {
                         String profileImgUrl = "";
                         if (imageType.equals("profile")) {
                             profileImgUrl = obj.getString("image_url");
-                            new DownloadImageTask(profilePic).execute(profileImgUrl);
+                            new DownloadImageTask(profilePicture).execute(profileImgUrl);
                         }
                     }
                 } catch (JSONException e) {

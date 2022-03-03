@@ -56,6 +56,7 @@ public class DashboardActivity extends AppCompatActivity {
     ImageView backButton;
     ArrayList<String> arrayRole, arrayMobileNo;
     TextView title;
+    Boolean isVisible;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +90,8 @@ public class DashboardActivity extends AppCompatActivity {
         backButton = actionBar.findViewById(R.id.action_bar_back_button);
         backButton.setVisibility(View.INVISIBLE);
         backButton.setOnClickListener(view -> {
+            title.setText("Dashboard");
+            backButton.setVisibility(View.INVISIBLE);
             binding.dashboardConstrain.setVisibility(View.INVISIBLE);
             binding.dashboardConstrainMenu.setVisibility(View.VISIBLE);
         });
@@ -485,7 +488,18 @@ public class DashboardActivity extends AppCompatActivity {
         mQueue.add(request);
 
         //------------------------------------------------------------------------------------------------
-
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if (isVisible) {
+            title.setText("Dashboard");
+            backButton.setVisibility(View.INVISIBLE);
+            binding.dashboardConstrain.setVisibility(View.INVISIBLE);
+            binding.dashboardConstrainMenu.setVisibility(View.VISIBLE);
+        }else{
+
+        }
+    }
 }

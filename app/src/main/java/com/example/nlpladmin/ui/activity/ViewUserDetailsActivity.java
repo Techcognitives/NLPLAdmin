@@ -39,10 +39,12 @@ public class ViewUserDetailsActivity extends AppCompatActivity {
     CheckBox VSPersonalCheckBox, VSBankCheckBox, VSTruckCheckBox, VSDriverCheckBox, PCPersonalCheckBox, PCBankCheckBox, PCTruckCheckBox, PCDriverCheckBox;
     private RequestQueue mQueue;
     View verification_status_view, profile_completeness_view, user_list_view;
-    TextView deactivateProfile, userName, userRole, userNumber, VSTick, PCTick, VSKyc, VSBank, VSTruck, VSDriver, PCPersonal, PCBank, PCTruck, PCDriver, VSTitle, PCTitle, VSViewBtn1, VSViewBtn2, VSViewBtn3, VSViewBtn4, PCViewBtn1, PCViewBtn2, PCViewBtn3, PCViewBtn4;
-    ImageView profilePic;
+    TextView deactivateProfile, actionBarTitle, userName, userRole, userNumber, VSTick, PCTick, VSKyc, VSBank, VSTruck, VSDriver, PCPersonal, PCBank, PCTruck, PCDriver, VSTitle, PCTitle, VSViewBtn1, VSViewBtn2, VSViewBtn3, VSViewBtn4, PCViewBtn1, PCViewBtn2, PCViewBtn3, PCViewBtn4;
+    ImageView profilePic, actionBarBackButton, actionBarMenuButton;
     Dialog previewDialogProfile;
     boolean isUserVerified;
+    View actionBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +54,18 @@ public class ViewUserDetailsActivity extends AppCompatActivity {
         if (bundle != null) {
             userId = bundle.getString("userId");
         }
+
+        actionBar = findViewById(R.id.customer_setting_and_preferences_action_bar);
+        actionBarTitle = (TextView) actionBar.findViewById(R.id.action_bar_title_text);
+        actionBarBackButton = (ImageView) actionBar.findViewById(R.id.action_bar_back_button);
+        actionBarMenuButton = (ImageView) actionBar.findViewById(R.id.action_bar_menu_button);
+
+        actionBarTitle.setText("User Details");
+        actionBarMenuButton.setVisibility(View.GONE);
+        actionBarBackButton.setVisibility(View.VISIBLE);
+        actionBarBackButton.setOnClickListener(view -> {
+            ViewUserDetailsActivity.this.finish();
+        });
 
         verification_status_view = findViewById(R.id.customer_setting_and_preferences_verification_status);
         profile_completeness_view = findViewById(R.id.customer_setting_and_preferences_profile_completeness);
