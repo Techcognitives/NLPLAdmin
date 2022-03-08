@@ -336,25 +336,10 @@ public class DashboardActivity extends AppCompatActivity {
             if (item.getPhone_number().toLowerCase().contains(text.toLowerCase())) {
                 searchVehicleList.add(item);
             }
-            if (item.getEmail_id().toLowerCase().contains(text.toLowerCase())) {
-                searchVehicleList.add(item);
-            }
-            if (item.getPin_code().toLowerCase().contains(text.toLowerCase())) {
-                searchVehicleList.add(item);
-            }
             if (item.getUser_type().toLowerCase().contains(text.toLowerCase())) {
                 searchVehicleList.add(item);
             }
             if (item.getName().toLowerCase().contains(text.toLowerCase())) {
-                searchVehicleList.add(item);
-            }
-            if (item.getPreferred_location().toLowerCase().contains(text.toLowerCase())) {
-                searchVehicleList.add(item);
-            }
-            if (item.getState_code().toLowerCase().contains(text.toLowerCase())) {
-                searchVehicleList.add(item);
-            }
-            if (item.getAddress().toLowerCase().contains(text.toLowerCase())) {
                 searchVehicleList.add(item);
             }
         }
