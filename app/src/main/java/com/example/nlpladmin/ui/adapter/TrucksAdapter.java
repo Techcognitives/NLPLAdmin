@@ -20,10 +20,12 @@ public class TrucksAdapter extends RecyclerView.Adapter<TrucksAdapter.TruckViewH
 
     private ArrayList<TruckModel> truckList;
     private ViewTruckDetailsActivity activity;
+    Boolean allTrucks;
 
-    public TrucksAdapter(ViewTruckDetailsActivity activity, ArrayList<TruckModel> truckList) {
+    public TrucksAdapter(ViewTruckDetailsActivity activity, ArrayList<TruckModel> truckList, Boolean allTrucks) {
         this.truckList = truckList;
         this.activity = activity;
+        this.allTrucks = allTrucks;
     }
 
     @Override
@@ -40,6 +42,12 @@ public class TrucksAdapter extends RecyclerView.Adapter<TrucksAdapter.TruckViewH
         Log.i("File Name:", name1);
 
         holder.list_title.setText(" " + name1);
+
+        if (allTrucks){
+            holder.list_view_driver_details.setVisibility(View.GONE);
+        }else{
+
+        }
 //--------------------------------------------------------------------------------------------------
         holder.list_edit.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -57,7 +57,12 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.User
 //---------------------------------- Set Details ---------------------------------------------------
         holder.user_name.setText(obj.getName());
         holder.user_mobile.setText("+" + obj.getPhone_number());
-        holder.user_role.setText(obj.getUser_type());
+        if (obj.getUser_type().equals("Customer")){
+            holder.user_role.setText("Load Poster");
+        } else {
+            holder.user_role.setText(obj.getUser_type());
+        }
+
         holder.viewUser.setText("View");
 
         holder.user_mobile.setOnClickListener(new View.OnClickListener() {
@@ -67,37 +72,39 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.User
             }
         });
 
-        String url1 = activity.getString(R.string.baseURL) + "/imgbucket/Images/" + obj.getUser_id();
-        JsonObjectRequest request1 = new JsonObjectRequest(Request.Method.GET, url1, null, new com.android.volley.Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                try {
-                    JSONArray imageList = response.getJSONArray("data");
-                    for (int i = 0; i < imageList.length(); i++) {
-                        JSONObject obj = imageList.getJSONObject(i);
-                        String imageType = obj.getString("image_type");
 
-                        String profileImgUrl = "";
-                        if (imageType.equals("profile")) {
-                            profileImgUrl = obj.getString("image_url");
-                            if (profileImgUrl.equals("null")){
-                                holder.profile.setImageDrawable(activity.getResources().getDrawable(R.drawable.blue_profile_small));
-                            } else {
-                                new DownloadImageTask(holder.profile).execute(profileImgUrl);
-                            }
-                        }
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new com.android.volley.Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
-            }
-        });
-        mQueue.add(request1);
+//        String url1 = activity.getString(R.string.baseURL) + "/imgbucket/Images/" + obj.getUser_id();
+//        JsonObjectRequest request1 = new JsonObjectRequest(Request.Method.GET, url1, null, new com.android.volley.Response.Listener<JSONObject>() {
+//            @Override
+//            public void onResponse(JSONObject response) {
+//                try {
+//                    JSONArray imageList = response.getJSONArray("data");
+//                    for (int i = 0; i < imageList.length(); i++) {
+//                        JSONObject obj = imageList.getJSONObject(i);
+//                        String imageType = obj.getString("image_type");
+//
+//                        String profileImgUrl = "";
+//                        if (imageType.equals("profile")) {
+//                            profileImgUrl = obj.getString("image_url");
+//                            if (profileImgUrl.equals("null")){
+//                                holder.profile.setImageDrawable(activity.getResources().getDrawable(R.drawable.blue_profile_small));
+//                            } else {
+//                                new DownloadImageTask(holder.profile).execute(profileImgUrl);
+//                            }
+//                        }
+//                    }
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }, new com.android.volley.Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                error.printStackTrace();
+//            }
+//        });
+//        mQueue.add(request1);
+
 
         holder.profile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,6 +143,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.User
             user_mobile = itemView.findViewById(R.id.user_list_number);
             user_role = itemView.findViewById(R.id.users_list_role);
             viewUser = itemView.findViewById(R.id.users_list_view_user);
+            viewUser.setVisibility(View.VISIBLE);
         }
 
     }

@@ -3,6 +3,7 @@ package com.example.nlpladmin.ui.adapter;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
+import android.text.BoringLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,10 +22,12 @@ public class DriversAdapter extends RecyclerView.Adapter<DriversAdapter.DriverVi
 
     private ArrayList<DriverModel> driverList;
     private ViewDriverDetailsActivity activity;
+    Boolean allDrivers;
 
-    public DriversAdapter(ViewDriverDetailsActivity activity, ArrayList<DriverModel> driverList) {
+    public DriversAdapter(ViewDriverDetailsActivity activity, ArrayList<DriverModel> driverList, Boolean allDrivers) {
         this.driverList = driverList;
         this.activity = activity;
+        this.allDrivers = allDrivers;
     }
 
     @Override
@@ -42,6 +45,14 @@ public class DriversAdapter extends RecyclerView.Adapter<DriversAdapter.DriverVi
         holder.list_driver_number.setText("+" + obj.getDriver_number());
 
         holder.list_driver_email_id.setText(" " + obj.getDriver_emailId());
+
+        if (allDrivers){
+            holder.list_preview_driver_bank_details.setVisibility(View.GONE);
+            holder.list_preview_truck_assigned.setVisibility(View.GONE);
+        }else{
+            holder.list_preview_driver_bank_details.setVisibility(View.VISIBLE);
+            holder.list_preview_truck_assigned.setVisibility(View.VISIBLE);
+        }
 
         holder.list_driver_number.setOnClickListener(new View.OnClickListener() {
             @Override

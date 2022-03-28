@@ -39,12 +39,11 @@ public class ViewBankDetailsActivity extends AppCompatActivity {
     private ArrayList<BankModel> bankList = new ArrayList<>();
     private BanksAdapter bankListAdapter;
     private RecyclerView bankListRecyclerView;
-
+    Boolean allBanks;
     SwipeRefreshLayout swipeRefreshLayout;
     String userId, roleAPI;
     Dialog previewDialogCancelledCheque;
     ImageView previewDialogCancelledChequeImageView;
-
     View actionBar;
     TextView actionBarTitle;
     ImageView actionBarBackButton, actionBarMenuButton;
@@ -57,6 +56,7 @@ public class ViewBankDetailsActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             userId = bundle.getString("userId");
+            allBanks = bundle.getBoolean("allBanks");
         }
 
         mQueue = Volley.newRequestQueue(ViewBankDetailsActivity.this);
@@ -86,7 +86,13 @@ public class ViewBankDetailsActivity extends AppCompatActivity {
 
         bankListAdapter = new BanksAdapter(ViewBankDetailsActivity.this, bankList);
         bankListRecyclerView.setAdapter(bankListAdapter);
-        getBankDetailsList();
+
+        if (allBanks){
+            getAllBankDetailsList();
+        }else{
+            getBankDetailsList();
+        }
+
         //------------------------------------------------------------------------------------------
 
         previewDialogCancelledCheque = new Dialog(ViewBankDetailsActivity.this);
@@ -106,7 +112,11 @@ public class ViewBankDetailsActivity extends AppCompatActivity {
     }
 
     public void RearrangeItems() {
-        JumpTo.viewBankDetailsActivity(ViewBankDetailsActivity.this, userId, true);
+        if (allBanks){
+            JumpTo.viewBankDetailsActivity(ViewBankDetailsActivity.this, userId, true, true);
+        }else{
+            JumpTo.viewBankDetailsActivity(ViewBankDetailsActivity.this, userId, true, false);
+        }
     }
 
     public void getBankDetailsList() {
@@ -131,6 +141,69 @@ public class ViewBankDetailsActivity extends AppCompatActivity {
                         modelBank.setIFSI_CODE(obj.getString("IFSI_CODE"));
                         modelBank.setBank_id(obj.getString("bank_id"));
                         modelBank.setCancelled_cheque(obj.getString("cancelled_cheque"));
+                        modelBank.setCreated_at(obj.getString("created_at"));
+                        modelBank.setUpdated_at(obj.getString("updated_at"));
+                        modelBank.setUpdated_by(obj.getString("updated_by"));
+                        modelBank.setDeleted_at(obj.getString("deleted_at"));
+                        modelBank.setDeleted_by(obj.getString("deleted_by"));
+
+                        bankList.add(modelBank);
+                    }
+                    if (bankList.size() > 0) {
+                        bankListAdapter.updateData(bankList);
+                    } else {
+                    }
+//                    if (bankList.size() > 5) {
+//                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+//                        params.height = 235; //height recycleviewer
+//                        bankListRecyclerView.setLayoutParams(params);
+//                    } else {
+//                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+//                        bankListRecyclerView.setLayoutParams(params);
+//                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new com.android.volley.Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+        mQueue.add(request);
+        //-------------------------------------------------------------------------------------------
+    }
+
+    public void getAllBankDetailsList() {
+        //---------------------------- Get Bank Details -------------------------------------------
+        String url1 = getString(R.string.baseURL) + "/bank/getAll";
+        Log.i("URL: ", url1);
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url1, null, new com.android.volley.Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    bankList = new ArrayList<>();
+                    JSONArray bankLists = response.getJSONArray("data");
+                    for (int i = 0; i < bankLists.length(); i++) {
+                        JSONObject obj = bankLists.getJSONObject(i);
+                        BankModel modelBank = new BankModel();
+                        modelBank.setUser_id(obj.getString("user_id"));
+                        modelBank.setAccountholder_name(obj.getString("accountholder_name"));
+                        modelBank.setBank_name(obj.getString("bank_name"));
+                        modelBank.setAccount_number(obj.getString("account_number"));
+                        modelBank.setRe_enter_acc_num(obj.getString("re_enter_acc_num"));
+                        modelBank.setIFSI_CODE(obj.getString("IFSI_CODE"));
+                        modelBank.setBank_id(obj.getString("bank_id"));
+                        modelBank.setCancelled_cheque(obj.getString("cancelled_cheque"));
+                        modelBank.setCreated_at(obj.getString("created_at"));
+                        modelBank.setUpdated_at(obj.getString("updated_at"));
+                        modelBank.setUpdated_by(obj.getString("updated_by"));
+                        modelBank.setDeleted_at(obj.getString("deleted_at"));
+                        modelBank.setDeleted_by(obj.getString("deleted_by"));
+
                         bankList.add(modelBank);
                     }
                     if (bankList.size() > 0) {
@@ -177,7 +250,6 @@ public class ViewBankDetailsActivity extends AppCompatActivity {
         Log.i("IMAGE CHEQUE URL", cancelledChequeURL);
 
         new DownloadImageTask((ImageView) previewDialogCancelledCheque.findViewById(R.id.dialog_preview_image_view)).execute(cancelledChequeURL);
-
     }
 
     public void onClickAddBankDetails(View view) {

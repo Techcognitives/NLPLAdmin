@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shadow_file"
+    >
+
+    <CheckBox
+        android:id="@+id/view_user_details_personal_details_checkBox3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:textSize="16dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/bank_textview"
+        app:layout_constraintEnd_toStartOf="@+id/view_user_details_personal_details_view_btn3"
+        app:layout_constraintTop_toTopOf="@+id/bank_textview" />
+
+    <CheckBox
+        android:id="@+id/view_user_details_personal_details_checkBox4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:textSize="16dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/truck_textview"
+        app:layout_constraintEnd_toStartOf="@+id/view_user_details_personal_details_view_btn4"
+        app:layout_constraintTop_toTopOf="@+id/truck_textview" />
+
+    <CheckBox
+        android:id="@+id/view_user_details_personal_details_checkBox5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:textSize="16dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/driver_textview"
+        app:layout_constraintEnd_toStartOf="@+id/view_user_details_personal_details_view_btn5"
+        app:layout_constraintTop_toTopOf="@+id/driver_textview" />
+
+    <TextView
+        android:id="@+id/driver_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Driver Details"
+        android:textColor="@color/black"
+        android:textSize="18dp"
+        android:visibility="gone"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/truck_textview"
+        app:layout_constraintTop_toBottomOf="@+id/truck_textview" />
+
+    <TextView
+        android:id="@+id/truck_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Truck Details"
+        android:textColor="@color/black"
+        android:textSize="18dp"
+        android:visibility="gone"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/bank_textview"
+        app:layout_constraintTop_toBottomOf="@+id/bank_textview" />
+
+    <TextView
+        android:id="@+id/bank_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Bank Details"
+        android:textColor="@color/black"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/personal_textview"
+        app:layout_constraintTop_toBottomOf="@+id/personal_textview" />
+
+    <TextView
+        android:id="@+id/view_user_details_personal_details_view_btn2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/button_active"
+        android:backgroundTint="@color/grey"
+        android:gravity="center"
+        android:paddingStart="5dp"
+        android:paddingTop="2dp"
+        android:paddingEnd="5dp"
+        android:paddingBottom="2dp"
+        android:text="View &amp; Verify"
+        android:textAlignment="center"
+        android:textColor="@color/button_blue"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/view_user_details_personal_details_checkBox2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/view_user_details_personal_details_checkBox2" />
+
+    <TextView
+        android:id="@+id/view_user_details_personal_details_view_btn3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/button_active"
+        android:backgroundTint="@color/grey"
+        android:gravity="center"
+        android:paddingStart="5dp"
+        android:paddingTop="2dp"
+        android:paddingEnd="5dp"
+        android:paddingBottom="2dp"
+        android:text="View &amp; Verify"
+        android:textAlignment="center"
+        android:textColor="@color/button_blue"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/view_user_details_personal_details_checkBox3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/view_user_details_personal_details_checkBox3" />
+
+    <TextView
+        android:id="@+id/view_user_details_personal_details_view_btn4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/button_active"
+        android:backgroundTint="@color/grey"
+        android:gravity="center"
+        android:paddingStart="5dp"
+        android:paddingTop="2dp"
+        android:paddingEnd="5dp"
+        android:visibility="gone"
+        android:paddingBottom="2dp"
+        android:text="View &amp; Verify"
+        android:textAlignment="center"
+        android:textColor="@color/button_blue"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/view_user_details_personal_details_checkBox4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/view_user_details_personal_details_checkBox4" />
+
+    <TextView
+        android:id="@+id/view_user_details_personal_details_view_btn5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/button_active"
+        android:backgroundTint="@color/grey"
+        android:gravity="center"
+        android:paddingStart="5dp"
+        android:paddingTop="2dp"
+        android:visibility="gone"
+        android:paddingEnd="5dp"
+        android:paddingBottom="2dp"
+        android:text="View &amp; Verify"
+        android:textAlignment="center"
+        android:textColor="@color/button_blue"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/view_user_details_personal_details_checkBox5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/view_user_details_personal_details_checkBox5" />
+
+    <CheckBox
+        android:id="@+id/view_user_details_personal_details_checkBox2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:textSize="16dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/personal_textview"
+        app:layout_constraintEnd_toStartOf="@+id/view_user_details_personal_details_view_btn2"
+        app:layout_constraintTop_toTopOf="@+id/personal_textview" />
+
+    <TextView
+        android:id="@+id/personal_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="KYC - Aadhar &amp; PAN"
+        android:textColor="@color/black"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/verification_dialog_title" />
+
+    <TextView
+        android:id="@+id/verification_dialog_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@color/red"
+        android:gravity="center"
+        android:padding="2dp"
+        android:text="Verification Status"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tick_textview"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="2dp"
+        android:text="Tick the box if Verified"
+        android:textAlignment="viewEnd"
+        android:textColor="@color/black"
+        android:textStyle="italic"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view_user_details_personal_details_checkBox5"
+        app:layout_constraintVertical_bias="0.006" />
+</androidx.constraintlayout.widget.ConstraintLayout>

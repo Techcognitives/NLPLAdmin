@@ -38,6 +38,7 @@ import com.example.nlpladmin.R;
 import com.example.nlpladmin.model.Requests.ImageRequest;
 import com.example.nlpladmin.model.Responses.ImageResponse;
 import com.example.nlpladmin.model.Responses.UploadImageResponse;
+import com.example.nlpladmin.model.UpdateMethods.UpdateUserDetails;
 import com.example.nlpladmin.utils.ApiClient;
 import com.example.nlpladmin.utils.FileUtils;
 import com.example.nlpladmin.utils.JumpTo;
@@ -55,7 +56,6 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
 
 public class PersonalDetailsActivity extends AppCompatActivity {
 
@@ -85,7 +85,6 @@ public class PersonalDetailsActivity extends AppCompatActivity {
     String img_type;
 
     Dialog previewDialogPan, previewDialogAadhar, previewDialogProfile;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,21 +96,7 @@ public class PersonalDetailsActivity extends AppCompatActivity {
         }
         mQueue = Volley.newRequestQueue(PersonalDetailsActivity.this);
 
-        //--------------------------------------------------------------------------------------------------
-        action_bar = findViewById(R.id.personal_details_action_bar);
-        actionBarTitle = (TextView) action_bar.findViewById(R.id.action_bar_title);
-        actionBarBackButton = (ImageView) action_bar.findViewById(R.id.action_bar_back_button);
-        actionBarTitle.setText("Personal Details");
-        actionBarBackButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                JumpTo.viewPersonalDetailsActivity(PersonalDetailsActivity.this, userId);
-            }
-        });
-        //--------------------------------------------------------------------------------------------------
-
         panAndAadharView = (View) findViewById(R.id.personal_details_pan_and_aadhar);
-
         panCardText = panAndAadharView.findViewById(R.id.pancard1);
         frontText = panAndAadharView.findViewById(R.id.frontText);
         uploadPAN = panAndAadharView.findViewById(R.id.uploadPan);
@@ -229,20 +214,19 @@ public class PersonalDetailsActivity extends AppCompatActivity {
             }
         });
 
-//        uploadProfile.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                uploadProfileDialogChoose();
-//            }
-//        });
-//
-//        editProfile.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                uploadProfileDialogChoose();
-//            }
-//        });
+        uploadProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                uploadProfileDialogChoose();
+            }
+        });
 
+        editProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                uploadProfileDialogChoose();
+            }
+        });
     }
 
     private void getUserDetails() {
@@ -270,6 +254,7 @@ public class PersonalDetailsActivity extends AppCompatActivity {
         });
         mQueue.add(request);
     }
+
 
     //-----------------------------------------------upload Image------------------------------------------------------------
     @Override
@@ -317,15 +302,15 @@ public class PersonalDetailsActivity extends AppCompatActivity {
             previewPan.setVisibility(View.VISIBLE);
             isPanUploaded = true;
 
-            if (profilePic) {
-                if (isProfileUploaded) {
-                    okPersonalDetails.setBackgroundResource((R.drawable.button_active));
-                }
-            } else {
-                if (isPanUploaded && isFrontUploaded ) {
-                    okPersonalDetails.setBackgroundResource((R.drawable.button_active));
-                }
-            }
+//            if (profilePic) {
+//                if (isProfileUploaded) {
+//                    okPersonalDetails.setBackgroundResource((R.drawable.button_active));
+//                }
+//            } else {
+//                if (isPanUploaded && isFrontUploaded ) {
+//                    okPersonalDetails.setBackgroundResource((R.drawable.button_active));
+//                }
+//            }
 
             Uri selectedImage = data.getData();
             String[] filePathColumn = {MediaStore.Images.Media.DATA};
@@ -382,15 +367,15 @@ public class PersonalDetailsActivity extends AppCompatActivity {
             previewAadhar.setVisibility(View.VISIBLE);
             isFrontUploaded = true;
 
-            if (profilePic) {
-                if (isProfileUploaded) {
-                    okPersonalDetails.setBackgroundResource((R.drawable.button_active));
-                }
-            } else {
-                if (isPanUploaded && isFrontUploaded ) {
-                    okPersonalDetails.setBackgroundResource((R.drawable.button_active));
-                }
-            }
+//            if (profilePic) {
+//                if (isProfileUploaded) {
+//                    okPersonalDetails.setBackgroundResource((R.drawable.button_active));
+//                }
+//            } else {
+//                if (isPanUploaded && isFrontUploaded ) {
+//                    okPersonalDetails.setBackgroundResource((R.drawable.button_active));
+//                }
+//            }
 
             Uri selectedImage = data.getData();
             String[] filePathColumn = {MediaStore.Images.Media.DATA};
@@ -448,15 +433,15 @@ public class PersonalDetailsActivity extends AppCompatActivity {
             previewPan.setVisibility(View.VISIBLE);
             isPanUploaded = true;
 
-            if (profilePic) {
-                if (isProfileUploaded) {
-                    okPersonalDetails.setBackgroundResource((R.drawable.button_active));
-                }
-            } else {
-                if (isPanUploaded && isFrontUploaded ) {
-                    okPersonalDetails.setBackgroundResource((R.drawable.button_active));
-                }
-            }
+//            if (profilePic) {
+//                if (isProfileUploaded) {
+//                    okPersonalDetails.setBackgroundResource((R.drawable.button_active));
+//                }
+//            } else {
+//                if (isPanUploaded && isFrontUploaded ) {
+//                    okPersonalDetails.setBackgroundResource((R.drawable.button_active));
+//                }
+//            }
 
             Bitmap image = (Bitmap) data.getExtras().get("data");
             String path = getRealPathFromURI(getImageUri(this, image));
@@ -506,15 +491,15 @@ public class PersonalDetailsActivity extends AppCompatActivity {
             previewAadhar.setVisibility(View.VISIBLE);
             isFrontUploaded = true;
 
-            if (profilePic) {
-                if (isProfileUploaded) {
-                    okPersonalDetails.setBackgroundResource((R.drawable.button_active));
-                }
-            } else {
-                if (isPanUploaded && isFrontUploaded ) {
-                    okPersonalDetails.setBackgroundResource((R.drawable.button_active));
-                }
-            }
+//            if (profilePic) {
+//                if (isProfileUploaded) {
+//                    okPersonalDetails.setBackgroundResource((R.drawable.button_active));
+//                }
+//            } else {
+//                if (isPanUploaded && isFrontUploaded ) {
+//                    okPersonalDetails.setBackgroundResource((R.drawable.button_active));
+//                }
+//            }
 
             Bitmap image = (Bitmap) data.getExtras().get("data");
             String path = getRealPathFromURI(getImageUri(this, image));
@@ -561,15 +546,15 @@ public class PersonalDetailsActivity extends AppCompatActivity {
             previewProfile.setVisibility(View.VISIBLE);
             isProfileUploaded = true;
 
-            if (profilePic) {
-                if (isProfileUploaded) {
-                    okPersonalDetails.setBackgroundResource((R.drawable.button_active));
-                }
-            } else {
-                if (isPanUploaded && isFrontUploaded ) {
-                    okPersonalDetails.setBackgroundResource((R.drawable.button_active));
-                }
-            }
+//            if (profilePic) {
+//                if (isProfileUploaded) {
+//                    okPersonalDetails.setBackgroundResource((R.drawable.button_active));
+//                }
+//            } else {
+//                if (isPanUploaded && isFrontUploaded ) {
+//                    okPersonalDetails.setBackgroundResource((R.drawable.button_active));
+//                }
+//            }
 
             Uri selectedImage = data.getData();
             String[] filePathColumn = {MediaStore.Images.Media.DATA};
@@ -627,15 +612,15 @@ public class PersonalDetailsActivity extends AppCompatActivity {
             previewProfile.setVisibility(View.VISIBLE);
             isProfileUploaded = true;
 
-            if (profilePic) {
-                if (isProfileUploaded) {
-                    okPersonalDetails.setBackgroundResource((R.drawable.button_active));
-                }
-            } else {
-                if (isPanUploaded && isFrontUploaded ) {
-                    okPersonalDetails.setBackgroundResource((R.drawable.button_active));
-                }
-            }
+//            if (profilePic) {
+//                if (isProfileUploaded) {
+//                    okPersonalDetails.setBackgroundResource((R.drawable.button_active));
+//                }
+//            } else {
+//                if (isPanUploaded && isFrontUploaded ) {
+//                    okPersonalDetails.setBackgroundResource((R.drawable.button_active));
+//                }
+//            }
 
             Bitmap image = (Bitmap) data.getExtras().get("data");
             String path = getRealPathFromURI(getImageUri(this, image));
@@ -646,7 +631,83 @@ public class PersonalDetailsActivity extends AppCompatActivity {
         }
     }
     //-------------------------------------------------------------------------------------------------------------------
+    public void onClickOKPersonal(View view) {
+//        if (profilePic){
+//            if (isProfileUploaded){
+//                UpdateUserDetails.updateUserIsProfileAdded(userId,"1");
+//
+//                Dialog alert = new Dialog(PersonalDetailsActivity.this);
+//                alert.setContentView(R.layout.dialog_alert);
+//                alert.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+//                WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+//                lp.copyFrom(alert.getWindow().getAttributes());
+//                lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+//                lp.height = WindowManager.LayoutParams.MATCH_PARENT;
+//                lp.gravity = Gravity.CENTER;
+//
+//                alert.show();
+//                alert.getWindow().setAttributes(lp);
+//                alert.setCancelable(false);
+//
+//                TextView alertTitle = (TextView) alert.findViewById(R.id.dialog_alert_title);
+//                TextView alertMessage = (TextView) alert.findViewById(R.id.dialog_alert_message);
+//                TextView alertPositiveButton = (TextView) alert.findViewById(R.id.dialog_alert_positive_button);
+//                TextView alertNegativeButton = (TextView) alert.findViewById(R.id.dialog_alert_negative_button);
+//
+//                alertTitle.setText("Profile Picture");
+//                alertMessage.setText("Profile Picture added successfully");
+//                alertPositiveButton.setVisibility(View.GONE);
+//                alertNegativeButton.setText("OK");
+//                alertNegativeButton.setBackground(getResources().getDrawable(R.drawable.button_active));
+//                alertNegativeButton.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.button_blue)));
+//
+//                alertNegativeButton.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        alert.dismiss();
+//                        JumpTo.viewPersonalDetailsActivity(PersonalDetailsActivity.this, userId);
+//                    }
+//                });
+//            }
+//        } else {
+            if (isPanUploaded && isFrontUploaded) {
+                UpdateUserDetails.updateUserIsPersonalDetailsAdded(userId, "1");
+                //----------------------- Alert Dialog -------------------------------------------------
+                Dialog alert = new Dialog(PersonalDetailsActivity.this);
+                alert.setContentView(R.layout.dialog_alert);
+                alert.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+                lp.copyFrom(alert.getWindow().getAttributes());
+                lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+                lp.height = WindowManager.LayoutParams.MATCH_PARENT;
+                lp.gravity = Gravity.CENTER;
 
+                alert.show();
+                alert.getWindow().setAttributes(lp);
+                alert.setCancelable(false);
+
+                TextView alertTitle = (TextView) alert.findViewById(R.id.dialog_alert_title);
+                TextView alertMessage = (TextView) alert.findViewById(R.id.dialog_alert_message);
+                TextView alertPositiveButton = (TextView) alert.findViewById(R.id.dialog_alert_positive_button);
+                TextView alertNegativeButton = (TextView) alert.findViewById(R.id.dialog_alert_negative_button);
+
+                alertTitle.setText("Personal Details");
+                alertMessage.setText("Personal Details added successfully");
+                alertPositiveButton.setVisibility(View.GONE);
+                alertNegativeButton.setText("OK");
+                alertNegativeButton.setBackground(getResources().getDrawable(R.drawable.button_active));
+                alertNegativeButton.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.button_blue)));
+
+                alertNegativeButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        alert.dismiss();
+                        JumpTo.viewPersonalDetailsActivity(PersonalDetailsActivity.this, userId);
+                    }
+                });
+            }
+//        }
+    }
     //--------------------------------------create image in API -------------------------------------
     public ImageRequest imageRequest() {
         ImageRequest imageRequest = new ImageRequest();
@@ -655,11 +716,11 @@ public class PersonalDetailsActivity extends AppCompatActivity {
         return imageRequest;
     }
 
-    public void saveImage(ImageRequest imageRequest){
+    public void saveImage(ImageRequest imageRequest) {
         Call<ImageResponse> imageResponseCall = ApiClient.getImageService().saveImage(imageRequest);
-        imageResponseCall.enqueue(new retrofit2.Callback<ImageResponse>() {
+        imageResponseCall.enqueue(new Callback<ImageResponse>() {
             @Override
-            public void onResponse(Call<ImageResponse> call, retrofit2.Response<ImageResponse> response) {
+            public void onResponse(Call<ImageResponse> call, Response<ImageResponse> response) {
 
             }
 
@@ -696,12 +757,13 @@ public class PersonalDetailsActivity extends AppCompatActivity {
         call.enqueue(new Callback<UploadImageResponse>() {
             @Override
             public void onResponse(Call<UploadImageResponse> call, Response<UploadImageResponse> response) {
-
+                Log.i("successful:", "success");
             }
 
             @Override
             public void onFailure(Call<UploadImageResponse> call, Throwable t) {
-
+                t.printStackTrace();
+                Log.i("failed:", "failed");
             }
         });
     }
@@ -851,7 +913,6 @@ public class PersonalDetailsActivity extends AppCompatActivity {
         });
     }
 
-
     private void requestPermissionsForCamera() {
         if (ContextCompat.checkSelfPermission(PersonalDetailsActivity.this, Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -878,9 +939,11 @@ public class PersonalDetailsActivity extends AppCompatActivity {
             }, 100);
         }
     }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
         JumpTo.viewPersonalDetailsActivity(PersonalDetailsActivity.this, userId);
     }
+
 }

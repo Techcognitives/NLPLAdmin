@@ -15,7 +15,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -29,7 +28,6 @@ import com.example.nlpladmin.R;
 import com.example.nlpladmin.model.DriverModel;
 import com.example.nlpladmin.model.TruckModel;
 import com.example.nlpladmin.model.UpdateMethods.UpdateDriverDetails;
-import com.example.nlpladmin.services.AddDriverService;
 import com.example.nlpladmin.ui.adapter.DriversAdapter;
 import com.example.nlpladmin.ui.adapter.TrucksListAdapter;
 import com.example.nlpladmin.utils.DownloadImageTask;
@@ -41,22 +39,17 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-
 public class ViewDriverDetailsActivity extends AppCompatActivity {
 
-    private ArrayList<DriverModel> driverList = new ArrayList<>();
-    private DriversAdapter driverListAdapter;
-    private RecyclerView driverListRecyclerView;
-    private RequestQueue mQueue;
+    ArrayList<DriverModel> driverList = new ArrayList<>();
+    DriversAdapter driverListAdapter;
+    RecyclerView driverListRecyclerView;
+    RequestQueue mQueue;
     SwipeRefreshLayout swipeRefreshLayout;
-    private ArrayList<TruckModel> truckList = new ArrayList<>();
-    private TrucksListAdapter truckListAdapter;
-    private RecyclerView truckListRecyclerView;
-
-    private AddDriverService addDriverService;
-
+    ArrayList<TruckModel> truckList = new ArrayList<>();
+    TrucksListAdapter truckListAdapter;
+    RecyclerView truckListRecyclerView;
+    Boolean allDrivers;
     ArrayList<String> arrayUserDriverId, arrayDriverMobileNo;
     Dialog previewDialogDriverDetails, previewDialogAssignedTruck;
     TextView previewDriverDetailsDriverBankName, previewDriverDetailsLabelAddDriverBank, previewDriverDetailsAddDriverBank, previewDriverDetailsDriverBankAccountNumber, previewDriverDetailsDriverBankIFSICode, previewDriverDetailsDriverBankDetailsTitle;
@@ -71,14 +64,11 @@ public class ViewDriverDetailsActivity extends AppCompatActivity {
     TextView previewAssignedTruckTitle, previewAssignedTruckNumber, previewAssignedTruckModel, previewAssignedTruckFeet, previewAssignedTruckCapacity, previewAssignedTruckType, previewAssignedTruckRcBook, previewAssignedTruckInsurance, previewAssignedTruckReAssign, previewAssignedTruckOkButton, previewAssignedTruckMessage;
     ImageView previewDriverLicense, previewDriverSelfie;
 
-    String phone, userId, driverId;
+    String userId, driverId;
 
     View actionBar;
     TextView actionBarTitle;
     ImageView actionBarBackButton, actionBarMenuButton;
-
-    View bottomNav;
-    ConstraintLayout spDashboard, customerDashboard;
     EditText searchDriver;
 
     @Override
@@ -89,16 +79,10 @@ public class ViewDriverDetailsActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             userId = bundle.getString("userId");
+            allDrivers = bundle.getBoolean("allDrivers");
         }
 
         mQueue = Volley.newRequestQueue(ViewDriverDetailsActivity.this);
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://13.234.163.179:3000")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        addDriverService = retrofit.create(AddDriverService.class);
-
         //-------------------------------- Action Bar ----------------------------------------------
         actionBar = findViewById(R.id.view_driver_details_action_bar);
         actionBarTitle = (TextView) actionBar.findViewById(R.id.action_bar_title_text);
@@ -107,12 +91,7 @@ public class ViewDriverDetailsActivity extends AppCompatActivity {
 
         actionBarTitle.setText("My Drivers");
         actionBarMenuButton.setVisibility(View.GONE);
-        actionBarBackButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ViewDriverDetailsActivity.this.finish();
-            }
-        });
+        actionBarBackButton.setOnClickListener(view -> ViewDriverDetailsActivity.this.finish());
 
         //------------------------------------------------------------------------------------------
         arrayUserDriverId = new ArrayList<>();
@@ -188,9 +167,15 @@ public class ViewDriverDetailsActivity extends AppCompatActivity {
         driverListRecyclerView.setLayoutManager(linearLayoutManagerDriver);
         driverListRecyclerView.setHasFixedSize(true);
 
-        driverListAdapter = new DriversAdapter(ViewDriverDetailsActivity.this, driverList);
+        driverListAdapter = new DriversAdapter(ViewDriverDetailsActivity.this, driverList, allDrivers);
         driverListRecyclerView.setAdapter(driverListAdapter);
-        getDriverDetailsList();
+
+        if (allDrivers) {
+            getAllDriverDetailsList();
+        } else {
+            getDriverDetailsList();
+        }
+
         //------------------------------------------------------------------------------------------
 
         //---------------------------- Get Truck Details -------------------------------------------
@@ -218,7 +203,11 @@ public class ViewDriverDetailsActivity extends AppCompatActivity {
     }
 
     public void RearrangeItems() {
-        JumpTo.viewDriverDetailsActivity(ViewDriverDetailsActivity.this, userId, true);
+        if (allDrivers) {
+            JumpTo.viewDriverDetailsActivity(ViewDriverDetailsActivity.this, userId, true, true);
+        } else {
+            JumpTo.viewDriverDetailsActivity(ViewDriverDetailsActivity.this, userId, true, false);
+        }
     }
 
     public void getDriverDetailsList() {
@@ -239,12 +228,84 @@ public class ViewDriverDetailsActivity extends AppCompatActivity {
                         modelDriver.setTruck_id(obj.getString("truck_id"));
                         modelDriver.setDriver_id(obj.getString("driver_id"));
                         modelDriver.setDriver_name(obj.getString("driver_name"));
-                        modelDriver.setUpload_lc(obj.getString("upload_dl"));
-                        modelDriver.setDriver_selfie(obj.getString("driver_selfie"));
+                        modelDriver.setUpload_dl(obj.getString("upload_dl"));
                         modelDriver.setDriver_number(obj.getString("driver_number"));
                         modelDriver.setDriver_emailId(obj.getString("driver_emailId"));
+                        modelDriver.setDriver_selfie(obj.getString("driver_selfie"));
+                        modelDriver.setCreated_at(obj.getString("created_at"));
+                        modelDriver.setUpdated_at(obj.getString("updated_at"));
+                        modelDriver.setUpdated_by(obj.getString("updated_by"));
+                        modelDriver.setIs_driver_deleted(obj.getString("is_driver_deleted"));
+                        modelDriver.setDeleted_by(obj.getString("deleted_at"));
+                        modelDriver.setDeleted_by(obj.getString("deleted_by"));
+                        modelDriver.setIs_dl_verified(obj.getString("is_dl_verified"));
+                        modelDriver.setIs_selfie_verified(obj.getString("is_selfie_verified"));
+
                         driverList.add(modelDriver);
                     }
+                    if (driverList.size() > 0) {
+                        driverListAdapter.updateData(driverList);
+                    } else {
+
+                    }
+
+//                    if (driverList.size() > 5) {
+//                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+//                        params.height = 235; //height recycleviewer
+//                        driverListRecyclerView.setLayoutParams(params);
+//                    } else {
+//                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+//                        driverListRecyclerView.setLayoutParams(params);
+//                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new com.android.volley.Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+        mQueue.add(request);
+        //-------------------------------------------------------------------------------------------
+    }
+
+    public void getAllDriverDetailsList() {
+        //---------------------------- Get Driver Details ------------------------------------------
+        String url1 = getString(R.string.baseURL) + "/driver/get";
+        Log.i("URL: ", url1);
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url1, null, new com.android.volley.Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    driverList = new ArrayList<>();
+                    JSONArray driverLists = response.getJSONArray("data");
+                    for (int i = 0; i < driverLists.length(); i++) {
+                        JSONObject obj = driverLists.getJSONObject(i);
+                        DriverModel modelDriver = new DriverModel();
+                        modelDriver.setUser_id(obj.getString("user_id"));
+                        modelDriver.setTruck_id(obj.getString("truck_id"));
+                        modelDriver.setDriver_id(obj.getString("driver_id"));
+                        modelDriver.setDriver_name(obj.getString("driver_name"));
+                        modelDriver.setUpload_dl(obj.getString("upload_dl"));
+                        modelDriver.setDriver_number(obj.getString("driver_number"));
+                        modelDriver.setDriver_emailId(obj.getString("driver_emailId"));
+                        modelDriver.setDriver_selfie(obj.getString("driver_selfie"));
+                        modelDriver.setCreated_at(obj.getString("created_at"));
+                        modelDriver.setUpdated_at(obj.getString("updated_at"));
+                        modelDriver.setUpdated_by(obj.getString("updated_by"));
+                        modelDriver.setIs_driver_deleted(obj.getString("is_driver_deleted"));
+                        modelDriver.setDeleted_by(obj.getString("deleted_at"));
+                        modelDriver.setDeleted_by(obj.getString("deleted_by"));
+                        modelDriver.setIs_dl_verified(obj.getString("is_dl_verified"));
+                        modelDriver.setIs_selfie_verified(obj.getString("is_selfie_verified"));
+
+                        driverList.add(modelDriver);
+                    }
+
                     if (driverList.size() > 0) {
                         driverListAdapter.updateData(driverList);
                     } else {
@@ -314,9 +375,7 @@ public class ViewDriverDetailsActivity extends AppCompatActivity {
             }
         });
         mQueue.add(request);
-
         //------------------------------------------------------------------------------------------------
-
     }
 
     private void getUserDriverBankDetails(String driverUserId) {
@@ -375,7 +434,7 @@ public class ViewDriverDetailsActivity extends AppCompatActivity {
         previewDialogDL.show();
         previewDialogDL.getWindow().setAttributes(lp);
 
-        String drivingLicenseURL = obj.getUpload_lc();
+        String drivingLicenseURL = obj.getUpload_dl();
         Log.i("IMAGE DL URL", drivingLicenseURL);
         new DownloadImageTask(previewDriverLicense).execute(drivingLicenseURL);
     }
@@ -396,7 +455,11 @@ public class ViewDriverDetailsActivity extends AppCompatActivity {
     }
 
     public void onClickAddDriverDetails(View view) {
-        JumpTo.viewDriverDetailsActivity(ViewDriverDetailsActivity.this, userId, true);
+        if (allDrivers) {
+            JumpTo.viewDriverDetailsActivity(ViewDriverDetailsActivity.this, userId, true, true);
+        } else {
+            JumpTo.viewDriverDetailsActivity(ViewDriverDetailsActivity.this, userId, true, false);
+        }
     }
 
     public void onClickAddDriverBankDetails(View view) {
@@ -405,7 +468,11 @@ public class ViewDriverDetailsActivity extends AppCompatActivity {
     public void onClickCloseDialogDriverBankDetails(View view) {
         previewDialogAssignedTruck.dismiss();
         previewDialogDriverDetails.dismiss();
-        JumpTo.viewDriverDetailsActivity(ViewDriverDetailsActivity.this, userId, true);
+        if (allDrivers) {
+            JumpTo.viewDriverDetailsActivity(ViewDriverDetailsActivity.this, userId, true, true);
+        } else {
+            JumpTo.viewDriverDetailsActivity(ViewDriverDetailsActivity.this, userId, true, false);
+        }
     }
 
     public void onClickPreviewDriverBankDetails(DriverModel obj) {
@@ -422,7 +489,7 @@ public class ViewDriverDetailsActivity extends AppCompatActivity {
     }
 
     public void getDriverDetails(DriverModel obj) {
-        JumpTo.viewDriverDetailsActivity(ViewDriverDetailsActivity.this, userId, true);
+        JumpTo.goToDriverDetailsActivity(ViewDriverDetailsActivity.this, userId, obj.getDriver_number(),true, false, false, null, obj.getDriver_id());
     }
 
     public void onClickPreviewAssignedTruckDetails(DriverModel obj) {
@@ -544,7 +611,11 @@ public class ViewDriverDetailsActivity extends AppCompatActivity {
     public void onClickCancelSelectBind(View view) {
         previewDialogSpinner.dismiss();
         previewDialogAssignedTruck.dismiss();
-        JumpTo.viewDriverDetailsActivity(ViewDriverDetailsActivity.this, userId, true);
+        if (allDrivers) {
+            JumpTo.viewDriverDetailsActivity(ViewDriverDetailsActivity.this, userId, true, true);
+        } else {
+            JumpTo.viewDriverDetailsActivity(ViewDriverDetailsActivity.this, userId, true, false);
+        }
     }
 
     public void onClickAddDriverDetailsAssigned(View view) {
@@ -610,7 +681,11 @@ public class ViewDriverDetailsActivity extends AppCompatActivity {
         UpdateDriverDetails.updateDriverTruckId(driverId, obj.getTruck_id());
         previewDialogAssignedTruck.dismiss();
         previewDialogSpinner.dismiss();
-        JumpTo.viewDriverDetailsActivity(ViewDriverDetailsActivity.this, userId, true);
+        if (allDrivers) {
+            JumpTo.viewDriverDetailsActivity(ViewDriverDetailsActivity.this, userId, true, true);
+        } else {
+            JumpTo.viewDriverDetailsActivity(ViewDriverDetailsActivity.this, userId, true, false);
+        }
     }
 
     private TextWatcher searchDriverWatcher = new TextWatcher() {
@@ -626,7 +701,7 @@ public class ViewDriverDetailsActivity extends AppCompatActivity {
 
         @Override
         public void afterTextChanged(Editable editable) {
-            if (editable.length()==0){
+            if (editable.length() == 0) {
                 RearrangeItems();
             }
             filter(editable.toString());

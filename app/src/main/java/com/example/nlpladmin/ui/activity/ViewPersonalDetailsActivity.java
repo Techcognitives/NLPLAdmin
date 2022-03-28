@@ -45,7 +45,20 @@ public class ViewPersonalDetailsActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             userId = bundle.getString("userId");
+            Log.i("userIdViewP", userId);
         }
+
+        actionBar = findViewById(R.id.view_personal_details_action_bar);
+        actionBarTitle = (TextView) actionBar.findViewById(R.id.action_bar_title_text);
+        actionBarBackButton = (ImageView) actionBar.findViewById(R.id.action_bar_back_button);
+        actionBarMenuButton = (ImageView) actionBar.findViewById(R.id.action_bar_menu_button);
+
+        actionBarTitle.setText("Personal Details");
+        actionBarMenuButton.setVisibility(View.GONE);
+        actionBarBackButton.setVisibility(View.VISIBLE);
+        actionBarBackButton.setOnClickListener(view -> {
+            ViewPersonalDetailsActivity.this.finish();
+        });
 
         mQueue = Volley.newRequestQueue(ViewPersonalDetailsActivity.this);
 
@@ -210,7 +223,6 @@ public class ViewPersonalDetailsActivity extends AppCompatActivity {
         });
         mQueue.add(request);
     }
-
     public void onClickPreviewAadharCard(View view) {
         WindowManager.LayoutParams lp2 = new WindowManager.LayoutParams();
         lp2.copyFrom(previewDialogAadhar.getWindow().getAttributes());
@@ -250,5 +262,11 @@ public class ViewPersonalDetailsActivity extends AppCompatActivity {
 
     public void onClickAddPersonalDetails(View view) {
         JumpTo.personalDetailsActivity(ViewPersonalDetailsActivity.this, userId, false);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        JumpTo.viewUserDetailsActivity(ViewPersonalDetailsActivity.this, userId);
     }
 }

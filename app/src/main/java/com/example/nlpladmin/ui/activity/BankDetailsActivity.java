@@ -168,13 +168,7 @@ public class BankDetailsActivity extends AppCompatActivity {
         }
 
         uploadCC.setOnClickListener(view -> DialogChoose());
-
-        editCC.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DialogChoose();
-            }
-        });
+        editCC.setOnClickListener(View -> DialogChoose());
 
     }
 
