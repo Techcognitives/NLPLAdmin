@@ -5,6 +5,12 @@
       <map>
         <entry key="..\:/Suraj/Android/NLPLAdmin/app/src/main/res/layout/action_bar.xml" value="0.175" />
         <entry key="..\:/Suraj/Android/NLPLAdmin/app/src/main/res/layout/activity_bank_details.xml" value="0.33" />
+        <entry key="..\:/Suraj/Android/NLPLAdmin/app/src/main/res/layout/activity_dashboard.xml" value="0.33" />
+        <entry key="..\:/Suraj/Android/NLPLAdmin/app/src/main/res/layout/activity_personal_details.xml" value="0.1625" />
+        <entry key="..\:/Suraj/Android/NLPLAdmin/app/src/main/res/layout/activity_personal_details_and_id_proof.xml" value="0.1625" />
+        <entry key="..\:/Suraj/Android/NLPLAdmin/app/src/main/res/layout/activity_view_personal_details.xml" value="0.33" />
+        <entry key="..\:/Suraj/Android/NLPLAdmin/app/src/main/res/layout/activity_view_user_details.xml" value="0.1625" />
+        <entry key="..\:/Suraj/Android/NLPLAdmin/app/src/main/res/layout/dialog_verification_status.xml" value="0.1625" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/NLPLAdmin/app/src/main/res/drawable/all_rounded_small.xml" value="0.2203125" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/NLPLAdmin/app/src/main/res/drawable/blue_profile_small.xml" value="0.2203125" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/NLPLAdmin/app/src/main/res/drawable/button_active.xml" value="0.2203125" />

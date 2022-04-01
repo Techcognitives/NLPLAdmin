@@ -269,12 +269,12 @@ public class ViewUserDetailsActivity extends AppCompatActivity {
                             deactivateProfile.setText("Deactivate Profile");
                             deactivateProfile.setOnClickListener(View -> onClickDeactivateProfile("0"));
                         } else if (isProfileActive.equals("1")) {
-                            deactivateProfile.setBackground(getResources().getDrawable(R.drawable.red_color));
-                            deactivateProfile.setText("Deactivate Profile");
-                            deactivateProfile.setOnClickListener(View -> onClickDeactivateProfile("0"));
-                        } else if (isProfileActive.equals("0")) {
                             deactivateProfile.setBackground(getResources().getDrawable(R.drawable.button_active));
                             deactivateProfile.setText("Activate Profile");
+                            deactivateProfile.setOnClickListener(View -> onClickDeactivateProfile("0"));
+                        } else if (isProfileActive.equals("0")) {
+                            deactivateProfile.setBackground(getResources().getDrawable(R.drawable.red_color));
+                            deactivateProfile.setText("Deactivate Profile");
                             deactivateProfile.setOnClickListener(View -> onClickDeactivateProfile("1"));
                         }
 

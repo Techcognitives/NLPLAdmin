@@ -164,7 +164,8 @@
                     app:layout_constraintBottom_toBottomOf="@+id/view_personal_details_firm_gst_number"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/view_personal_details_firm_gst_number"
-                    app:layout_constraintTop_toTopOf="@+id/view_personal_details_firm_gst_number" />
+                    app:layout_constraintTop_toTopOf="@+id/view_personal_details_firm_gst_number"
+                    app:layout_constraintVertical_bias="0.0" />
 
                 <TextView
                     android:id="@+id/view_personal_details_firm_pan_number_set"
@@ -492,6 +493,38 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/view_personal_details_preview_profile" />
+
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="5dp"
+                    android:paddingStart="5dp"
+                    android:text="Name"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/view_personal_details_name_text_view"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/view_personal_details_name_text_view2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/edit_text_border_grey"
+                    android:paddingStart="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:text="Name"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/view_personal_details_phone_number_text_view"
+                    app:layout_constraintTop_toTopOf="@+id/textView" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
